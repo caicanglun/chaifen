@@ -1,0 +1,368 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	    
+        {
+        	"path": "pages/index/index",
+        	"style": {
+        		
+        		"navigationBarTitleText": "首页"
+        	}
+        },
+		{
+		    "path" : "pages/usdfDeal/hall",
+		    "style" : {"navigationBarTitleText": "USDF交易"}
+		},
+		{
+		    "path" : "pages/usdfDeal/buySellUsdf",
+		    "style" : {"navigationBarTitleText": "發佈掛單"}
+		},
+		{
+            "path" : "pages/userCenter/share",
+            "style" : {
+            				"navigationStyle":"custom"
+            				
+            			}
+            		
+        },
+		
+		{
+		    "path" : "pages/capital/zhuliyuan",
+		    "style" : {"navigationBarTitleText": "助力源"}
+		},
+		{
+            "path" : "pages/register/login",
+            "style" : {"navigationStyle":"custom"}
+        },
+		{
+            "path" : "pages/index/wallet",
+            "style" : {"navigationBarTitleText": "資產錢包"}
+        },
+		{
+            "path" : "pages/index/buyStore",
+            "style" : {"navigationBarTitleText": "初始源認購",
+			           "app-plus": {
+			           	  "titleNView": {
+			           		  
+			           		  "buttons": [
+			           		  {
+			           			   "float": "right",
+			           			   "fontSize": "14px",
+			           			   "text": "規則" // 字体图标\u 开头，加上字体图标unicode后面四位
+			           		  }
+			           		  ]
+			           	  }
+			            }
+			}
+			
+        },
+
+		{
+	        "path" : "pages/team/team",
+	        "style" : {"navigationBarTitleText": "節點關係"}
+	    },
+		{
+		    "path" : "pages/index/activeAccounter",
+		    "style" : {"navigationBarTitleText": "激活賬戶"}
+		},
+		
+		{
+	        "path" : "pages/register/register",
+	        "style" : {"navigationBarTitleText": "創建錢包"}
+	    },
+	    {
+	        "path" : "pages/register/wordsConfirm",
+	        "style" : {"navigationBarTitleText": "確認助記詞"}
+	    },
+
+		{
+	        "path" : "pages/userCenter/myTeam",
+	        "style" : {"navigationBarTitleText": "我的團隊",
+			"app-plus": {
+				  "titleNView": {
+					  
+					  "buttons": [
+					  {
+						   "float": "right",
+						   "fontSize": "14px",
+						   "text": "收益" // 字体图标\u 开头，加上字体图标unicode后面四位
+					  }
+					  ]
+				  }
+			 }}
+	    },
+	    
+		
+		{
+	        "path" : "pages/userCenter/userCenter",
+	        "style" : {"navigationBarTitleText": "我的"}
+	    },
+		{
+	        "path" : "pages/register/startLogin",
+	        "style" : {"navigationBarTitleText": "登录"}
+	    },
+		{
+	        "path" : "pages/register/zhujiciBack",
+	        "style" : {"navigationBarTitleText": "備份助記詞"}
+	    },
+		
+		
+		{
+		    "path" : "pages/userCenter/setting",
+		    "style" : {"navigationBarTitleText": "設置"}
+		},
+
+        {
+            "path" : "pages/userCenter/subAccounter",
+            "style" : {"navigationBarTitleText": "子賬戶"}
+        }
+        ,{
+            "path" : "pages/userCenter/addSub",
+            "style" : {"navigationBarTitleText": "創建子賬戶"}
+        }
+        ,{
+            "path" : "pages/capital/shangzhijilu",
+            "style" : {"navigationBarTitleText": "熵值"}
+        }
+       
+        ,{
+            "path" : "pages/index/tixian",
+            "style" : {"navigationBarTitleText": "提幣"}
+        }
+        ,{
+            "path" : "pages/index/fazhuan",
+            "style" : {"navigationBarTitleText": "劃轉"}
+        }
+        ,{
+            "path" : "pages/capital/initStore",
+            "style" : {"navigationBarTitleText": "初始源"}
+        }
+        ,{
+            "path" : "pages/capital/money",
+            "style" : {"navigationBarTitleText": "USDF"}
+        }
+        ,{
+            "path" : "pages/storeMarket/storeMarket",
+            "style" : {"navigationBarTitleText": "熵值交易"}
+        }
+        ,{
+            "path" : "pages/capital/energyPool",
+            "style" : {"navigationBarTitleText": "儲能池"}
+        }
+        ,{
+            "path" : "pages/capital/dongliyuan",
+            "style" : {"navigationBarTitleText": "動力源"}
+        }
+        ,{
+            "path" : "pages/capital/dongliA",
+            "style" : {"navigationBarTitleText": "動力A"}
+        }
+        ,{
+            "path" : "pages/capital/dongliB",
+            "style" : {"navigationBarTitleText": "動力B"}
+        }
+        ,{
+            "path" : "pages/capital/dongliC",
+            "style" : {"navigationBarTitleText": "動力C"}
+        }
+        ,{
+            "path" : "pages/ecological/ecological",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/userCenter/identityManage",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/userCenter/shoukuanma",
+            "style" : {"navigationBarTitleText": "收款碼"}
+        }
+        ,{
+            "path" : "pages/userCenter/addressBook",
+            "style" : {"navigationBarTitleText": "地址本",
+            "app-plus": {
+            	  "titleNView": {
+            		  
+            		  "buttons": [
+            		  {
+            			   "float": "right",
+            			   "fontSize": "14px",
+            			   "text": "新建" // 字体图标\u 开头，加上字体图标unicode后面四位
+            		  }
+            		  ]
+            	  }
+             }}
+        }
+        ,{
+            "path" : "pages/userCenter/createAddress",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/storeMarket/myOrder",
+            "style" : {"navigationBarTitleText": "我的訂單"}
+        }
+        ,{
+            "path" : "pages/storeMarket/dealDetail",
+            "style" : {"navigationBarTitleText": "成交明細"}
+        }
+        ,{
+            "path" : "pages/userCenter/secureCenter/secureCenter",
+            "style" : {"navigationBarTitleText": "安全中心"}
+        }
+        ,{
+            "path" : "pages/userCenter/secureCenter/bindEmail",
+            "style" : {"navigationBarTitleText": "郵箱綁定"}
+        }
+        ,{
+            "path" : "pages/userCenter/secureCenter/modifyLoginPass",
+            "style" : {"navigationBarTitleText": "密碼設置"}
+        }
+        ,{
+            "path" : "pages/userCenter/secureCenter/modiPayPass",
+            "style" : {"navigationBarTitleText": "支付密碼設置"}
+        }
+        ,{
+            "path" : "pages/userCenter/about",
+            "style" : {"navigationBarTitleText": "關於我們"}
+        }
+        ,{
+            "path" : "pages/userCenter/outKey",
+            "style" : {"navigationBarTitleText": "導出私鑰"}
+        }
+        ,{
+            "path" : "pages/userCenter/outPublic",
+            "style" : {"navigationBarTitleText": "導出KeyStore"}
+        }
+        ,{
+            "path" : "pages/userCenter/outWords",
+            "style" : {"navigationBarTitleText": "導出助記詞"}
+        }
+        ,{
+            "path" : "pages/index/detailBulletin",
+            "style" : {"navigationBarTitleText": "公告"
+			          
+			}
+        }
+        ,{
+            "path" : "pages/userCenter/setIcon",
+            "style" : {"navigationBarTitleText": "修改"}
+        }
+      
+        ,{
+            "path" : "pages/userCenter/payMode",
+            "style" : {"navigationBarTitleText": "收款方式"}
+        }
+        ,{
+            "path" : "pages/userCenter/secureCenter/bindPhone",
+            "style" : {"navigationBarTitleText": "手機綁定"}
+        }
+        
+        ,{
+            "path" : "pages/usdfDeal/orderList",
+            "style" : {"navigationBarTitleText": "我的掛單"}
+        }
+        ,{
+            "path" : "pages/usdfDeal/orderRecord",
+            "style" : {"navigationBarTitleText": "訂單記錄"}
+        }
+        ,{
+            "path" : "pages/userCenter/editPayAddress",
+            "style" : {"navigationBarTitleText": "修改"}
+        }
+        ,{
+            "path" : "pages/ecological/createMessage",
+            "style" : {"navigationBarTitleText": "聯繫客服",
+			          "app-plus": {
+			          	  "titleNView": {
+			          		  
+			          		  "buttons": [
+			          		  {
+			          			   "float": "right",
+			          			   "fontSize": "14px",
+			          			   "text": "消息" // 字体图标\u 开头，加上字体图标unicode后面四位
+			          		  }
+			          		  ]
+			          	  }
+			           }
+			}
+        }
+        ,{
+            "path" : "pages/ecological/messageList",
+            "style" : {"navigationBarTitleText": "消息中心"}
+        }
+        ,{
+            "path" : "pages/register/leadingWords",
+            "style" : {"navigationBarTitleText": "導入身份"}
+        }
+        ,{
+            "path" : "pages/index/activeSubAccounter",
+            "style" : {"navigationBarTitleText": "激活賬戶"}
+        }
+        ,{
+            "path" : "pages/chongzhi/createCharge",
+            "style" : {"navigationBarTitleText": "USDF兌換",
+            "app-plus": {
+            	  "titleNView": {
+            		  
+            		  "buttons": [
+            		  {
+            			   "float": "right",
+            			   "fontSize": "14px",
+            			   "text": "記錄" // 字体图标\u 开头，加上字体图标unicode后面四位
+            		  }
+            		  ]
+            	  }
+             }}
+        }
+        ,{
+            "path" : "pages/chongzhi/chargeList",
+            "style" : {"navigationBarTitleText": "兌換記錄"}
+        }
+        ,{
+            "path" : "pages/ecological/thirdPlat",
+            "style" : {"navigationBarTitleText": "第三方平臺"}
+        }
+        ,{
+            "path" : "pages/ecological/thirdWallet",
+            "style" : {"navigationBarTitleText": "第三方錢包"}
+        }
+    ],
+	"tabBar": {
+		    "color": "#454e61",
+		    "selectedColor": "#2f7294",
+		    "borderStyle": "white",
+		    "backgroundColor": "#010715",
+		    "list": [
+				{
+					"pagePath": "pages/index/index",
+					"iconPath": "static/tab/home.png",
+					"selectedIconPath": "static/tab/homes.png",
+					"text": "首页"
+				},
+				{
+					"pagePath": "pages/ecological/ecological",
+					"iconPath": "static/tab/eco.png",
+					"selectedIconPath": "static/tab/ecos.png",
+					"text": "生态建设"
+				},
+				{
+					"pagePath": "pages/storeMarket/storeMarket",
+					"iconPath": "static/tab/trade.png",
+					"selectedIconPath": "static/tab/trades.png",
+					"text": "熵值交易"
+				},
+				{
+					"pagePath": "pages/userCenter/userCenter",
+					"iconPath": "static/tab/mine.png",
+					"selectedIconPath": "static/tab/mines.png",
+					"text": "我的"
+				}
+				
+			]
+		},
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#091224",
+		"backgroundColor": "white"
+	}
+}

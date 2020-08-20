@@ -1,0 +1,48 @@
+	
+.flex_c_c{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.flex{
+	display: flex;
+}
+.flex_c{
+	display: flex;
+	align-items: center;
+}
+.flex_sb{
+	display: flex;
+	justify-content: space-between;
+}
+.flex_sa{
+	display: flex;
+	justify-content: space-around;
+}
+.btn_class{
+	color: #34f073;
+	font-size: 16px;
+	font-weight: bold;
+	display: flex;
+	width: 300upx;
+	height: 90upx;
+	border-radius: 8upx;
+	background: #2a3650;
+	justify-content: center;
+	align-items: center;
+}
+.flex_column{
+	display: flex;
+	flex-direction: column;
+}
+.flex_wrap{
+	display: flex;
+	flex-direction: row;
+	/* justify-content: space-between; */
+	flex-wrap: wrap;
+}
+.flex_sb_c{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}

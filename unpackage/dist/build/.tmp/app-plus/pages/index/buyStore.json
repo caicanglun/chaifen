@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "初始源認購",
+  "usingComponents": {
+    "popup-message": "/components/popupMessage"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "密碼設置",
+  "usingComponents": {
+    "popup-verify": "/components/popupVerify"
+  }
+}

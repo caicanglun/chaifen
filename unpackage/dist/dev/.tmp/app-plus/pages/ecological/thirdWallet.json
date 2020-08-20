@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "第三方錢包",
+  "usingComponents": {
+    "pop-me": "/components/popupMe"
+  }
+}

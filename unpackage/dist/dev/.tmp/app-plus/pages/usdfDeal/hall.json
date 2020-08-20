@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "USDF交易",
+  "usingComponents": {
+    "popup-menu": "/components/popupMenu",
+    "uni-load-more": "/components/uni-load-more/uni-load-more"
+  }
+}

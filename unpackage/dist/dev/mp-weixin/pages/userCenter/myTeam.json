@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我的團隊",
+  "usingComponents": {
+    "pop-me": "/components/popupMe"
+  }
+}

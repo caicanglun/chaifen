@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "USDF兌換",
+  "titleNView": {
+    "buttons": [
+      {
+        "float": "right",
+        "fontSize": "14px",
+        "text": "記錄"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

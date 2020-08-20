@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "訂單記錄",
+  "usingComponents": {
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "popup-message": "/components/popupMessage"
+  }
+}

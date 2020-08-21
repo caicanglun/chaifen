@@ -1,21 +1,27 @@
 <template>
 	<view>
 		<view class="topBlock" @tap="toLeadingWord">
-				<view class="inClass">導入身份</view>
+				<view class="inClass">{{i18n.registerIndex.exportAccount}}</view>
 		</view>
 		<view  class="flex_c_c" style="color: #7d889a;height: 80upx;font-size: 13px;">
-			 已擁有錢包
+			 {{i18n.registerIndex.hasWallet}}
 		</view>
 		<view  class="flex_c_c" style="color: #FFFFFF;height: 70upx;font-size: 18px;font-weight: bold;">OR</view>
 		<view class="flex_c_c" @tap="toCreate">
-			<view class="inClass" style="color: #fe2c2c">身份創建</view>
+			<view class="inClass" style="color: #fe2c2c">{{i18n.registerIndex.createAccount}}</view>
 		</view>
 		<view  class="flex_c_c" style="color: #7d889a;height: 80upx;font-size: 13px;">
-			 第壹次使用錢包
+			 {{i18n.registerIndex.firstWallet}}
 		</view>
-		<view @tap='toLogin' style="display: flex;margin: 100upx 30upx;justify-content: flex-end;font-size: 14px;color: white;">
-			已有賬號，去登錄
+		<view  style="display: flex;margin: 100upx 30upx;justify-content: space-between;font-size: 14px;color: white;">
+			<view>
+				 <picker @change="bindPickerChange" :value="index" :range="array">
+				      <view class="uni-input">{{array[index]}}</view>
+				 </picker>
+			</view>
+			<view @tap='toLogin'>{{i18n.registerIndex.toLogin}}</view>
 		</view>
+		<!-- {{i18n.tab.user}} -->
 	</view>
 </template>
 
@@ -23,10 +29,51 @@
 	export default {
 		data() {
 			return {
-				
+				array: ['繁體中文', 'English'],
+				index: 0,
 			};
 		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
+		onShow:function(){
+			console.log(uni.getStorageSync('locale'))
+			if (uni.getStorageSync('locale')){
+				if (uni.getStorageSync('locale')=='zh-CN'){
+					this.index = 0
+				}else if (uni.getStorageSync('locale')=='en-US'){
+					this.index = 1
+				}
+			}
+		},
+		onLoad:function(){
+			console.log(uni.getStorageSync('locale'))
+			if (uni.getStorageSync('locale')){
+				if (uni.getStorageSync('locale')=='zh-CN'){
+					this.index = 0
+				}else if (uni.getStorageSync('locale')=='en-US'){
+					this.index = 1
+				}
+			}
+		},
 		methods:{
+			bindPickerChange: function(e) {
+			            console.log('picker发送选择改变，携带值为', e.target.value)
+			            this.index = e.target.value
+						if (this.index==0){
+							uni.setStorageSync('locale','zh-CN')
+							this.$i18n.locale='zh-CN'
+							
+						}else if (this.index == 1){
+							uni.setStorageSync('locale','en-US')
+							this.$i18n.locale='en-US'
+							
+						}
+						
+						
+			},
 			toLeadingWord:function(){
 				uni.navigateTo({
 					url: './leadingWords',	

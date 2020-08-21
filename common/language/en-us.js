@@ -3,7 +3,7 @@ export default {
 		ecology: 'Ecological construction',
 		user: 'Mine',
 		trade: 'transaction',
-		wallet: 'wallet'
+		wallet: 'Home'
 	},
 	page: {
 		news: 'Message',

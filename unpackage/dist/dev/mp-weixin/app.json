@@ -57,7 +57,9 @@
     "pages/register/leadingWords",
     "pages/index/activeSubAccounter",
     "pages/chongzhi/createCharge",
-    "pages/chongzhi/chargeList"
+    "pages/chongzhi/chargeList",
+    "pages/ecological/thirdPlat",
+    "pages/ecological/thirdWallet"
   ],
   "subPackages": [],
   "window": {
@@ -98,6 +100,5 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap22.json"
+  "usingComponents": {}
 }

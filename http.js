@@ -1,7 +1,7 @@
 import request from './js_sdk/cooke-request/request/request.js'
- //const ServerUrl = "http://192.168.11.116";
+
 const ServerUrl = "http://test.144f.com:8080/sl-web"
-// const ServerUrl = "http://app.ecfpros.com:8080/sl-web"
+//const ServerUrl = "http://app.ecfpros.com:8080/sl-web"
 
 request.setConfig({
   baseUrl: ServerUrl, // 此为测试地址，需加入到域名白名单，或者更改为您自己的线上地址即可

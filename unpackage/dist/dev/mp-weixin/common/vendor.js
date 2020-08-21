@@ -1709,9 +1709,9 @@ function normalizeComponent (
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./js_sdk/cooke-request/request/request.js */ 13));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-//const ServerUrl = "http://192.168.11.116";
-//const ServerUrl = "http://test.144f.com:8080/sl-web"
-var ServerUrl = "http://app.ecfpros.com:8080/sl-web";
+
+var ServerUrl = "http://test.144f.com:8080/sl-web";
+//const ServerUrl = "http://app.ecfpros.com:8080/sl-web"
 
 _request.default.setConfig({
   baseUrl: ServerUrl, // 此为测试地址，需加入到域名白名单，或者更改为您自己的线上地址即可
@@ -3738,6 +3738,2166 @@ var index_esm = {
 
 /* harmony default export */ __webpack_exports__["default"] = (index_esm);
 
+
+/***/ }),
+
+/***/ 19:
+/*!************************************************************************************************!*\
+  !*** /Users/lee/Documents/HBuilderProjects/chaifen/node_modules/vue-i18n/dist/vue-i18n.esm.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /*!
+                                                                                                      * vue-i18n v8.21.0 
+                                                                                                      * (c) 2020 kazuya kawaguchi
+                                                                                                      * Released under the MIT License.
+                                                                                                      */
+/*  */
+
+/**
+        * constants
+        */
+
+var numberFormatKeys = [
+'style',
+'currency',
+'currencyDisplay',
+'useGrouping',
+'minimumIntegerDigits',
+'minimumFractionDigits',
+'maximumFractionDigits',
+'minimumSignificantDigits',
+'maximumSignificantDigits',
+'localeMatcher',
+'formatMatcher',
+'unit'];
+
+
+/**
+          * utilities
+          */
+
+function warn(msg, err) {
+  if (typeof console !== 'undefined') {
+    console.warn('[vue-i18n] ' + msg);
+    /* istanbul ignore if */
+    if (err) {
+      console.warn(err.stack);
+    }
+  }
+}
+
+function error(msg, err) {
+  if (typeof console !== 'undefined') {
+    console.error('[vue-i18n] ' + msg);
+    /* istanbul ignore if */
+    if (err) {
+      console.error(err.stack);
+    }
+  }
+}
+
+var isArray = Array.isArray;
+
+function isObject(obj) {
+  return obj !== null && typeof obj === 'object';
+}
+
+function isBoolean(val) {
+  return typeof val === 'boolean';
+}
+
+function isString(val) {
+  return typeof val === 'string';
+}
+
+var toString = Object.prototype.toString;
+var OBJECT_STRING = '[object Object]';
+function isPlainObject(obj) {
+  return toString.call(obj) === OBJECT_STRING;
+}
+
+function isNull(val) {
+  return val === null || val === undefined;
+}
+
+function isFunction(val) {
+  return typeof val === 'function';
+}
+
+function parseArgs() {
+  var args = [],len = arguments.length;
+  while (len--) {args[len] = arguments[len];}
+
+  var locale = null;
+  var params = null;
+  if (args.length === 1) {
+    if (isObject(args[0]) || isArray(args[0])) {
+      params = args[0];
+    } else if (typeof args[0] === 'string') {
+      locale = args[0];
+    }
+  } else if (args.length === 2) {
+    if (typeof args[0] === 'string') {
+      locale = args[0];
+    }
+    /* istanbul ignore if */
+    if (isObject(args[1]) || isArray(args[1])) {
+      params = args[1];
+    }
+  }
+
+  return { locale: locale, params: params };
+}
+
+function looseClone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+function remove(arr, item) {
+  if (arr.length) {
+    var index = arr.indexOf(item);
+    if (index > -1) {
+      return arr.splice(index, 1);
+    }
+  }
+}
+
+function includes(arr, item) {
+  return !!~arr.indexOf(item);
+}
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+function hasOwn(obj, key) {
+  return hasOwnProperty.call(obj, key);
+}
+
+function merge(target) {
+  var arguments$1 = arguments;
+
+  var output = Object(target);
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments$1[i];
+    if (source !== undefined && source !== null) {
+      var key = void 0;
+      for (key in source) {
+        if (hasOwn(source, key)) {
+          if (isObject(source[key])) {
+            output[key] = merge(output[key], source[key]);
+          } else {
+            output[key] = source[key];
+          }
+        }
+      }
+    }
+  }
+  return output;
+}
+
+function looseEqual(a, b) {
+  if (a === b) {return true;}
+  var isObjectA = isObject(a);
+  var isObjectB = isObject(b);
+  if (isObjectA && isObjectB) {
+    try {
+      var isArrayA = isArray(a);
+      var isArrayB = isArray(b);
+      if (isArrayA && isArrayB) {
+        return a.length === b.length && a.every(function (e, i) {
+          return looseEqual(e, b[i]);
+        });
+      } else if (!isArrayA && !isArrayB) {
+        var keysA = Object.keys(a);
+        var keysB = Object.keys(b);
+        return keysA.length === keysB.length && keysA.every(function (key) {
+          return looseEqual(a[key], b[key]);
+        });
+      } else {
+        /* istanbul ignore next */
+        return false;
+      }
+    } catch (e) {
+      /* istanbul ignore next */
+      return false;
+    }
+  } else if (!isObjectA && !isObjectB) {
+    return String(a) === String(b);
+  } else {
+    return false;
+  }
+}
+
+/*  */
+
+function extend(Vue) {
+  if (!Vue.prototype.hasOwnProperty('$i18n')) {
+    // $FlowFixMe
+    Object.defineProperty(Vue.prototype, '$i18n', {
+      get: function get() {return this._i18n;} });
+
+  }
+
+  Vue.prototype.$t = function (key) {
+    var values = [],len = arguments.length - 1;
+    while (len-- > 0) {values[len] = arguments[len + 1];}
+
+    var i18n = this.$i18n;
+    return i18n._t.apply(i18n, [key, i18n.locale, i18n._getMessages(), this].concat(values));
+  };
+
+  Vue.prototype.$tc = function (key, choice) {
+    var values = [],len = arguments.length - 2;
+    while (len-- > 0) {values[len] = arguments[len + 2];}
+
+    var i18n = this.$i18n;
+    return i18n._tc.apply(i18n, [key, i18n.locale, i18n._getMessages(), this, choice].concat(values));
+  };
+
+  Vue.prototype.$te = function (key, locale) {
+    var i18n = this.$i18n;
+    return i18n._te(key, i18n.locale, i18n._getMessages(), locale);
+  };
+
+  Vue.prototype.$d = function (value) {
+    var ref;
+
+    var args = [],len = arguments.length - 1;
+    while (len-- > 0) {args[len] = arguments[len + 1];}
+    return (ref = this.$i18n).d.apply(ref, [value].concat(args));
+  };
+
+  Vue.prototype.$n = function (value) {
+    var ref;
+
+    var args = [],len = arguments.length - 1;
+    while (len-- > 0) {args[len] = arguments[len + 1];}
+    return (ref = this.$i18n).n.apply(ref, [value].concat(args));
+  };
+}
+
+/*  */
+
+var mixin = {
+  beforeCreate: function beforeCreate() {
+    var options = this.$options;
+    options.i18n = options.i18n || (options.__i18n ? {} : null);
+
+    if (options.i18n) {
+      if (options.i18n instanceof VueI18n) {
+        // init locale messages via custom blocks
+        if (options.__i18n) {
+          try {
+            var localeMessages = {};
+            options.__i18n.forEach(function (resource) {
+              localeMessages = merge(localeMessages, JSON.parse(resource));
+            });
+            Object.keys(localeMessages).forEach(function (locale) {
+              options.i18n.mergeLocaleMessage(locale, localeMessages[locale]);
+            });
+          } catch (e) {
+            if (true) {
+              error("Cannot parse locale messages via custom blocks.", e);
+            }
+          }
+        }
+        this._i18n = options.i18n;
+        this._i18nWatcher = this._i18n.watchI18nData();
+      } else if (isPlainObject(options.i18n)) {
+        var rootI18n = this.$root && this.$root.$i18n && this.$root.$i18n instanceof VueI18n ?
+        this.$root.$i18n :
+        null;
+        // component local i18n
+        if (rootI18n) {
+          options.i18n.root = this.$root;
+          options.i18n.formatter = rootI18n.formatter;
+          options.i18n.fallbackLocale = rootI18n.fallbackLocale;
+          options.i18n.formatFallbackMessages = rootI18n.formatFallbackMessages;
+          options.i18n.silentTranslationWarn = rootI18n.silentTranslationWarn;
+          options.i18n.silentFallbackWarn = rootI18n.silentFallbackWarn;
+          options.i18n.pluralizationRules = rootI18n.pluralizationRules;
+          options.i18n.preserveDirectiveContent = rootI18n.preserveDirectiveContent;
+        }
+
+        // init locale messages via custom blocks
+        if (options.__i18n) {
+          try {
+            var localeMessages$1 = {};
+            options.__i18n.forEach(function (resource) {
+              localeMessages$1 = merge(localeMessages$1, JSON.parse(resource));
+            });
+            options.i18n.messages = localeMessages$1;
+          } catch (e) {
+            if (true) {
+              warn("Cannot parse locale messages via custom blocks.", e);
+            }
+          }
+        }
+
+        var ref = options.i18n;
+        var sharedMessages = ref.sharedMessages;
+        if (sharedMessages && isPlainObject(sharedMessages)) {
+          options.i18n.messages = merge(options.i18n.messages, sharedMessages);
+        }
+
+        this._i18n = new VueI18n(options.i18n);
+        this._i18nWatcher = this._i18n.watchI18nData();
+
+        if (options.i18n.sync === undefined || !!options.i18n.sync) {
+          this._localeWatcher = this.$i18n.watchLocale();
+        }
+
+        if (rootI18n) {
+          rootI18n.onComponentInstanceCreated(this._i18n);
+        }
+      } else {
+        if (true) {
+          warn("Cannot be interpreted 'i18n' option.");
+        }
+      }
+    } else if (this.$root && this.$root.$i18n && this.$root.$i18n instanceof VueI18n) {
+      // root i18n
+      this._i18n = this.$root.$i18n;
+    } else if (options.parent && options.parent.$i18n && options.parent.$i18n instanceof VueI18n) {
+      // parent i18n
+      this._i18n = options.parent.$i18n;
+    }
+  },
+
+  beforeMount: function beforeMount() {
+    var options = this.$options;
+    options.i18n = options.i18n || (options.__i18n ? {} : null);
+
+    if (options.i18n) {
+      if (options.i18n instanceof VueI18n) {
+        // init locale messages via custom blocks
+        this._i18n.subscribeDataChanging(this);
+        this._subscribing = true;
+      } else if (isPlainObject(options.i18n)) {
+        this._i18n.subscribeDataChanging(this);
+        this._subscribing = true;
+      } else {
+        if (true) {
+          warn("Cannot be interpreted 'i18n' option.");
+        }
+      }
+    } else if (this.$root && this.$root.$i18n && this.$root.$i18n instanceof VueI18n) {
+      this._i18n.subscribeDataChanging(this);
+      this._subscribing = true;
+    } else if (options.parent && options.parent.$i18n && options.parent.$i18n instanceof VueI18n) {
+      this._i18n.subscribeDataChanging(this);
+      this._subscribing = true;
+    }
+  },
+
+  beforeDestroy: function beforeDestroy() {
+    if (!this._i18n) {return;}
+
+    var self = this;
+    this.$nextTick(function () {
+      if (self._subscribing) {
+        self._i18n.unsubscribeDataChanging(self);
+        delete self._subscribing;
+      }
+
+      if (self._i18nWatcher) {
+        self._i18nWatcher();
+        self._i18n.destroyVM();
+        delete self._i18nWatcher;
+      }
+
+      if (self._localeWatcher) {
+        self._localeWatcher();
+        delete self._localeWatcher;
+      }
+    });
+  } };
+
+
+/*  */
+
+var interpolationComponent = {
+  name: 'i18n',
+  functional: true,
+  props: {
+    tag: {
+      type: [String, Boolean, Object],
+      default: 'span' },
+
+    path: {
+      type: String,
+      required: true },
+
+    locale: {
+      type: String },
+
+    places: {
+      type: [Array, Object] } },
+
+
+  render: function render(h, ref) {
+    var data = ref.data;
+    var parent = ref.parent;
+    var props = ref.props;
+    var slots = ref.slots;
+
+    var $i18n = parent.$i18n;
+    if (!$i18n) {
+      if (true) {
+        warn('Cannot find VueI18n instance!');
+      }
+      return;
+    }
+
+    var path = props.path;
+    var locale = props.locale;
+    var places = props.places;
+    var params = slots();
+    var children = $i18n.i(
+    path,
+    locale,
+    onlyHasDefaultPlace(params) || places ?
+    useLegacyPlaces(params.default, places) :
+    params);
+
+
+    var tag = !!props.tag && props.tag !== true || props.tag === false ? props.tag : 'span';
+    return tag ? h(tag, data, children) : children;
+  } };
+
+
+function onlyHasDefaultPlace(params) {
+  var prop;
+  for (prop in params) {
+    if (prop !== 'default') {return false;}
+  }
+  return Boolean(prop);
+}
+
+function useLegacyPlaces(children, places) {
+  var params = places ? createParamsFromPlaces(places) : {};
+
+  if (!children) {return params;}
+
+  // Filter empty text nodes
+  children = children.filter(function (child) {
+    return child.tag || child.text.trim() !== '';
+  });
+
+  var everyPlace = children.every(vnodeHasPlaceAttribute);
+  if ( true && everyPlace) {
+    warn('`place` attribute is deprecated in next major version. Please switch to Vue slots.');
+  }
+
+  return children.reduce(
+  everyPlace ? assignChildPlace : assignChildIndex,
+  params);
+
+}
+
+function createParamsFromPlaces(places) {
+  if (true) {
+    warn('`places` prop is deprecated in next major version. Please switch to Vue slots.');
+  }
+
+  return Array.isArray(places) ?
+  places.reduce(assignChildIndex, {}) :
+  Object.assign({}, places);
+}
+
+function assignChildPlace(params, child) {
+  if (child.data && child.data.attrs && child.data.attrs.place) {
+    params[child.data.attrs.place] = child;
+  }
+  return params;
+}
+
+function assignChildIndex(params, child, index) {
+  params[index] = child;
+  return params;
+}
+
+function vnodeHasPlaceAttribute(vnode) {
+  return Boolean(vnode.data && vnode.data.attrs && vnode.data.attrs.place);
+}
+
+/*  */
+
+var numberComponent = {
+  name: 'i18n-n',
+  functional: true,
+  props: {
+    tag: {
+      type: [String, Boolean, Object],
+      default: 'span' },
+
+    value: {
+      type: Number,
+      required: true },
+
+    format: {
+      type: [String, Object] },
+
+    locale: {
+      type: String } },
+
+
+  render: function render(h, ref) {
+    var props = ref.props;
+    var parent = ref.parent;
+    var data = ref.data;
+
+    var i18n = parent.$i18n;
+
+    if (!i18n) {
+      if (true) {
+        warn('Cannot find VueI18n instance!');
+      }
+      return null;
+    }
+
+    var key = null;
+    var options = null;
+
+    if (isString(props.format)) {
+      key = props.format;
+    } else if (isObject(props.format)) {
+      if (props.format.key) {
+        key = props.format.key;
+      }
+
+      // Filter out number format options only
+      options = Object.keys(props.format).reduce(function (acc, prop) {
+        var obj;
+
+        if (includes(numberFormatKeys, prop)) {
+          return Object.assign({}, acc, (obj = {}, obj[prop] = props.format[prop], obj));
+        }
+        return acc;
+      }, null);
+    }
+
+    var locale = props.locale || i18n.locale;
+    var parts = i18n._ntp(props.value, locale, key, options);
+
+    var values = parts.map(function (part, index) {
+      var obj;
+
+      var slot = data.scopedSlots && data.scopedSlots[part.type];
+      return slot ? slot((obj = {}, obj[part.type] = part.value, obj.index = index, obj.parts = parts, obj)) : part.value;
+    });
+
+    var tag = !!props.tag && props.tag !== true || props.tag === false ? props.tag : 'span';
+    return tag ?
+    h(tag, {
+      attrs: data.attrs,
+      'class': data['class'],
+      staticClass: data.staticClass },
+    values) :
+    values;
+  } };
+
+
+/*  */
+
+function bind(el, binding, vnode) {
+  if (!assert(el, vnode)) {return;}
+
+  t(el, binding, vnode);
+}
+
+function update(el, binding, vnode, oldVNode) {
+  if (!assert(el, vnode)) {return;}
+
+  var i18n = vnode.context.$i18n;
+  if (localeEqual(el, vnode) &&
+  looseEqual(binding.value, binding.oldValue) &&
+  looseEqual(el._localeMessage, i18n.getLocaleMessage(i18n.locale))) {return;}
+
+  t(el, binding, vnode);
+}
+
+function unbind(el, binding, vnode, oldVNode) {
+  var vm = vnode.context;
+  if (!vm) {
+    warn('Vue instance does not exists in VNode context');
+    return;
+  }
+
+  var i18n = vnode.context.$i18n || {};
+  if (!binding.modifiers.preserve && !i18n.preserveDirectiveContent) {
+    el.textContent = '';
+  }
+  el._vt = undefined;
+  delete el['_vt'];
+  el._locale = undefined;
+  delete el['_locale'];
+  el._localeMessage = undefined;
+  delete el['_localeMessage'];
+}
+
+function assert(el, vnode) {
+  var vm = vnode.context;
+  if (!vm) {
+    warn('Vue instance does not exists in VNode context');
+    return false;
+  }
+
+  if (!vm.$i18n) {
+    warn('VueI18n instance does not exists in Vue instance');
+    return false;
+  }
+
+  return true;
+}
+
+function localeEqual(el, vnode) {
+  var vm = vnode.context;
+  return el._locale === vm.$i18n.locale;
+}
+
+function t(el, binding, vnode) {
+  var ref$1, ref$2;
+
+  var value = binding.value;
+
+  var ref = parseValue(value);
+  var path = ref.path;
+  var locale = ref.locale;
+  var args = ref.args;
+  var choice = ref.choice;
+  if (!path && !locale && !args) {
+    warn('value type not supported');
+    return;
+  }
+
+  if (!path) {
+    warn('`path` is required in v-t directive');
+    return;
+  }
+
+  var vm = vnode.context;
+  if (choice != null) {
+    el._vt = el.textContent = (ref$1 = vm.$i18n).tc.apply(ref$1, [path, choice].concat(makeParams(locale, args)));
+  } else {
+    el._vt = el.textContent = (ref$2 = vm.$i18n).t.apply(ref$2, [path].concat(makeParams(locale, args)));
+  }
+  el._locale = vm.$i18n.locale;
+  el._localeMessage = vm.$i18n.getLocaleMessage(vm.$i18n.locale);
+}
+
+function parseValue(value) {
+  var path;
+  var locale;
+  var args;
+  var choice;
+
+  if (isString(value)) {
+    path = value;
+  } else if (isPlainObject(value)) {
+    path = value.path;
+    locale = value.locale;
+    args = value.args;
+    choice = value.choice;
+  }
+
+  return { path: path, locale: locale, args: args, choice: choice };
+}
+
+function makeParams(locale, args) {
+  var params = [];
+
+  locale && params.push(locale);
+  if (args && (Array.isArray(args) || isPlainObject(args))) {
+    params.push(args);
+  }
+
+  return params;
+}
+
+var Vue;
+
+function install(_Vue) {
+  /* istanbul ignore if */
+  if ( true && install.installed && _Vue === Vue) {
+    warn('already installed.');
+    return;
+  }
+  install.installed = true;
+
+  Vue = _Vue;
+
+  var version = Vue.version && Number(Vue.version.split('.')[0]) || -1;
+  /* istanbul ignore if */
+  if ( true && version < 2) {
+    warn("vue-i18n (" + install.version + ") need to use Vue 2.0 or later (Vue: " + Vue.version + ").");
+    return;
+  }
+
+  extend(Vue);
+  Vue.mixin(mixin);
+  Vue.directive('t', { bind: bind, update: update, unbind: unbind });
+  Vue.component(interpolationComponent.name, interpolationComponent);
+  Vue.component(numberComponent.name, numberComponent);
+
+  // use simple mergeStrategies to prevent i18n instance lose '__proto__'
+  var strats = Vue.config.optionMergeStrategies;
+  strats.i18n = function (parentVal, childVal) {
+    return childVal === undefined ?
+    parentVal :
+    childVal;
+  };
+}
+
+/*  */
+
+var BaseFormatter = function BaseFormatter() {
+  this._caches = Object.create(null);
+};
+
+BaseFormatter.prototype.interpolate = function interpolate(message, values) {
+  if (!values) {
+    return [message];
+  }
+  var tokens = this._caches[message];
+  if (!tokens) {
+    tokens = parse(message);
+    this._caches[message] = tokens;
+  }
+  return compile(tokens, values);
+};
+
+
+
+var RE_TOKEN_LIST_VALUE = /^(?:\d)+/;
+var RE_TOKEN_NAMED_VALUE = /^(?:\w)+/;
+
+function parse(format) {
+  var tokens = [];
+  var position = 0;
+
+  var text = '';
+  while (position < format.length) {
+    var _char = format[position++];
+    if (_char === '{') {
+      if (text) {
+        tokens.push({ type: 'text', value: text });
+      }
+
+      text = '';
+      var sub = '';
+      _char = format[position++];
+      while (_char !== undefined && _char !== '}') {
+        sub += _char;
+        _char = format[position++];
+      }
+      var isClosed = _char === '}';
+
+      var type = RE_TOKEN_LIST_VALUE.test(sub) ?
+      'list' :
+      isClosed && RE_TOKEN_NAMED_VALUE.test(sub) ?
+      'named' :
+      'unknown';
+      tokens.push({ value: sub, type: type });
+    } else if (_char === '%') {
+      // when found rails i18n syntax, skip text capture
+      if (format[position] !== '{') {
+        text += _char;
+      }
+    } else {
+      text += _char;
+    }
+  }
+
+  text && tokens.push({ type: 'text', value: text });
+
+  return tokens;
+}
+
+function compile(tokens, values) {
+  var compiled = [];
+  var index = 0;
+
+  var mode = Array.isArray(values) ?
+  'list' :
+  isObject(values) ?
+  'named' :
+  'unknown';
+  if (mode === 'unknown') {return compiled;}
+
+  while (index < tokens.length) {
+    var token = tokens[index];
+    switch (token.type) {
+      case 'text':
+        compiled.push(token.value);
+        break;
+      case 'list':
+        compiled.push(values[parseInt(token.value, 10)]);
+        break;
+      case 'named':
+        if (mode === 'named') {
+          compiled.push(values[token.value]);
+        } else {
+          if (true) {
+            warn("Type of token '" + token.type + "' and format of value '" + mode + "' don't match!");
+          }
+        }
+        break;
+      case 'unknown':
+        if (true) {
+          warn("Detect 'unknown' type of token!");
+        }
+        break;}
+
+    index++;
+  }
+
+  return compiled;
+}
+
+/*  */
+
+/**
+        *  Path parser
+        *  - Inspired:
+        *    Vue.js Path parser
+        */
+
+// actions
+var APPEND = 0;
+var PUSH = 1;
+var INC_SUB_PATH_DEPTH = 2;
+var PUSH_SUB_PATH = 3;
+
+// states
+var BEFORE_PATH = 0;
+var IN_PATH = 1;
+var BEFORE_IDENT = 2;
+var IN_IDENT = 3;
+var IN_SUB_PATH = 4;
+var IN_SINGLE_QUOTE = 5;
+var IN_DOUBLE_QUOTE = 6;
+var AFTER_PATH = 7;
+var ERROR = 8;
+
+var pathStateMachine = [];
+
+pathStateMachine[BEFORE_PATH] = {
+  'ws': [BEFORE_PATH],
+  'ident': [IN_IDENT, APPEND],
+  '[': [IN_SUB_PATH],
+  'eof': [AFTER_PATH] };
+
+
+pathStateMachine[IN_PATH] = {
+  'ws': [IN_PATH],
+  '.': [BEFORE_IDENT],
+  '[': [IN_SUB_PATH],
+  'eof': [AFTER_PATH] };
+
+
+pathStateMachine[BEFORE_IDENT] = {
+  'ws': [BEFORE_IDENT],
+  'ident': [IN_IDENT, APPEND],
+  '0': [IN_IDENT, APPEND],
+  'number': [IN_IDENT, APPEND] };
+
+
+pathStateMachine[IN_IDENT] = {
+  'ident': [IN_IDENT, APPEND],
+  '0': [IN_IDENT, APPEND],
+  'number': [IN_IDENT, APPEND],
+  'ws': [IN_PATH, PUSH],
+  '.': [BEFORE_IDENT, PUSH],
+  '[': [IN_SUB_PATH, PUSH],
+  'eof': [AFTER_PATH, PUSH] };
+
+
+pathStateMachine[IN_SUB_PATH] = {
+  "'": [IN_SINGLE_QUOTE, APPEND],
+  '"': [IN_DOUBLE_QUOTE, APPEND],
+  '[': [IN_SUB_PATH, INC_SUB_PATH_DEPTH],
+  ']': [IN_PATH, PUSH_SUB_PATH],
+  'eof': ERROR,
+  'else': [IN_SUB_PATH, APPEND] };
+
+
+pathStateMachine[IN_SINGLE_QUOTE] = {
+  "'": [IN_SUB_PATH, APPEND],
+  'eof': ERROR,
+  'else': [IN_SINGLE_QUOTE, APPEND] };
+
+
+pathStateMachine[IN_DOUBLE_QUOTE] = {
+  '"': [IN_SUB_PATH, APPEND],
+  'eof': ERROR,
+  'else': [IN_DOUBLE_QUOTE, APPEND] };
+
+
+/**
+                                        * Check if an expression is a literal value.
+                                        */
+
+var literalValueRE = /^\s?(?:true|false|-?[\d.]+|'[^']*'|"[^"]*")\s?$/;
+function isLiteral(exp) {
+  return literalValueRE.test(exp);
+}
+
+/**
+   * Strip quotes from a string
+   */
+
+function stripQuotes(str) {
+  var a = str.charCodeAt(0);
+  var b = str.charCodeAt(str.length - 1);
+  return a === b && (a === 0x22 || a === 0x27) ?
+  str.slice(1, -1) :
+  str;
+}
+
+/**
+   * Determine the type of a character in a keypath.
+   */
+
+function getPathCharType(ch) {
+  if (ch === undefined || ch === null) {return 'eof';}
+
+  var code = ch.charCodeAt(0);
+
+  switch (code) {
+    case 0x5B: // [
+    case 0x5D: // ]
+    case 0x2E: // .
+    case 0x22: // "
+    case 0x27: // '
+      return ch;
+
+    case 0x5F: // _
+    case 0x24: // $
+    case 0x2D: // -
+      return 'ident';
+
+    case 0x09: // Tab
+    case 0x0A: // Newline
+    case 0x0D: // Return
+    case 0xA0: // No-break space
+    case 0xFEFF: // Byte Order Mark
+    case 0x2028: // Line Separator
+    case 0x2029: // Paragraph Separator
+      return 'ws';}
+
+
+  return 'ident';
+}
+
+/**
+   * Format a subPath, return its plain form if it is
+   * a literal string or number. Otherwise prepend the
+   * dynamic indicator (*).
+   */
+
+function formatSubPath(path) {
+  var trimmed = path.trim();
+  // invalid leading 0
+  if (path.charAt(0) === '0' && isNaN(path)) {return false;}
+
+  return isLiteral(trimmed) ? stripQuotes(trimmed) : '*' + trimmed;
+}
+
+/**
+   * Parse a string path into an array of segments
+   */
+
+function parse$1(path) {
+  var keys = [];
+  var index = -1;
+  var mode = BEFORE_PATH;
+  var subPathDepth = 0;
+  var c;
+  var key;
+  var newChar;
+  var type;
+  var transition;
+  var action;
+  var typeMap;
+  var actions = [];
+
+  actions[PUSH] = function () {
+    if (key !== undefined) {
+      keys.push(key);
+      key = undefined;
+    }
+  };
+
+  actions[APPEND] = function () {
+    if (key === undefined) {
+      key = newChar;
+    } else {
+      key += newChar;
+    }
+  };
+
+  actions[INC_SUB_PATH_DEPTH] = function () {
+    actions[APPEND]();
+    subPathDepth++;
+  };
+
+  actions[PUSH_SUB_PATH] = function () {
+    if (subPathDepth > 0) {
+      subPathDepth--;
+      mode = IN_SUB_PATH;
+      actions[APPEND]();
+    } else {
+      subPathDepth = 0;
+      if (key === undefined) {return false;}
+      key = formatSubPath(key);
+      if (key === false) {
+        return false;
+      } else {
+        actions[PUSH]();
+      }
+    }
+  };
+
+  function maybeUnescapeQuote() {
+    var nextChar = path[index + 1];
+    if (mode === IN_SINGLE_QUOTE && nextChar === "'" ||
+    mode === IN_DOUBLE_QUOTE && nextChar === '"') {
+      index++;
+      newChar = '\\' + nextChar;
+      actions[APPEND]();
+      return true;
+    }
+  }
+
+  while (mode !== null) {
+    index++;
+    c = path[index];
+
+    if (c === '\\' && maybeUnescapeQuote()) {
+      continue;
+    }
+
+    type = getPathCharType(c);
+    typeMap = pathStateMachine[mode];
+    transition = typeMap[type] || typeMap['else'] || ERROR;
+
+    if (transition === ERROR) {
+      return; // parse error
+    }
+
+    mode = transition[0];
+    action = actions[transition[1]];
+    if (action) {
+      newChar = transition[2];
+      newChar = newChar === undefined ?
+      c :
+      newChar;
+      if (action() === false) {
+        return;
+      }
+    }
+
+    if (mode === AFTER_PATH) {
+      return keys;
+    }
+  }
+}
+
+
+
+
+
+var I18nPath = function I18nPath() {
+  this._cache = Object.create(null);
+};
+
+/**
+    * External parse that check for a cache hit first
+    */
+I18nPath.prototype.parsePath = function parsePath(path) {
+  var hit = this._cache[path];
+  if (!hit) {
+    hit = parse$1(path);
+    if (hit) {
+      this._cache[path] = hit;
+    }
+  }
+  return hit || [];
+};
+
+/**
+    * Get path value from path string
+    */
+I18nPath.prototype.getPathValue = function getPathValue(obj, path) {
+  if (!isObject(obj)) {return null;}
+
+  var paths = this.parsePath(path);
+  if (paths.length === 0) {
+    return null;
+  } else {
+    var length = paths.length;
+    var last = obj;
+    var i = 0;
+    while (i < length) {
+      var value = last[paths[i]];
+      if (value === undefined) {
+        return null;
+      }
+      last = value;
+      i++;
+    }
+
+    return last;
+  }
+};
+
+/*  */
+
+
+
+var htmlTagMatcher = /<\/?[\w\s="/.':;#-\/]+>/;
+var linkKeyMatcher = /(?:@(?:\.[a-z]+)?:(?:[\w\-_|.]+|\([\w\-_|.]+\)))/g;
+var linkKeyPrefixMatcher = /^@(?:\.([a-z]+))?:/;
+var bracketsMatcher = /[()]/g;
+var defaultModifiers = {
+  'upper': function upper(str) {return str.toLocaleUpperCase();},
+  'lower': function lower(str) {return str.toLocaleLowerCase();},
+  'capitalize': function capitalize(str) {return "" + str.charAt(0).toLocaleUpperCase() + str.substr(1);} };
+
+
+var defaultFormatter = new BaseFormatter();
+
+var VueI18n = function VueI18n(options) {
+  var this$1 = this;
+  if (options === void 0) options = {};
+
+  // Auto install if it is not done yet and `window` has `Vue`.
+  // To allow users to avoid auto-installation in some cases,
+  // this code should be placed here. See #290
+  /* istanbul ignore if */
+  if (!Vue && typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+  }
+
+  var locale = options.locale || 'en-US';
+  var fallbackLocale = options.fallbackLocale === false ?
+  false :
+  options.fallbackLocale || 'en-US';
+  var messages = options.messages || {};
+  var dateTimeFormats = options.dateTimeFormats || {};
+  var numberFormats = options.numberFormats || {};
+
+  this._vm = null;
+  this._formatter = options.formatter || defaultFormatter;
+  this._modifiers = options.modifiers || {};
+  this._missing = options.missing || null;
+  this._root = options.root || null;
+  this._sync = options.sync === undefined ? true : !!options.sync;
+  this._fallbackRoot = options.fallbackRoot === undefined ?
+  true :
+  !!options.fallbackRoot;
+  this._formatFallbackMessages = options.formatFallbackMessages === undefined ?
+  false :
+  !!options.formatFallbackMessages;
+  this._silentTranslationWarn = options.silentTranslationWarn === undefined ?
+  false :
+  options.silentTranslationWarn;
+  this._silentFallbackWarn = options.silentFallbackWarn === undefined ?
+  false :
+  !!options.silentFallbackWarn;
+  this._dateTimeFormatters = {};
+  this._numberFormatters = {};
+  this._path = new I18nPath();
+  this._dataListeners = [];
+  this._componentInstanceCreatedListener = options.componentInstanceCreatedListener || null;
+  this._preserveDirectiveContent = options.preserveDirectiveContent === undefined ?
+  false :
+  !!options.preserveDirectiveContent;
+  this.pluralizationRules = options.pluralizationRules || {};
+  this._warnHtmlInMessage = options.warnHtmlInMessage || 'off';
+  this._postTranslation = options.postTranslation || null;
+
+  /**
+                                                            * @param choice {number} a choice index given by the input to $tc: `$tc('path.to.rule', choiceIndex)`
+                                                            * @param choicesLength {number} an overall amount of available choices
+                                                            * @returns a final choice index
+                                                           */
+  this.getChoiceIndex = function (choice, choicesLength) {
+    var thisPrototype = Object.getPrototypeOf(this$1);
+    if (thisPrototype && thisPrototype.getChoiceIndex) {
+      var prototypeGetChoiceIndex = thisPrototype.getChoiceIndex;
+      return prototypeGetChoiceIndex.call(this$1, choice, choicesLength);
+    }
+
+    // Default (old) getChoiceIndex implementation - english-compatible
+    var defaultImpl = function defaultImpl(_choice, _choicesLength) {
+      _choice = Math.abs(_choice);
+
+      if (_choicesLength === 2) {
+        return _choice ?
+        _choice > 1 ?
+        1 :
+        0 :
+        1;
+      }
+
+      return _choice ? Math.min(_choice, 2) : 0;
+    };
+
+    if (this$1.locale in this$1.pluralizationRules) {
+      return this$1.pluralizationRules[this$1.locale].apply(this$1, [choice, choicesLength]);
+    } else {
+      return defaultImpl(choice, choicesLength);
+    }
+  };
+
+
+  this._exist = function (message, key) {
+    if (!message || !key) {return false;}
+    if (!isNull(this$1._path.getPathValue(message, key))) {return true;}
+    // fallback for flat key
+    if (message[key]) {return true;}
+    return false;
+  };
+
+  if (this._warnHtmlInMessage === 'warn' || this._warnHtmlInMessage === 'error') {
+    Object.keys(messages).forEach(function (locale) {
+      this$1._checkLocaleMessage(locale, this$1._warnHtmlInMessage, messages[locale]);
+    });
+  }
+
+  this._initVM({
+    locale: locale,
+    fallbackLocale: fallbackLocale,
+    messages: messages,
+    dateTimeFormats: dateTimeFormats,
+    numberFormats: numberFormats });
+
+};
+
+var prototypeAccessors = { vm: { configurable: true }, messages: { configurable: true }, dateTimeFormats: { configurable: true }, numberFormats: { configurable: true }, availableLocales: { configurable: true }, locale: { configurable: true }, fallbackLocale: { configurable: true }, formatFallbackMessages: { configurable: true }, missing: { configurable: true }, formatter: { configurable: true }, silentTranslationWarn: { configurable: true }, silentFallbackWarn: { configurable: true }, preserveDirectiveContent: { configurable: true }, warnHtmlInMessage: { configurable: true }, postTranslation: { configurable: true } };
+
+VueI18n.prototype._checkLocaleMessage = function _checkLocaleMessage(locale, level, message) {
+  var paths = [];
+
+  var fn = function fn(level, locale, message, paths) {
+    if (isPlainObject(message)) {
+      Object.keys(message).forEach(function (key) {
+        var val = message[key];
+        if (isPlainObject(val)) {
+          paths.push(key);
+          paths.push('.');
+          fn(level, locale, val, paths);
+          paths.pop();
+          paths.pop();
+        } else {
+          paths.push(key);
+          fn(level, locale, val, paths);
+          paths.pop();
+        }
+      });
+    } else if (isArray(message)) {
+      message.forEach(function (item, index) {
+        if (isPlainObject(item)) {
+          paths.push("[" + index + "]");
+          paths.push('.');
+          fn(level, locale, item, paths);
+          paths.pop();
+          paths.pop();
+        } else {
+          paths.push("[" + index + "]");
+          fn(level, locale, item, paths);
+          paths.pop();
+        }
+      });
+    } else if (isString(message)) {
+      var ret = htmlTagMatcher.test(message);
+      if (ret) {
+        var msg = "Detected HTML in message '" + message + "' of keypath '" + paths.join('') + "' at '" + locale + "'. Consider component interpolation with '<i18n>' to avoid XSS. See https://bit.ly/2ZqJzkp";
+        if (level === 'warn') {
+          warn(msg);
+        } else if (level === 'error') {
+          error(msg);
+        }
+      }
+    }
+  };
+
+  fn(level, locale, message, paths);
+};
+
+VueI18n.prototype._initVM = function _initVM(data) {
+  var silent = Vue.config.silent;
+  Vue.config.silent = true;
+  this._vm = new Vue({ data: data });
+  Vue.config.silent = silent;
+};
+
+VueI18n.prototype.destroyVM = function destroyVM() {
+  this._vm.$destroy();
+};
+
+VueI18n.prototype.subscribeDataChanging = function subscribeDataChanging(vm) {
+  this._dataListeners.push(vm);
+};
+
+VueI18n.prototype.unsubscribeDataChanging = function unsubscribeDataChanging(vm) {
+  remove(this._dataListeners, vm);
+};
+
+VueI18n.prototype.watchI18nData = function watchI18nData() {
+  var self = this;
+  return this._vm.$watch('$data', function () {
+    var i = self._dataListeners.length;
+    while (i--) {
+      Vue.nextTick(function () {
+        self._dataListeners[i] && self._dataListeners[i].$forceUpdate();
+      });
+    }
+  }, { deep: true });
+};
+
+VueI18n.prototype.watchLocale = function watchLocale() {
+  /* istanbul ignore if */
+  if (!this._sync || !this._root) {return null;}
+  var target = this._vm;
+  return this._root.$i18n.vm.$watch('locale', function (val) {
+    target.$set(target, 'locale', val);
+    target.$forceUpdate();
+  }, { immediate: true });
+};
+
+VueI18n.prototype.onComponentInstanceCreated = function onComponentInstanceCreated(newI18n) {
+  if (this._componentInstanceCreatedListener) {
+    this._componentInstanceCreatedListener(newI18n, this);
+  }
+};
+
+prototypeAccessors.vm.get = function () {return this._vm;};
+
+prototypeAccessors.messages.get = function () {return looseClone(this._getMessages());};
+prototypeAccessors.dateTimeFormats.get = function () {return looseClone(this._getDateTimeFormats());};
+prototypeAccessors.numberFormats.get = function () {return looseClone(this._getNumberFormats());};
+prototypeAccessors.availableLocales.get = function () {return Object.keys(this.messages).sort();};
+
+prototypeAccessors.locale.get = function () {return this._vm.locale;};
+prototypeAccessors.locale.set = function (locale) {
+  this._vm.$set(this._vm, 'locale', locale);
+};
+
+prototypeAccessors.fallbackLocale.get = function () {return this._vm.fallbackLocale;};
+prototypeAccessors.fallbackLocale.set = function (locale) {
+  this._localeChainCache = {};
+  this._vm.$set(this._vm, 'fallbackLocale', locale);
+};
+
+prototypeAccessors.formatFallbackMessages.get = function () {return this._formatFallbackMessages;};
+prototypeAccessors.formatFallbackMessages.set = function (fallback) {this._formatFallbackMessages = fallback;};
+
+prototypeAccessors.missing.get = function () {return this._missing;};
+prototypeAccessors.missing.set = function (handler) {this._missing = handler;};
+
+prototypeAccessors.formatter.get = function () {return this._formatter;};
+prototypeAccessors.formatter.set = function (formatter) {this._formatter = formatter;};
+
+prototypeAccessors.silentTranslationWarn.get = function () {return this._silentTranslationWarn;};
+prototypeAccessors.silentTranslationWarn.set = function (silent) {this._silentTranslationWarn = silent;};
+
+prototypeAccessors.silentFallbackWarn.get = function () {return this._silentFallbackWarn;};
+prototypeAccessors.silentFallbackWarn.set = function (silent) {this._silentFallbackWarn = silent;};
+
+prototypeAccessors.preserveDirectiveContent.get = function () {return this._preserveDirectiveContent;};
+prototypeAccessors.preserveDirectiveContent.set = function (preserve) {this._preserveDirectiveContent = preserve;};
+
+prototypeAccessors.warnHtmlInMessage.get = function () {return this._warnHtmlInMessage;};
+prototypeAccessors.warnHtmlInMessage.set = function (level) {
+  var this$1 = this;
+
+  var orgLevel = this._warnHtmlInMessage;
+  this._warnHtmlInMessage = level;
+  if (orgLevel !== level && (level === 'warn' || level === 'error')) {
+    var messages = this._getMessages();
+    Object.keys(messages).forEach(function (locale) {
+      this$1._checkLocaleMessage(locale, this$1._warnHtmlInMessage, messages[locale]);
+    });
+  }
+};
+
+prototypeAccessors.postTranslation.get = function () {return this._postTranslation;};
+prototypeAccessors.postTranslation.set = function (handler) {this._postTranslation = handler;};
+
+VueI18n.prototype._getMessages = function _getMessages() {return this._vm.messages;};
+VueI18n.prototype._getDateTimeFormats = function _getDateTimeFormats() {return this._vm.dateTimeFormats;};
+VueI18n.prototype._getNumberFormats = function _getNumberFormats() {return this._vm.numberFormats;};
+
+VueI18n.prototype._warnDefault = function _warnDefault(locale, key, result, vm, values, interpolateMode) {
+  if (!isNull(result)) {return result;}
+  if (this._missing) {
+    var missingRet = this._missing.apply(null, [locale, key, vm, values]);
+    if (isString(missingRet)) {
+      return missingRet;
+    }
+  } else {
+    if ( true && !this._isSilentTranslationWarn(key)) {
+      warn(
+      "Cannot translate the value of keypath '" + key + "'. " +
+      'Use the value of keypath as default.');
+
+    }
+  }
+
+  if (this._formatFallbackMessages) {
+    var parsedArgs = parseArgs.apply(void 0, values);
+    return this._render(key, interpolateMode, parsedArgs.params, key);
+  } else {
+    return key;
+  }
+};
+
+VueI18n.prototype._isFallbackRoot = function _isFallbackRoot(val) {
+  return !val && !isNull(this._root) && this._fallbackRoot;
+};
+
+VueI18n.prototype._isSilentFallbackWarn = function _isSilentFallbackWarn(key) {
+  return this._silentFallbackWarn instanceof RegExp ?
+  this._silentFallbackWarn.test(key) :
+  this._silentFallbackWarn;
+};
+
+VueI18n.prototype._isSilentFallback = function _isSilentFallback(locale, key) {
+  return this._isSilentFallbackWarn(key) && (this._isFallbackRoot() || locale !== this.fallbackLocale);
+};
+
+VueI18n.prototype._isSilentTranslationWarn = function _isSilentTranslationWarn(key) {
+  return this._silentTranslationWarn instanceof RegExp ?
+  this._silentTranslationWarn.test(key) :
+  this._silentTranslationWarn;
+};
+
+VueI18n.prototype._interpolate = function _interpolate(
+locale,
+message,
+key,
+host,
+interpolateMode,
+values,
+visitedLinkStack)
+{
+  if (!message) {return null;}
+
+  var pathRet = this._path.getPathValue(message, key);
+  if (isArray(pathRet) || isPlainObject(pathRet)) {return pathRet;}
+
+  var ret;
+  if (isNull(pathRet)) {
+    /* istanbul ignore else */
+    if (isPlainObject(message)) {
+      ret = message[key];
+      if (!(isString(ret) || isFunction(ret))) {
+        if ( true && !this._isSilentTranslationWarn(key) && !this._isSilentFallback(locale, key)) {
+          warn("Value of key '" + key + "' is not a string or function !");
+        }
+        return null;
+      }
+    } else {
+      return null;
+    }
+  } else {
+    /* istanbul ignore else */
+    if (isString(pathRet) || isFunction(pathRet)) {
+      ret = pathRet;
+    } else {
+      if ( true && !this._isSilentTranslationWarn(key) && !this._isSilentFallback(locale, key)) {
+        warn("Value of key '" + key + "' is not a string or function!");
+      }
+      return null;
+    }
+  }
+
+  // Check for the existence of links within the translated string
+  if (isString(ret) && (ret.indexOf('@:') >= 0 || ret.indexOf('@.') >= 0)) {
+    ret = this._link(locale, message, ret, host, 'raw', values, visitedLinkStack);
+  }
+
+  return this._render(ret, interpolateMode, values, key);
+};
+
+VueI18n.prototype._link = function _link(
+locale,
+message,
+str,
+host,
+interpolateMode,
+values,
+visitedLinkStack)
+{
+  var ret = str;
+
+  // Match all the links within the local
+  // We are going to replace each of
+  // them with its translation
+  var matches = ret.match(linkKeyMatcher);
+  for (var idx in matches) {
+    // ie compatible: filter custom array
+    // prototype method
+    if (!matches.hasOwnProperty(idx)) {
+      continue;
+    }
+    var link = matches[idx];
+    var linkKeyPrefixMatches = link.match(linkKeyPrefixMatcher);
+    var linkPrefix = linkKeyPrefixMatches[0];
+    var formatterName = linkKeyPrefixMatches[1];
+
+    // Remove the leading @:, @.case: and the brackets
+    var linkPlaceholder = link.replace(linkPrefix, '').replace(bracketsMatcher, '');
+
+    if (includes(visitedLinkStack, linkPlaceholder)) {
+      if (true) {
+        warn("Circular reference found. \"" + link + "\" is already visited in the chain of " + visitedLinkStack.reverse().join(' <- '));
+      }
+      return ret;
+    }
+    visitedLinkStack.push(linkPlaceholder);
+
+    // Translate the link
+    var translated = this._interpolate(
+    locale, message, linkPlaceholder, host,
+    interpolateMode === 'raw' ? 'string' : interpolateMode,
+    interpolateMode === 'raw' ? undefined : values,
+    visitedLinkStack);
+
+
+    if (this._isFallbackRoot(translated)) {
+      if ( true && !this._isSilentTranslationWarn(linkPlaceholder)) {
+        warn("Fall back to translate the link placeholder '" + linkPlaceholder + "' with root locale.");
+      }
+      /* istanbul ignore if */
+      if (!this._root) {throw Error('unexpected error');}
+      var root = this._root.$i18n;
+      translated = root._translate(
+      root._getMessages(), root.locale, root.fallbackLocale,
+      linkPlaceholder, host, interpolateMode, values);
+
+    }
+    translated = this._warnDefault(
+    locale, linkPlaceholder, translated, host,
+    isArray(values) ? values : [values],
+    interpolateMode);
+
+
+    if (this._modifiers.hasOwnProperty(formatterName)) {
+      translated = this._modifiers[formatterName](translated);
+    } else if (defaultModifiers.hasOwnProperty(formatterName)) {
+      translated = defaultModifiers[formatterName](translated);
+    }
+
+    visitedLinkStack.pop();
+
+    // Replace the link with the translated
+    ret = !translated ? ret : ret.replace(link, translated);
+  }
+
+  return ret;
+};
+
+VueI18n.prototype._createMessageContext = function _createMessageContext(values) {
+  var _list = isArray(values) ? values : [];
+  var _named = isObject(values) ? values : {};
+  var list = function list(index) {return _list[index];};
+  var named = function named(key) {return _named[key];};
+  return {
+    list: list,
+    named: named };
+
+};
+
+VueI18n.prototype._render = function _render(message, interpolateMode, values, path) {
+  if (isFunction(message)) {
+    return message(this._createMessageContext(values));
+  }
+
+  var ret = this._formatter.interpolate(message, values, path);
+
+  // If the custom formatter refuses to work - apply the default one
+  if (!ret) {
+    ret = defaultFormatter.interpolate(message, values, path);
+  }
+
+  // if interpolateMode is **not** 'string' ('row'),
+  // return the compiled data (e.g. ['foo', VNode, 'bar']) with formatter
+  return interpolateMode === 'string' && !isString(ret) ? ret.join('') : ret;
+};
+
+VueI18n.prototype._appendItemToChain = function _appendItemToChain(chain, item, blocks) {
+  var follow = false;
+  if (!includes(chain, item)) {
+    follow = true;
+    if (item) {
+      follow = item[item.length - 1] !== '!';
+      item = item.replace(/!/g, '');
+      chain.push(item);
+      if (blocks && blocks[item]) {
+        follow = blocks[item];
+      }
+    }
+  }
+  return follow;
+};
+
+VueI18n.prototype._appendLocaleToChain = function _appendLocaleToChain(chain, locale, blocks) {
+  var follow;
+  var tokens = locale.split('-');
+  do {
+    var item = tokens.join('-');
+    follow = this._appendItemToChain(chain, item, blocks);
+    tokens.splice(-1, 1);
+  } while (tokens.length && follow === true);
+  return follow;
+};
+
+VueI18n.prototype._appendBlockToChain = function _appendBlockToChain(chain, block, blocks) {
+  var follow = true;
+  for (var i = 0; i < block.length && isBoolean(follow); i++) {
+    var locale = block[i];
+    if (isString(locale)) {
+      follow = this._appendLocaleToChain(chain, locale, blocks);
+    }
+  }
+  return follow;
+};
+
+VueI18n.prototype._getLocaleChain = function _getLocaleChain(start, fallbackLocale) {
+  if (start === '') {return [];}
+
+  if (!this._localeChainCache) {
+    this._localeChainCache = {};
+  }
+
+  var chain = this._localeChainCache[start];
+  if (!chain) {
+    if (!fallbackLocale) {
+      fallbackLocale = this.fallbackLocale;
+    }
+    chain = [];
+
+    // first block defined by start
+    var block = [start];
+
+    // while any intervening block found
+    while (isArray(block)) {
+      block = this._appendBlockToChain(
+      chain,
+      block,
+      fallbackLocale);
+
+    }
+
+    // last block defined by default
+    var defaults;
+    if (isArray(fallbackLocale)) {
+      defaults = fallbackLocale;
+    } else if (isObject(fallbackLocale)) {
+      /* $FlowFixMe */
+      if (fallbackLocale['default']) {
+        defaults = fallbackLocale['default'];
+      } else {
+        defaults = null;
+      }
+    } else {
+      defaults = fallbackLocale;
+    }
+
+    // convert defaults to array
+    if (isString(defaults)) {
+      block = [defaults];
+    } else {
+      block = defaults;
+    }
+    if (block) {
+      this._appendBlockToChain(
+      chain,
+      block,
+      null);
+
+    }
+    this._localeChainCache[start] = chain;
+  }
+  return chain;
+};
+
+VueI18n.prototype._translate = function _translate(
+messages,
+locale,
+fallback,
+key,
+host,
+interpolateMode,
+args)
+{
+  var chain = this._getLocaleChain(locale, fallback);
+  var res;
+  for (var i = 0; i < chain.length; i++) {
+    var step = chain[i];
+    res =
+    this._interpolate(step, messages[step], key, host, interpolateMode, args, [key]);
+    if (!isNull(res)) {
+      if (step !== locale && "development" !== 'production' && !this._isSilentTranslationWarn(key) && !this._isSilentFallbackWarn(key)) {
+        warn("Fall back to translate the keypath '" + key + "' with '" + step + "' locale.");
+      }
+      return res;
+    }
+  }
+  return null;
+};
+
+VueI18n.prototype._t = function _t(key, _locale, messages, host) {
+  var ref;
+
+  var values = [],len = arguments.length - 4;
+  while (len-- > 0) {values[len] = arguments[len + 4];}
+  if (!key) {return '';}
+
+  var parsedArgs = parseArgs.apply(void 0, values);
+  var locale = parsedArgs.locale || _locale;
+
+  var ret = this._translate(
+  messages, locale, this.fallbackLocale, key,
+  host, 'string', parsedArgs.params);
+
+  if (this._isFallbackRoot(ret)) {
+    if ( true && !this._isSilentTranslationWarn(key) && !this._isSilentFallbackWarn(key)) {
+      warn("Fall back to translate the keypath '" + key + "' with root locale.");
+    }
+    /* istanbul ignore if */
+    if (!this._root) {throw Error('unexpected error');}
+    return (ref = this._root).$t.apply(ref, [key].concat(values));
+  } else {
+    ret = this._warnDefault(locale, key, ret, host, values, 'string');
+    if (this._postTranslation && ret !== null && ret !== undefined) {
+      ret = this._postTranslation(ret, key);
+    }
+    return ret;
+  }
+};
+
+VueI18n.prototype.t = function t(key) {
+  var ref;
+
+  var values = [],len = arguments.length - 1;
+  while (len-- > 0) {values[len] = arguments[len + 1];}
+  return (ref = this)._t.apply(ref, [key, this.locale, this._getMessages(), null].concat(values));
+};
+
+VueI18n.prototype._i = function _i(key, locale, messages, host, values) {
+  var ret =
+  this._translate(messages, locale, this.fallbackLocale, key, host, 'raw', values);
+  if (this._isFallbackRoot(ret)) {
+    if ( true && !this._isSilentTranslationWarn(key)) {
+      warn("Fall back to interpolate the keypath '" + key + "' with root locale.");
+    }
+    if (!this._root) {throw Error('unexpected error');}
+    return this._root.$i18n.i(key, locale, values);
+  } else {
+    return this._warnDefault(locale, key, ret, host, [values], 'raw');
+  }
+};
+
+VueI18n.prototype.i = function i(key, locale, values) {
+  /* istanbul ignore if */
+  if (!key) {return '';}
+
+  if (!isString(locale)) {
+    locale = this.locale;
+  }
+
+  return this._i(key, locale, this._getMessages(), null, values);
+};
+
+VueI18n.prototype._tc = function _tc(
+key,
+_locale,
+messages,
+host,
+choice)
+{
+  var ref;
+
+  var values = [],len = arguments.length - 5;
+  while (len-- > 0) {values[len] = arguments[len + 5];}
+  if (!key) {return '';}
+  if (choice === undefined) {
+    choice = 1;
+  }
+
+  var predefined = { 'count': choice, 'n': choice };
+  var parsedArgs = parseArgs.apply(void 0, values);
+  parsedArgs.params = Object.assign(predefined, parsedArgs.params);
+  values = parsedArgs.locale === null ? [parsedArgs.params] : [parsedArgs.locale, parsedArgs.params];
+  return this.fetchChoice((ref = this)._t.apply(ref, [key, _locale, messages, host].concat(values)), choice);
+};
+
+VueI18n.prototype.fetchChoice = function fetchChoice(message, choice) {
+  /* istanbul ignore if */
+  if (!message && !isString(message)) {return null;}
+  var choices = message.split('|');
+
+  choice = this.getChoiceIndex(choice, choices.length);
+  if (!choices[choice]) {return message;}
+  return choices[choice].trim();
+};
+
+VueI18n.prototype.tc = function tc(key, choice) {
+  var ref;
+
+  var values = [],len = arguments.length - 2;
+  while (len-- > 0) {values[len] = arguments[len + 2];}
+  return (ref = this)._tc.apply(ref, [key, this.locale, this._getMessages(), null, choice].concat(values));
+};
+
+VueI18n.prototype._te = function _te(key, locale, messages) {
+  var args = [],len = arguments.length - 3;
+  while (len-- > 0) {args[len] = arguments[len + 3];}
+
+  var _locale = parseArgs.apply(void 0, args).locale || locale;
+  return this._exist(messages[_locale], key);
+};
+
+VueI18n.prototype.te = function te(key, locale) {
+  return this._te(key, this.locale, this._getMessages(), locale);
+};
+
+VueI18n.prototype.getLocaleMessage = function getLocaleMessage(locale) {
+  return looseClone(this._vm.messages[locale] || {});
+};
+
+VueI18n.prototype.setLocaleMessage = function setLocaleMessage(locale, message) {
+  if (this._warnHtmlInMessage === 'warn' || this._warnHtmlInMessage === 'error') {
+    this._checkLocaleMessage(locale, this._warnHtmlInMessage, message);
+  }
+  this._vm.$set(this._vm.messages, locale, message);
+};
+
+VueI18n.prototype.mergeLocaleMessage = function mergeLocaleMessage(locale, message) {
+  if (this._warnHtmlInMessage === 'warn' || this._warnHtmlInMessage === 'error') {
+    this._checkLocaleMessage(locale, this._warnHtmlInMessage, message);
+  }
+  this._vm.$set(this._vm.messages, locale, merge({}, this._vm.messages[locale] || {}, message));
+};
+
+VueI18n.prototype.getDateTimeFormat = function getDateTimeFormat(locale) {
+  return looseClone(this._vm.dateTimeFormats[locale] || {});
+};
+
+VueI18n.prototype.setDateTimeFormat = function setDateTimeFormat(locale, format) {
+  this._vm.$set(this._vm.dateTimeFormats, locale, format);
+  this._clearDateTimeFormat(locale, format);
+};
+
+VueI18n.prototype.mergeDateTimeFormat = function mergeDateTimeFormat(locale, format) {
+  this._vm.$set(this._vm.dateTimeFormats, locale, merge(this._vm.dateTimeFormats[locale] || {}, format));
+  this._clearDateTimeFormat(locale, format);
+};
+
+VueI18n.prototype._clearDateTimeFormat = function _clearDateTimeFormat(locale, format) {
+  for (var key in format) {
+    var id = locale + "__" + key;
+
+    if (!this._dateTimeFormatters.hasOwnProperty(id)) {
+      continue;
+    }
+
+    delete this._dateTimeFormatters[id];
+  }
+};
+
+VueI18n.prototype._localizeDateTime = function _localizeDateTime(
+value,
+locale,
+fallback,
+dateTimeFormats,
+key)
+{
+  var _locale = locale;
+  var formats = dateTimeFormats[_locale];
+
+  var chain = this._getLocaleChain(locale, fallback);
+  for (var i = 0; i < chain.length; i++) {
+    var current = _locale;
+    var step = chain[i];
+    formats = dateTimeFormats[step];
+    _locale = step;
+    // fallback locale
+    if (isNull(formats) || isNull(formats[key])) {
+      if (step !== locale && "development" !== 'production' && !this._isSilentTranslationWarn(key) && !this._isSilentFallbackWarn(key)) {
+        warn("Fall back to '" + step + "' datetime formats from '" + current + "' datetime formats.");
+      }
+    } else {
+      break;
+    }
+  }
+
+  if (isNull(formats) || isNull(formats[key])) {
+    return null;
+  } else {
+    var format = formats[key];
+    var id = _locale + "__" + key;
+    var formatter = this._dateTimeFormatters[id];
+    if (!formatter) {
+      formatter = this._dateTimeFormatters[id] = new Intl.DateTimeFormat(_locale, format);
+    }
+    return formatter.format(value);
+  }
+};
+
+VueI18n.prototype._d = function _d(value, locale, key) {
+  /* istanbul ignore if */
+  if ( true && !VueI18n.availabilities.dateTimeFormat) {
+    warn('Cannot format a Date value due to not supported Intl.DateTimeFormat.');
+    return '';
+  }
+
+  if (!key) {
+    return new Intl.DateTimeFormat(locale).format(value);
+  }
+
+  var ret =
+  this._localizeDateTime(value, locale, this.fallbackLocale, this._getDateTimeFormats(), key);
+  if (this._isFallbackRoot(ret)) {
+    if ( true && !this._isSilentTranslationWarn(key) && !this._isSilentFallbackWarn(key)) {
+      warn("Fall back to datetime localization of root: key '" + key + "'.");
+    }
+    /* istanbul ignore if */
+    if (!this._root) {throw Error('unexpected error');}
+    return this._root.$i18n.d(value, key, locale);
+  } else {
+    return ret || '';
+  }
+};
+
+VueI18n.prototype.d = function d(value) {
+  var args = [],len = arguments.length - 1;
+  while (len-- > 0) {args[len] = arguments[len + 1];}
+
+  var locale = this.locale;
+  var key = null;
+
+  if (args.length === 1) {
+    if (isString(args[0])) {
+      key = args[0];
+    } else if (isObject(args[0])) {
+      if (args[0].locale) {
+        locale = args[0].locale;
+      }
+      if (args[0].key) {
+        key = args[0].key;
+      }
+    }
+  } else if (args.length === 2) {
+    if (isString(args[0])) {
+      key = args[0];
+    }
+    if (isString(args[1])) {
+      locale = args[1];
+    }
+  }
+
+  return this._d(value, locale, key);
+};
+
+VueI18n.prototype.getNumberFormat = function getNumberFormat(locale) {
+  return looseClone(this._vm.numberFormats[locale] || {});
+};
+
+VueI18n.prototype.setNumberFormat = function setNumberFormat(locale, format) {
+  this._vm.$set(this._vm.numberFormats, locale, format);
+  this._clearNumberFormat(locale, format);
+};
+
+VueI18n.prototype.mergeNumberFormat = function mergeNumberFormat(locale, format) {
+  this._vm.$set(this._vm.numberFormats, locale, merge(this._vm.numberFormats[locale] || {}, format));
+  this._clearNumberFormat(locale, format);
+};
+
+VueI18n.prototype._clearNumberFormat = function _clearNumberFormat(locale, format) {
+  for (var key in format) {
+    var id = locale + "__" + key;
+
+    if (!this._numberFormatters.hasOwnProperty(id)) {
+      continue;
+    }
+
+    delete this._numberFormatters[id];
+  }
+};
+
+VueI18n.prototype._getNumberFormatter = function _getNumberFormatter(
+value,
+locale,
+fallback,
+numberFormats,
+key,
+options)
+{
+  var _locale = locale;
+  var formats = numberFormats[_locale];
+
+  var chain = this._getLocaleChain(locale, fallback);
+  for (var i = 0; i < chain.length; i++) {
+    var current = _locale;
+    var step = chain[i];
+    formats = numberFormats[step];
+    _locale = step;
+    // fallback locale
+    if (isNull(formats) || isNull(formats[key])) {
+      if (step !== locale && "development" !== 'production' && !this._isSilentTranslationWarn(key) && !this._isSilentFallbackWarn(key)) {
+        warn("Fall back to '" + step + "' number formats from '" + current + "' number formats.");
+      }
+    } else {
+      break;
+    }
+  }
+
+  if (isNull(formats) || isNull(formats[key])) {
+    return null;
+  } else {
+    var format = formats[key];
+
+    var formatter;
+    if (options) {
+      // If options specified - create one time number formatter
+      formatter = new Intl.NumberFormat(_locale, Object.assign({}, format, options));
+    } else {
+      var id = _locale + "__" + key;
+      formatter = this._numberFormatters[id];
+      if (!formatter) {
+        formatter = this._numberFormatters[id] = new Intl.NumberFormat(_locale, format);
+      }
+    }
+    return formatter;
+  }
+};
+
+VueI18n.prototype._n = function _n(value, locale, key, options) {
+  /* istanbul ignore if */
+  if (!VueI18n.availabilities.numberFormat) {
+    if (true) {
+      warn('Cannot format a Number value due to not supported Intl.NumberFormat.');
+    }
+    return '';
+  }
+
+  if (!key) {
+    var nf = !options ? new Intl.NumberFormat(locale) : new Intl.NumberFormat(locale, options);
+    return nf.format(value);
+  }
+
+  var formatter = this._getNumberFormatter(value, locale, this.fallbackLocale, this._getNumberFormats(), key, options);
+  var ret = formatter && formatter.format(value);
+  if (this._isFallbackRoot(ret)) {
+    if ( true && !this._isSilentTranslationWarn(key) && !this._isSilentFallbackWarn(key)) {
+      warn("Fall back to number localization of root: key '" + key + "'.");
+    }
+    /* istanbul ignore if */
+    if (!this._root) {throw Error('unexpected error');}
+    return this._root.$i18n.n(value, Object.assign({}, { key: key, locale: locale }, options));
+  } else {
+    return ret || '';
+  }
+};
+
+VueI18n.prototype.n = function n(value) {
+  var args = [],len = arguments.length - 1;
+  while (len-- > 0) {args[len] = arguments[len + 1];}
+
+  var locale = this.locale;
+  var key = null;
+  var options = null;
+
+  if (args.length === 1) {
+    if (isString(args[0])) {
+      key = args[0];
+    } else if (isObject(args[0])) {
+      if (args[0].locale) {
+        locale = args[0].locale;
+      }
+      if (args[0].key) {
+        key = args[0].key;
+      }
+
+      // Filter out number format options only
+      options = Object.keys(args[0]).reduce(function (acc, key) {
+        var obj;
+
+        if (includes(numberFormatKeys, key)) {
+          return Object.assign({}, acc, (obj = {}, obj[key] = args[0][key], obj));
+        }
+        return acc;
+      }, null);
+    }
+  } else if (args.length === 2) {
+    if (isString(args[0])) {
+      key = args[0];
+    }
+    if (isString(args[1])) {
+      locale = args[1];
+    }
+  }
+
+  return this._n(value, locale, key, options);
+};
+
+VueI18n.prototype._ntp = function _ntp(value, locale, key, options) {
+  /* istanbul ignore if */
+  if (!VueI18n.availabilities.numberFormat) {
+    if (true) {
+      warn('Cannot format to parts a Number value due to not supported Intl.NumberFormat.');
+    }
+    return [];
+  }
+
+  if (!key) {
+    var nf = !options ? new Intl.NumberFormat(locale) : new Intl.NumberFormat(locale, options);
+    return nf.formatToParts(value);
+  }
+
+  var formatter = this._getNumberFormatter(value, locale, this.fallbackLocale, this._getNumberFormats(), key, options);
+  var ret = formatter && formatter.formatToParts(value);
+  if (this._isFallbackRoot(ret)) {
+    if ( true && !this._isSilentTranslationWarn(key)) {
+      warn("Fall back to format number to parts of root: key '" + key + "' .");
+    }
+    /* istanbul ignore if */
+    if (!this._root) {throw Error('unexpected error');}
+    return this._root.$i18n._ntp(value, locale, key, options);
+  } else {
+    return ret || [];
+  }
+};
+
+Object.defineProperties(VueI18n.prototype, prototypeAccessors);
+
+var availabilities;
+// $FlowFixMe
+Object.defineProperty(VueI18n, 'availabilities', {
+  get: function get() {
+    if (!availabilities) {
+      var intlDefined = typeof Intl !== 'undefined';
+      availabilities = {
+        dateTimeFormat: intlDefined && typeof Intl.DateTimeFormat !== 'undefined',
+        numberFormat: intlDefined && typeof Intl.NumberFormat !== 'undefined' };
+
+    }
+
+    return availabilities;
+  } });
+
+
+VueI18n.install = install;
+VueI18n.version = '8.21.0';var _default =
+
+VueI18n;exports.default = _default;
 
 /***/ }),
 
@@ -9771,7 +11931,1492 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 240:
+/***/ 20:
+/*!********************************************************************!*\
+  !*** /Users/lee/Documents/HBuilderProjects/chaifen/common/lang.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  locale: 'en-US',
+  'en-US': {
+    tab: {
+      ecology: 'Ecological construction',
+      user: 'Mine',
+      trade: 'transaction',
+      wallet: 'Home' },
+
+    page: {
+      news: 'Message',
+      createWallet: 'Create',
+      backup: 'Backup mnemonic',
+      confirm: 'Confirm mnemonic',
+      restore: 'Import Identity',
+      power: 'Power Source',
+      asset: 'Asset List',
+      creditcode: 'Credit Token',
+      nodecode: 'Node Code',
+      setting: 'Set',
+      about: 'About us',
+      walletActive: 'Activate account',
+      exchange: 'Cross link transformation',
+      exchangeDetail: 'Detail',
+      userAccount: 'Account management',
+      accountlist: 'All sub accounts',
+      subAccount: 'Sub account',
+      createAccount: 'Create account',
+      userExchange: 'Exchange',
+      feedBack: 'Message center',
+      personal: 'Personal data',
+      safe: 'Safety Center',
+      settingpw: 'Password settings',
+      team: 'My Team',
+      transfer: 'Transfer',
+      recordDetail: 'Transaction details',
+      settingPaypw: 'Payment password setting' },
+
+    common: {
+      unopen: 'Not yet open',
+      remenberTip: 'Friendship Tip',
+      enterPw: 'enter a password',
+      copySuccess: 'Copy to clipboard',
+      version: 'Version',
+      warmTip: 'Warm Tips',
+      safeTitle: 'Safe Authentication',
+      safePassword: 'Password',
+      loginPw: 'login password',
+      enterSafePwd: 'Please enter security password',
+      submitBtn: 'Submit',
+      pwVal: 'Password length must be 8-16 digits',
+      pwDiff: 'Inconsistent input twice',
+      refresh: 'Pull up to show more',
+      loading: 'Loading...',
+      noMore: 'No more data',
+      cancel: 'cancel',
+      confirm: 'determine',
+      getCode: 'Send',
+      waiting: 'please wait patiently',
+      noCoin: 'No currency available',
+      paymentPassword: 'Please enter the payment password',
+      unableModify: 'not editable',
+      settingPaymentFirst: 'Please set the fund password first' },
+
+    lang: {
+      chose: 'Language',
+      clearStore: 'Clear cache',
+      clearSuccess: 'Cleared successfully',
+      cancel: 'Cancel',
+      exit: 'Retreat safely' },
+
+    user: {
+      identManager: 'IdentManager',
+      deleteText: 'Delete',
+      payment: 'payment method',
+      paymentCode: 'Receipt Code',
+      creditCode: 'Credit Token',
+      nodeCode: 'Node Code',
+      copyAddress: 'Copy Address',
+      aeed: 'Mnemonic',
+      outputKey: 'Export Private Key',
+      privateKey: 'Private Key',
+      output: 'Export',
+      outputSeed: 'Export mnemonic',
+      deleteTip: 'Are you sure you want to delete the account? ',
+      createSub: 'Create Sub Account',
+      switchConfirm: 'Are you sure you want to switch accounts? ',
+      current: 'Current',
+      currentAccount: 'Current',
+      collectConfirm: 'Will the child account USDE collect the master account? ',
+      viewAllAccount: 'View all subaccounts',
+      subAccountTip: 'Creating a sub-account requires activation to complete the creation. The sub-account will be bound to the master account for life. The operation of the sub-account will be completed by switching the master account. And the sub-account subscription and creation amount are all deducted from the main account funds. ',
+      oneStepCollect: 'collection',
+      usernameOrAddress: 'Account/Address',
+      realSwitch: 'Tap account switch',
+      manager: 'Manage',
+      otherOption: 'Other operations',
+      createAccount: 'Create Account',
+      inputAccount: 'Import Account',
+      addressBook: 'Address Book',
+      newCreate: 'New',
+      addressDetail: 'Address Details',
+      edit: 'Edit',
+      deleteAddress: 'Delete address',
+      createAddress: 'New Address',
+      save: 'Save',
+      enterAddress: 'Enter a valid address',
+      addressName: 'Name',
+      addressNote: 'Description (optional)',
+      enterAddressName: 'Enter Name',
+      accountName: 'Account',
+      enterAccountName: 'Enter Account',
+      walletPassword: 'Wallet Password',
+      enterWalletPw: 'Enter password',
+      confirmPw: 'Confirm Password',
+      repeatEnterPw: 'Repeat the password',
+      create: 'Create',
+      avalible: 'Available',
+      avalibleQuote: 'Available Quota',
+      creditRecord: 'Credit Record',
+      interchange: 'mutual transfer',
+      exchange: 'Exchange',
+      fromText: 'From',
+      toText: 'to',
+      exchangeOutNum: 'Number of transfers',
+      enteerExchangeNum: 'Number of inputs',
+      all: 'All',
+      balance: 'Balance',
+      rate: 'Exchange rate',
+      question: 'Question',
+      serviceReplay: 'Reply',
+      serviceNote: "Customer Service Message",
+      noReplay: 'No reply yet',
+      viewSubAccount: 'SubAccount',
+      myTeam: 'My Team',
+      relationship: 'Node relationship',
+      accountMananger: 'Account Management',
+      safeCenter: 'Safe Center',
+      contactUs: 'Contact Us',
+      inviteFriend: 'Invite a friend',
+      myLeftCode: 'Entropy increas node code',
+      myRightCode: 'Entropy minus node code',
+      level: 'Level',
+      leftCode: 'increas',
+      rightCode: 'minus',
+      copy: 'Copy',
+      avatar: 'Avatar',
+      nickname: 'nickname',
+      enterNickname: 'Enter Nickname',
+      mobile: 'Mobile',
+      email: 'Email',
+      modify: 'Modify',
+      toBind: 'Go Bind',
+      newsCenter: 'Message',
+      feedbackQuestion: 'Question for input feedback',
+      feedbackContent: 'Enter feedback content and suggestions ...',
+      feedbackSubmit: 'Submit Feedback',
+      completeInfo: 'Enter complete information',
+      valCode: 'Verification Code',
+      pleaseEnter: 'Enter',
+      enterValCode: 'Fill in the verification code',
+      confirm: 'Confirm',
+      mobileBinding: 'Mobile binding',
+      emailBinding: 'Email binding',
+      mobileError: 'The format of the mobile phone number is incorrect',
+      emailError: 'Mailbox format error',
+      numCode: 'Enter a 6-digit verification code',
+      oldPw: 'Old Password',
+      enterOldPw: 'Enter old password',
+      newPw: 'New Password',
+      enterNewPw: 'Enter the set password',
+      saveQrCode: 'Save QR code',
+      exNodeCode: 'node code',
+      exCreditCode: 'Credit Token',
+      exLink: 'Exclusive Link',
+      myPush: 'My Push',
+      myLeft: 'My left',
+      myRight: 'My right',
+      yesterdayNum: 'Yesterday\'s',
+      teamNum: 'Team',
+      leftNum: 'Left Zone',
+      rightNum: 'Right Zone',
+      profitRecord: 'Record',
+      teamList: 'Team List',
+      exchangeOutAccount: 'Out of Account',
+      outAccountId: 'Input out ID',
+      transferNum: 'Number of transfers',
+      enterTransferNum: 'Number of inputs',
+      transferOut: 'Transfer Out',
+      main: 'main' },
+
+    wallet: {
+      activeTip1: 'Notice: enter credit token and pay',
+      activeTip2: 'Credit line, you can activate your account',
+      activeTip3: 'Notice: Pay',
+      activeTip4: 'Boost source or USDE, you can activate the sub account',
+      nodeCode: 'Node code(Optional)',
+      enterNodeCode: 'Enter the node code and select your area',
+      enterCreditCode: 'Enter a credit token and need it',
+      creditQuote: 'Credit line',
+      needPay: 'Need to pay',
+      help: 'Power source',
+      helpOr: 'Assistance source or',
+      active: 'Activate',
+      activeAccount: 'Activate Account',
+      plEnterCreditCode: 'Please enter a credit token',
+      aeraTitle: 'Select',
+      aeraLeft: 'Increase (left area)',
+      aeraRight: 'Minus (Right Zone)',
+      assetAdd: 'Asset Conversion',
+      powerList: ['Power A', 'Power B', 'Power C'],
+      activeTip: 'The credit token is a sign of community identity. It has barrier-free capacity and assets to exercise power in the Entropy network and various extended DAPPs. In the future, Entropy will also have various service privileges inside and outside the ecosystem, which are widely used on the Internet and even In the real economy.',
+      nowActive: 'immediately',
+      scan: 'scan it',
+      shoukuang: 'Receipt Code',
+      currentAccount: 'Current Account',
+      goOut: 'Exited, enjoy normal returns after reinvestment! ',
+      staticState: 'Static',
+      dynamicStatic: 'Dynamic',
+      assetWallet: 'Asset wallet',
+      qrCode: 'QR code' },
+
+    walletAsset: {
+      "avalible": "Available",
+      "frezen": "Freeze",
+      recharge: 'Charge',
+      withdraw: 'Withdrawal',
+      exchange: 'transformation',
+      transfer: 'Rotate',
+      assetAccount: 'Asset',
+      powAccount: 'Bonus',
+      record: 'Financial Record',
+      filter: 'Filter',
+      notRecord: 'No record' },
+
+    walletEx: {
+      from: 'from',
+      to: 'to',
+      transformNum: 'Number of transfers',
+      enterTransformNum: 'Please enter the number of transfers',
+      all: 'All',
+      balance: 'Balance',
+      rate: 'Exchange rate',
+      fee: 'Transaction Fee',
+      outNum: 'Residual snap-up volume',
+      exchange: 'Exchange',
+      safeTitel: 'Safe Authentication',
+      safePwd: 'Secure Password',
+      enterSafePwd: 'Enter password',
+      submit: 'Submit',
+      enterCoinnum: 'Enter exchange amount' },
+
+    exchangeDetail: {
+      type: 'Type',
+      coin: 'Currency',
+      withdraw: 'Withdrawal',
+      amount: 'Amount',
+      formCoin: 'Exchange currency',
+      ex: 'Exchange',
+      exNum: 'Redemption Quantity',
+      exMoney: 'Exchange Amount',
+      time: 'Time' },
+
+    walletHuazhuan: {
+      selectCoin: 'Select currency',
+      from: 'from',
+      to: 'to',
+      all: 'All',
+      avalible: 'Available',
+      fee: 'Transaction Fee',
+      balance: 'Balance',
+      transfer: 'Rotate',
+      enterNum: 'Please enter the number of strokes',
+      tfNum: 'Number of strokes',
+      tip: 'Only the assets can be transferred to the corresponding account to carry out transactions. There is no handling fee for transferring between accounts',
+      exportt: 'Go Out',
+      safeTitel: 'Safe Authentication',
+      safePwd: 'Secure Password',
+      enterSafePwd: 'Please enter a secure password',
+      submit: 'Submit',
+      enterCoinnum: 'Please enter the number of exchange currencies',
+      assetAccount: 'Asset Account',
+      OTCAccount: 'Bonus account',
+      notSupport: 'Switching is not currently supported' },
+
+    walletRecharge: {
+      selectCoin: 'Choose assets',
+      chainType: 'Chain Type',
+      saveImg: 'Save to album',
+      rechargeAddress: 'Recharge Address',
+      copy: 'copy',
+      copyAddress: 'Copy Address',
+      tip1: 'Do not recharge any assets other than the currency to the above address, otherwise the assets will not be recovered. Minimum recharge amount ',
+      tip2: 'Deposits less than the minimum amount will not be credited and cannot be returned',
+      selectCode: 'Select QR code' },
+
+    walletWithdraw: {
+      selectCoin: 'Select currency',
+      withdrawAddress: 'Charge Address',
+      enterUserID: 'Please enter a user ID',
+      enterAddress: 'Please enter a payment address ID',
+      num: 'Quantity',
+      enterWD1: 'Please enter the amount of withdrawal, minimum',
+      all: 'All',
+      avalible: 'Available',
+      fee: 'Transaction Fee',
+      minWD: 'Minimum withdrawal amount is',
+      minWD1: 'Please make sure the computer and browser are secure to prevent information from being tampered with or leaked.',
+      get: 'Estimated arrival',
+      wd: 'Withdrawal',
+      enterWDAdr: 'Please enter the withdrawal address',
+      enterWDNum: 'Please enter the amount of withdrawal' },
+
+    ecologyDetail: {
+      avalible: 'Available balance',
+      record: 'Financial Record',
+      type: 'Type',
+      time: 'Time',
+      num: 'Quantity',
+      amount: 'Amount',
+      types: {
+        '1': 'Initial source',
+        '2': 'Boost Source',
+        '3': 'Entropy',
+        '4': 'Energy Storage Pool',
+        'a': 'Power A',
+        'b': 'Power B',
+        'c': 'Power C' },
+
+      equivalent: 'Equivalent' },
+
+    ecologyIndex: {
+      app: 'App Recommendation',
+      link1: 'Cross-chain asset conversion',
+      link2: 'Asset Deposit',
+      link3: 'Initial source subscription',
+      link4: 'Entropy Trading',
+      link5: 'USDE trading',
+      link6: 'Power Source',
+      browser: 'Browser',
+      inDevelopment: 'in development' },
+
+    ecologyInitsource: {
+      type: 'Type',
+      title: 'Initial Subscription',
+      titleRight: 'Rule',
+      currentPrice: 'Current trade price: ',
+      join: 'Participate in the subscription',
+      buyAmount: 'Buy Amount',
+      avalible: 'Available',
+      help: '助力 源',
+      not: 'Not yet',
+      go: 'Go Get',
+      nowBuy: 'Buy Now',
+      get: 'Get',
+      startAccount: 'Initial source enters the subscription account',
+      myInits: 'My Subscription',
+      time: 'Time',
+      buyNum: 'Buy Quantity',
+      kcAmount: 'Deducted Amount',
+      safeVef: 'Safe Verification',
+      enterPwd: 'Please enter a secure password',
+      submit: 'Submit',
+      tipTitle: 'Friendship Tips',
+      tipText: 'Need to wait patiently for the queue time to expire, the entropy value will be bought automatically',
+      confirmTitle: 'Subscription Confirmation',
+      confirmText: 'Confirm subscription',
+      sAndDy: 'Static / dynamic recast ',
+      staticReinvestment: 'Static Reinvestment',
+      dyReinvestment: 'Dynamic Reinvestment',
+      staticBuy: 'Static subscription',
+      dyBuy: 'Dynamic Subscription' },
+
+    ecologyPower: {
+      'link1': 'Initial source',
+      'link2': 'Boost Source',
+      'link3': 'Entropy',
+      'link4': 'Energy Storage Pool' },
+
+    registerBackup: {
+      tip1: 'It is strongly recommended that you copy the mnemonic word on paper and keep it in a safe place only you know. Anyone who gets the mnemonic word can consume your digital assets. ',
+      tip2: 'Mnemonic words are used to restore your wallet. Losing them you will lose your wallet forever. ',
+      tip3: 'Please click your mnemonic in order to confirm that the backup mnemonic is correct. ',
+      tipCopy: 'Press and hold the mnemonic to copy it to the clipboard.',
+      next: 'Next',
+      enterAccount: 'Please enter an account name',
+      enterRule: 'Please enter 8-16 digits',
+      walletPwd: 'Wallet Password',
+      enterPwd: 'Duplicate password',
+      create: 'Create',
+      loopPwd: 'Please enter the password again',
+      pwdDiff: 'The passwords entered twice are inconsistent',
+      enterPhone: 'Please enter a phone',
+      enterEmail: 'Please enter your email account',
+      phoneErr: 'The format of the phone number is incorrect',
+      emailErr: 'Mailbox format error',
+      confirmSeed: 'Please confirm the mnemonic',
+      userId: 'Please enter user ID',
+      login: 'log in',
+      pressAndPaste: 'Long press to paste mnemonic',
+      paymentPassword: 'Payment password',
+      resurePw: 'Confirm payment password',
+      paymentPw: 'Please enter 8-16 digit payment password',
+      confirmPaymentPw: 'Enter the payment password again',
+      paymentpwdDiff: "Payment passwords entered twice are inconsistent" },
+
+    registerIndex: {
+      exportAccount: 'Import Identity',
+      hasWallet: 'Already own wallet',
+      createAccount: 'Create Identity',
+      firstWallet: 'First use of wallet',
+      searchArea: 'Search Area',
+      cancel: 'Cancel',
+      toLogin: 'Already have an account, go to login' },
+
+    registerRestore: {
+      helpWord: 'Mnemonic',
+      privateKey: 'Private Key',
+      copyKeystore: 'Copy and paste the content of the official keystore file into the input box',
+      enterPrivateKey: 'Enter Private Key into the input box',
+      enterHelpWord: 'Enter mnemonic words, separated by spaces',
+      keystoreContent: 'Keystore file content',
+      enterPrivateKey2: 'Enter the Private Key into the input box',
+      accountName: 'Account Name',
+      enterAccount: 'Enter account name',
+      pwd: 'Password',
+      enterKeyStore: 'EPlease enter the password of the wallet keystore file content',
+      enterKeystorePwd: 'Confirm Keystore password',
+      enterOldWalletKeystore: 'Confirm the password of the money source Keystore file',
+      setPwd: 'Set Password',
+      enterWalletPwd: 'Enter wallet password',
+      confirmPwd: 'Confirm Password',
+      twiceEnterPwd: 'Enter the wallet password again',
+      startExport: 'Start import',
+      enter: 'Fill in the content of the input box',
+      enterPwd: 'Enter password',
+      twicePwd: 'Enter the password again',
+      pwdDiff: 'The passwords entered twice are inconsistent' },
+
+    trade: {
+      restNum: 'remaining sell entropy',
+      gu: 'Share',
+      myOrder: 'My Order',
+      amount: 'Amount',
+      cellPrice: 'Unit Price',
+      num: 'Amount',
+      tradeCenter: 'Trading Center',
+      all: 'All',
+      processing: 'In progress',
+      completed: 'Completed',
+      buy: 'I want to buy',
+      sell: 'I want to sell',
+      time: 'Time',
+      buyIn: 'Buy',
+      sellOut: 'Sell',
+      orderState: 'Order Status',
+      tradePrice: 'Trading price',
+      tradeAmount: 'Transaction Amount',
+      completeTime: 'Completion time',
+      queuingTime: 'Queue time',
+      starCredit: 'Star Credit',
+      tradingTotal: 'Total turnover',
+      tradengAvePrice: 'Average price',
+      tradingPrice: 'Transaction price',
+      tradingAmount: 'Volume',
+      bindMobile: 'Please bind mobile number first' },
+
+    payment: {
+      "edit": "Edit",
+      "wechat": "Wechat",
+      "alipay": "Alipay",
+      "bank": "Bank Card",
+      "add": "Add",
+      "enterName": "Please enter a name",
+      "enterWechatAccount": "Please enter your WeChat account",
+      "addCode": "Add Receipt QR Code",
+      "pleaseAddCode": "Please add a payment QR code",
+      "save": "Save",
+      "linkType": "Link Type",
+      "enterAddress": "Please enter a payment address",
+      "enterBankNum": "Please enter your bank card number",
+      "enterBankName": "Please enter the account bank",
+      "enterBranch": "Please enter the bank branch",
+      "enterAlipay": "Please enter your Alipay account",
+      "chosePayment": 'Choose your payment method' },
+
+    otc: {
+      orderRecord: 'Order Record',
+      myPending: 'Pending Order',
+      releasePending: 'Release Order',
+      unComplete: 'Incomplete',
+      completed: 'Completed',
+      stateUnpay: 'To be paid',
+      stateUnSure: 'To be confirmed',
+      tradeSucess: 'Transaction succeeded',
+      orderComplete: 'Order closed',
+      arbitrate: 'Arbitration',
+      arbitrateDetail: 'Arbitration details',
+      arbComplete: 'Arbitration completed',
+      arbitration: 'Arbitrating',
+      tradeTotal: 'Trade Total',
+      buyPending: 'My buy order',
+      sellPending: 'My sell order',
+      deleteText: "Delete",
+      sureDeletePending: 'Are you sure you want to delete the pending order? ',
+      needBuy: 'I want to buy',
+      needSell: 'I want to sell',
+      choseCoin: 'Choose a currency',
+      payment: 'Payment Method',
+      tradePrice: 'Trading price',
+      tradeAmount: 'Transaction Amount',
+      enterAmount: 'Please enter the number of transactions',
+      balance: 'Available Balance',
+      fee: 'Transaction Fee',
+      deleted: 'Deleted',
+      type: 'Type',
+      coin: 'Currency',
+      cancel: 'Cancel',
+      sureRelease: 'Confirm Release',
+      paymentTip: "You haven't added a payment method, you can't sell it temporarily, whether to add a payment method",
+      atLeast: 'Please select at least one payment method',
+      sellName: 'Seller Nickname',
+      buyName: 'Buyer Nickname',
+      orderNum: 'Order Number',
+      createOrderTime: 'Order time',
+      buyDetail: 'Buy Details',
+      sellDetail: 'Sell Details',
+      watingPay: 'Waiting for payment',
+      orderCancel: 'Order cancelled',
+      buyHasPay: 'The buyer has paid',
+      remain: 'Remaining',
+      screenShot: 'Receive Screenshot',
+      clickToView: 'Click to view',
+      recept: 'Confirm payment',
+      receptConfirm: 'Confirm receipt',
+      receptMoneyConfirm: 'Confirm that payment from buyer has been received',
+      aplyArbitration: 'Apply for arbitration',
+      aplyArbitrationConfirm: 'Are you sure you want to apply for arbitration? ',
+      tips: 'Tip',
+      tipContent: 'Please check the beneficiary account to confirm the amount of receipt',
+      checkbox: 'I have logged in to the payment account and confirmed that the payment was correct',
+      saveImg: 'Save Image',
+      saveSuccess: 'Save successfully',
+      saveFail: 'Save failed',
+      confirmAndCheck: 'Please check after you confirm',
+      pleasePay: 'Please pay',
+      timeTip1: 'Please be here',
+      timeTip2: 'Internal payment to seller',
+      tradeTip: 'Please pay in time',
+      openBank: 'Opening Bank',
+      bankName: 'Name',
+      bankNum: 'Bank Card Number',
+      bankBranch: 'Account Opening Branch',
+      receptAccount: 'Receiving Account',
+      receptAddress: 'Payment Address',
+      receptCode: 'Receipt QR Code',
+      note1: 'Conversion grants to buyers for profit',
+      note2: 'If you have transferred money to the seller, please be sure to click the "Mark as paid" button, otherwise you may cause financial loss. ',
+      onSure: 'Confirm',
+      payNote: 'Please confirm that you have paid to the seller, malicious clicks will directly freeze the account',
+      originator: 'Initiator of Arbitration',
+      arbitrator: 'Arbitee',
+      enterApply: 'Enter application request',
+      pleaseEnterApply: 'Please enter an application request',
+      uploadImg: 'Upload Image',
+      imgFormat: 'Please save the content of the photo is complete and clear, only supports JPG / PNG image format',
+      confirmSumit: 'Confirm Submit',
+      applySuccess: 'Application succeeded',
+      waitingNote: 'Please be patient, we will process it within 3 ~ 5 working days',
+      processComplete: 'Processing completed',
+      pending: 'Pending',
+      buyer: 'Buyer',
+      seller: 'Seller',
+      uploadPayImg: 'Upload payment screenshot',
+      onSurePay: 'Confirm payment',
+      uploadWarn: 'False uploads will directly freeze the account',
+      pleaseUpload: 'Please upload payment screenshot',
+      uploadTip: 'Please confirm that you have paid to the seller, false uploads will directly freeze the account',
+      uploadTip1: 'Upload payment screenshot after payment',
+      buySuccess: 'Buy Success',
+      sellSuccess: 'Sell successfully',
+      waitingRelease: 'Waiting for release',
+      contactWay: 'contact details' },
+
+    v2: {
+      home: 'Home',
+      total: 'Total balance',
+      ecoBanner: 'Ecological construction',
+      ecoDec: 'Limited vitality, unlimited global entropy',
+      ecoItem1: 'Block Explorer',
+      ecoItem2: 'DAPP construction',
+      ecoItem3: 'I want to apply',
+      createConcept: 'Create a new concept',
+      notBuyTip: 'Unsubscribed, unable to participate in USDE trading!',
+      thirdplatform: 'Third-party platform',
+      thirdWallet: 'Third-party wallet',
+      activeTip: 'Activation prompt',
+      activeTipContent: 'After activating Entropy Chain, you can perform related operations.' },
+
+    v2Eco: {
+      service: 'Energy center',
+      nodeApply: 'Node application',
+      applyInfo: 'Applicant Information',
+      applyName: 'applicant',
+      applyMobile: 'contact number',
+      applyEmail: 'Contact email',
+      dl: 'Download form',
+      xls1: 'Energy Center Application Form',
+      xls2: 'Node application form',
+      upload: 'Upload form',
+      baseInfo: 'Port protocol download',
+      nodeLevel: 'Apply for node level',
+      applyFee: 'Apply for node server pledge fee',
+      submit: 'submit',
+      enter: 'please enter',
+      error: 'wrong format',
+      node1: 'Master node',
+      node2: 'Secondary node',
+      node3: 'Small node',
+      type: 'Types of',
+      time: 'time',
+      result: 'result',
+      platform: 'platform',
+      wallet: 'wallet',
+      officalAddress: 'Official website address',
+      dlsuccess: 'download successful',
+      dlfail: 'download failed',
+      uploadFile: 'Please upload the form',
+      noAddress: 'No download address' },
+
+    pro: {
+      showLang: 'Display language',
+      myShare: 'My share',
+      teamNum: 'Number of teams',
+      destroyNum: 'Destroy amount',
+      level: 'level',
+      totalAsset: 'Total assets',
+      safeTip: 'Safe reminder',
+      safeNote: 'In order to prevent the loss of assets caused by forgotten passwords, deleted apps or lost mobile phones, please be sure to back up mnemonic words',
+      backup: 'Back up now',
+      transfer: 'Transfer',
+      collect: 'Receive money',
+      tradeRecord: 'Trade record',
+      all: "All" },
+
+    proHome: {
+      yestodayProfit: 'Yesterday mining revenue',
+      totalProfit: 'Cumulative income',
+      mySuanli: 'My hashrate',
+      dynSuanli: 'Dynamic computing power',
+      myDynSuanli: 'My dynamic computing power',
+      netSuanli: 'Current computing power of the entire network',
+      research: 'Destroy query',
+      tip1: 'Heavy attack',
+      tip2: 'What are you waiting for, hurry up and participate',
+      guide: 'Newbie Guide',
+      guideNote: "Having trouble with EntropyPro? Enter the beginner's guide for help ",
+      join: 'Mining',
+      myMachine: 'My miner',
+      sign: 'sign in',
+      class1: 'Video area',
+      class2: 'Audio Zone',
+      class3: 'Hundred Questions and Answers',
+      suanliRecord: 'Hash rate record',
+      systemInfo: 'System information',
+      systemNote: 'System announcement',
+      machineType: 'model',
+      level: 'level constant',
+      upgrade: 'Upgrade condition',
+      cumulative: 'cumulative destruction',
+      fee: 'Handling fee',
+      miningRecord: 'Mining record',
+      destroy: 'Destroy',
+      destroyRecord: 'Destroy record',
+      machineMall: 'Mine Machine Mall',
+      mallTip: 'Promote to get miners to participate in mining',
+      machineDetail: 'details',
+      apply: 'Application conditions',
+      share: 'Invite now',
+      shareNum: 'Invite',
+      person: '人',
+      money: 'amount',
+      minerFee: 'Miner fees',
+      enterAddress: "Receiving Address",
+      payAddress: 'Payment address',
+      tradeNum: 'Trading number',
+      block: 'Block' },
+
+    sign: {
+      signed: 'Continuously signed in',
+      todaySigned: 'Signed today',
+      click: 'click to sign in',
+      record: 'Sign in record',
+      date1: 'Mon',
+      date2: 'Tues',
+      date3: 'wed',
+      date4: 'Thur',
+      date5: 'Fri',
+      date6: 'Sat',
+      date7: 'Sun',
+      day: 'day' },
+
+    destroy: {
+      title: 'EntropyPro Destruction Record',
+      view: 'Destroy plan view',
+      updateTime: 'Data update time',
+      newNotice: 'Latest destruction announcement',
+      project: 'Destroy project',
+      time: 'Destroy time',
+      circle: 'Destroy cycle',
+      amount: 'Destroy amount',
+      amountTab: 'Quantity (number)',
+      address: 'Destroy address',
+      readMore: 'Click to view',
+      history: 'History cumulative destruction',
+      historyCart: 'History destruction overview',
+      dataDisclosure: 'Circulation data disclosure',
+      disclosureRecord: 'Circulation data disclosure record',
+      viewTab: 'View',
+      week: 'Weekly destruction' },
+
+    v2Active: {
+      condition: 'Activation condition',
+      note: 'To open a contract transaction, the following conditions must be met',
+      mobileVal: 'Mobile verification',
+      valed: 'Verified',
+      unval: 'Unverified',
+      valFail: 'verification failed',
+      validate: 'Verify',
+      need: 'Need to deduct 1USDE as activation loss',
+      agree: 'I have understood and agreed',
+      toAgree: 'Please understand and agree first',
+      agreement: '"User Agreement"',
+      content: 'All content',
+      notActive: 'Not active at the moment',
+      confirm: 'OK and activate',
+      valToast: 'Please complete phone verification first' } },
+
+
+  'zh-CN': {
+    tab: {
+      ecology: '生態建設',
+      user: '我的',
+      trade: '交易',
+      wallet: '首頁' },
+
+    "page": {
+      "news": "消息",
+      "createWallet": "創建錢包",
+      "backup": "備份助記詞",
+      "confirm": "確認助記詞",
+      "restore": "導入身份",
+      "power": "動力源",
+      "asset": "資產列表",
+      "creditcode": "授信令牌",
+      "nodecode": "節點碼",
+      "setting": "設置",
+      "about": "關於我們",
+      "walletActive": "激活賬戶",
+      "exchange": "跨鏈轉換",
+      "exchangeDetail": "詳情",
+      "userAccount": "賬戶管理",
+      "accountlist": "全部子賬戶",
+      "subAccount": "子賬戶",
+      "createAccount": "創建賬戶",
+      "userExchange": "兌換",
+      "feedBack": "消息中心",
+      "personal": "個人資料",
+      "safe": "安全中心",
+      "settingpw": "密碼設置",
+      settingPaypw: '支付密碼設置',
+      "team": "我的團隊",
+      "transfer": "互轉",
+      recordDetail: '成交明細' },
+
+    "common": {
+      "unopen": "暫未開放",
+      "remenberTip": "友情提示",
+      "enterPw": "請輸入密碼",
+      "copySuccess": "已複製到剪切板",
+      "version": "版本",
+      "warmTip": "溫馨提示",
+      "safeTitle": "安全驗證",
+      "safePassword": "密碼",
+      loginPw: '登錄密碼',
+      "enterSafePwd": "請輸入安全密碼",
+      "submitBtn": "提交",
+      "pwVal": "密碼長度必須是8-16位",
+      "pwDiff": "兩次輸入的密碼不一致",
+      "refresh": "上拉顯示更多",
+      "loading": "正在加載...",
+      "noMore": "沒有更多數據了",
+      cancel: '取消',
+      confirm: '確定',
+      getCode: '獲取驗證碼',
+      waiting: '請耐心等待',
+      noCoin: '暫無可選幣種',
+      paymentPassword: '請輸入支付密碼',
+      unableModify: '不可修改',
+      settingPaymentFirst: '請先設置資金密碼' },
+
+    "lang": {
+      "chose": "語言選擇",
+      "clearStore": "清除緩存",
+      "clearSuccess": "清除成功",
+      "cancel": "取消",
+      exit: '安全退出' },
+
+    "user": {
+      "identManager": "身份管理",
+      "deleteText": "刪除",
+      "payment": "收款方式",
+      "paymentCode": "收款碼",
+      "creditCode": "授信令牌",
+      "nodeCode": "節點碼",
+      "copyAddress": "長按複製地址",
+      "aeed": "助記詞",
+      "outputKey": "導出私鑰",
+      "privateKey": "私鑰",
+      "output": "導出",
+      "outputSeed": "導出助記詞",
+      "deleteTip": "確定要刪除賬戶？",
+      "createSub": "創建子帳戶",
+      "switchConfirm": "確認要切換賬戶？",
+      "current": '當前',
+      "currentAccount": "當前賬戶",
+      "collectConfirm": "確認將所有子帳戶USDE收集至主帳戶？",
+      "viewAllAccount": "查看全部子賬戶",
+      "subAccountTip": "創建子帳戶需要激活方可完成創建，子帳戶將終身綁定到主帳戶，子帳戶的操作將通過主帳戶切換進入完成。並且子帳戶認購、創建金額全部由主帳戶的資金扣除。",
+      "oneStepCollect": "一鍵收集",
+      "usernameOrAddress": "賬戶名/地址",
+      "realSwitch": "輕觸賬戶進行切換",
+      "manager": "管理",
+      "otherOption": "其他操作",
+      "createAccount": "創建新賬戶",
+      "inputAccount": "導入賬戶",
+      "addressBook": "地址本",
+      "newCreate": "新建",
+      "addressDetail": "地址詳情",
+      "edit": "編輯",
+      "deleteAddress": "刪除地址",
+      "createAddress": "新建地址",
+      "save": "保存",
+      "enterAddress": "請輸入有效地址",
+      "addressName": "名稱",
+      "addressNote": "描述（選填）",
+      "enterAddressName": "請輸入名稱",
+      "accountName": "賬戶名",
+      "enterAccountName": "請輸入賬戶名",
+      "walletPassword": "錢包密碼",
+      "enterWalletPw": "請輸入錢包密碼",
+      "confirmPw": "確認密碼",
+      "repeatEnterPw": "請重復輸入密碼",
+      "create": "創建",
+      "avalible": "可用",
+      "avalibleQuote": "可用額度",
+      "creditRecord": "授信記錄",
+      "interchange": "互轉",
+      "exchange": "兌換",
+      "fromText": "從",
+      "toText": "到",
+      "exchangeOutNum": "轉出數量",
+      "enteerExchangeNum": "請輸入轉出數量",
+      "all": "全部",
+      "balance": "餘額",
+      "rate": "匯率",
+      "question": "問題",
+      "serviceReplay": "客服回復",
+      "serviceNote": "客服留言",
+      "noReplay": "暫未回復",
+      "viewSubAccount": "查看子賬戶",
+      "myTeam": "我的團隊",
+      "relationship": "節點關係",
+      "accountMananger": "賬戶管理",
+      "safeCenter": "安全中心",
+      "contactUs": "聯繫客服",
+      "inviteFriend": "邀請好友",
+      "myLeftCode": "熵增節點碼",
+      "myRightCode": "熵減節點碼",
+      "level": "層級",
+      "leftCode": "熵增",
+      "rightCode": "熵減",
+      "copy": "複製",
+      "avatar": "頭像",
+      "nickname": "暱稱",
+      "enterNickname": "請輸入暱稱",
+      "mobile": "手機",
+      "email": "郵箱",
+      "modify": "修改",
+      "toBind": "去綁定",
+      "newsCenter": "消息中心",
+      "feedbackQuestion": "請輸入您要反饋的問題",
+      "feedbackContent": "請輸入您要反饋的內容和建議...",
+      "feedbackSubmit": "提交反饋",
+      "completeInfo": "請輸入完整信息",
+      "valCode": "驗證碼",
+      "pleaseEnter": "請輸入",
+      "enterValCode": "請填寫驗證碼",
+      "confirm": "確認",
+      "mobileBinding": "手機綁定",
+      "emailBinding": "郵箱綁定",
+      "mobileError": "手機號格式錯誤",
+      "emailError": "郵箱格式錯誤",
+      "numCode": "請輸入6位驗證碼",
+      "oldPw": "舊密碼",
+      "enterOldPw": "請輸入舊密碼",
+      "newPw": "新的密碼",
+      "enterNewPw": "請輸入你要設置的密碼",
+      "saveQrCode": "保存二維碼",
+      "exNodeCode": "專屬節點碼",
+      "exCreditCode": "專屬授信令牌",
+      "exLink": "專屬邀請鏈接",
+      "myPush": "我的直推",
+      "myLeft": "熵增",
+      "myRight": "熵減",
+      "yesterdayNum": "昨日業績",
+      "teamNum": "團隊業績",
+      "leftNum": "熵增業績",
+      "rightNum": "熵減業績",
+      "profitRecord": "收益記錄",
+      "teamList": "團隊列表",
+      "exchangeOutAccount": "轉出賬戶",
+      "outAccountId": "請輸入轉出賬戶ID",
+      "transferNum": "划轉數量",
+      "enterTransferNum": "請輸入轉出數量",
+      "transferOut": "轉出",
+      "main": "主" },
+
+    "wallet": {
+      "activeTip1": "須知：輸入授信令牌並支付",
+      "activeTip2": "授信額度，便可激活賬戶",
+      "activeTip3": "須知：支付",
+      "activeTip4": "助力源或USDE，便可激活子賬戶",
+      "nodeCode": "節點碼(選填)",
+      "enterNodeCode": "請輸入節點碼，選擇您的所在區",
+      "enterCreditCode": "請輸入授信令牌，並且需要",
+      "creditQuote": "授信額度",
+      "needPay": "需要支付",
+      "help": "助力源",
+      "helpOr": "助力源或",
+      "active": "激活",
+      "activeAccount": "激活賬戶",
+      "plEnterCreditCode": "請輸入授信令牌",
+      "aeraTitle": "選擇分區",
+      "aeraLeft": "熵增(左區)",
+      "aeraRight": "熵減(右區)",
+      "assetAdd": "資產折合",
+      "powerList": ["動力A", "動力B", "動力C"],
+      "activeTip": "授信令牌是社區身份的標識，在Entropy網絡及各類延展DAPP中具有無障礙的通行能力和資產行使權力，未來Entropy還將在生態圈內外擁有各類服務特權，廣泛用於互聯網乃至實體經濟中。",
+      "nowActive": "立即激活",
+      "scan": "掃一掃",
+      "shoukuang": "收款碼",
+      currentAccount: '當前賬戶',
+      goOut: '已出局，復投後享正常收益！',
+      staticState: '靜態',
+      dynamicStatic: '動態',
+      assetWallet: '資產錢包',
+      qrCode: '二維碼' },
+
+    "walletAsset": {
+      "avalible": "可用",
+      "frezen": "凍結",
+      "recharge": "充幣",
+      "withdraw": "提幣",
+      "exchange": "轉換",
+      "transfer": "划轉",
+      "assetAccount": "資產賬戶",
+      "powAccount": "獎金賬戶",
+      "record": "財務記錄",
+      "filter": "篩選",
+      "notRecord": "暫無記錄" },
+
+    "walletEx": {
+      "from": "從",
+      "to": "到",
+      "transformNum": "轉出數量",
+      "enterTransformNum": "請輸入轉出數量",
+      "all": "全部",
+      "balance": "餘額",
+      "rate": "匯率",
+      "fee": "手續費",
+      "outNum": "剩餘搶購量",
+      "exchange": "跨鏈轉換",
+      "safeTitel": "安全驗證",
+      "safePwd": "安全密碼",
+      "enterSafePwd": "請輸入安全密碼",
+      "submit": "提交",
+      "enterCoinnum": "請輸入兌換幣種數量" },
+
+    "exchangeDetail": {
+      "type": "類型",
+      "coin": "幣種",
+      "withdraw": "提現",
+      "amount": "金額",
+      "formCoin": "兌換幣種",
+      "ex": "兌換",
+      "exNum": "兌換數量",
+      "exMoney": "兌換金額",
+      "time": "時間" },
+
+    "walletHuazhuan": {
+      "selectCoin": "選擇幣種",
+      "from": "從",
+      "to": "到",
+      "all": "全部",
+      "avalible": "可用",
+      "fee": "手續費",
+      "balance": "餘額",
+      "transfer": "划轉",
+      "enterNum": "請輸入划出數量",
+      "tfNum": "划轉數量",
+      "tip": "只有將資產划轉到對應賬戶才可以進行交易，賬戶間划轉不收取手續費",
+      "exportt": "轉出",
+      "safeTitel": "安全驗證",
+      "safePwd": "安全密碼",
+      "enterSafePwd": "請輸入安全密碼",
+      "submit": "提交",
+      "enterCoinnum": "請輸入兌換幣種數量",
+      "assetAccount": "資產賬戶",
+      "OTCAccount": "獎金賬戶",
+      notSupport: '暫不支持切換' },
+
+    "walletRecharge": {
+      "selectCoin": "選擇資產",
+      "chainType": "鏈類型",
+      "saveImg": "保存到相冊",
+      "rechargeAddress": "充幣地址",
+      copy: '複製',
+      "copyAddress": "複製地址",
+      "tip1": "請勿向上述地址充值任何非該幣種資產，否則資產將不可找回。最小充值金額",
+      "tip2": "小於最小金額的充值將不會入賬，且無法退回",
+      selectCode: '選擇二維碼' },
+
+    "walletWithdraw": {
+      "selectCoin": "選擇幣種",
+      "withdrawAddress": "充幣地址",
+      "enterUserID": "請輸入用戶ID",
+      "enterAddress": "請輸入收款地址",
+      "num": "數量",
+      "enterWD1": "請輸入提幣數量, 最少",
+      "all": "全部",
+      "avalible": "可用",
+      "fee": "手續費",
+      "minWD": "最小提幣數量為",
+      "minWD1": "請務必確認電腦及瀏覽器安全，防止信息被篡改或洩露。",
+      "get": "預計到賬",
+      "wd": "提幣",
+      "enterWDAdr": "請輸入提幣地址",
+      "enterWDNum": "請輸入提幣數量" },
+
+    "ecologyDetail": {
+      "avalible": "可用餘額",
+      "record": "財務記錄",
+      "type": "類型",
+      "time": "時間",
+      "num": "數量",
+      "amount": "金額",
+      "types": {
+        "1": "初始源",
+        "2": "助力源",
+        "3": "熵值",
+        "4": "儲能池",
+        "a": "動力A",
+        "b": "動力B",
+        "c": "動力C" },
+
+      equivalent: '折合' },
+
+    "ecologyIndex": {
+      "app": "應用推薦",
+      "link1": "跨鏈資產轉換",
+      "link2": "資產充值",
+      "link3": "初始源認購",
+      "link4": "熵值交易",
+      "link5": "USDE交易",
+      "link6": "動力源",
+      browser: '瀏覽器',
+      inDevelopment: '正在開發中' },
+
+    "ecologyInitsource": {
+      type: '類型',
+      "title": "初始源認購",
+      "titleRight": "規則",
+      "currentPrice": "當前交易價格：",
+      "join": "參與認購",
+      "buyAmount": "購買金額",
+      "avalible": "可用",
+      "help": "助力源",
+      "not": "還沒有",
+      "go": "去獲取",
+      "nowBuy": "立即購買",
+      "get": "可獲得",
+      "startAccount": "初始源進入認購賬戶",
+      "myInits": "我的認購",
+      "time": "時間",
+      "buyNum": "購買數量",
+      "kcAmount": "扣除金額",
+      "safeVef": "安全驗證",
+      "enterPwd": "請輸入安全密碼",
+      "submit": "提交",
+      "tipTitle": "友情提示",
+      "tipText": "需耐心等待排隊時間到期，將自動買入熵值",
+      "confirmTitle": "認購確認",
+      "confirmText": "確認認購",
+      "sAndDy": "靜/動態復投",
+      "staticReinvestment": "靜態復投",
+      "dyReinvestment": "動態復投",
+      "staticBuy": "靜態認購",
+      "dyBuy": "動態認購" },
+
+    "ecologyPower": {
+      "link1": "初始源",
+      "link2": "助力源",
+      "link3": "熵值",
+      "link4": "儲能池" },
+
+    "registerBackup": {
+      "tip1": "強烈建議你將助記詞抄寫在紙上並保存在只有你知道的安全地方，任何人得到助記詞都可以消費你的數字資產。",
+      "tip2": "助記詞用於恢復你的錢包，丟失他們你將永遠失去錢包。",
+      "tip3": "請按順序點擊你的助記詞，以便確認備份助記詞的正確。",
+      "tipCopy": '長按下方助記詞，可複製到剪貼板。',
+      "next": "下一步",
+      "enterAccount": "請輸入賬戶名",
+      enterRule: '請輸入8-16位',
+      "walletPwd": "錢包密碼",
+      "enterPwd": "重復輸入密碼",
+      "create": "創建",
+      "loopPwd": "請再次輸入密碼",
+      "pwdDiff": "兩次輸入的密碼不一致",
+      "enterPhone": "請輸入手機",
+      "enterEmail": "請輸入郵箱賬號",
+      "phoneErr": "手機號格式錯誤",
+      "emailErr": "郵箱格式錯誤",
+      confirmSeed: '請確認助記詞',
+      userId: '請輸入用戶ID',
+      login: '登錄',
+      pressAndPaste: '長按可粘貼助記詞',
+      paymentPassword: '支付密碼',
+      resurePw: '確認支付密碼',
+      paymentPw: '請輸入8-16位支付密碼',
+      confirmPaymentPw: '重復輸入支付密碼',
+      paymentpwdDiff: "兩次輸入的支付密碼不一致" },
+
+    "registerIndex": {
+      "exportAccount": "導入身份",
+      "hasWallet": "已擁有錢包",
+      "createAccount": "創建身份",
+      "firstWallet": "第一次使用錢包",
+      "searchArea": "搜索地區",
+      "cancel": "取消",
+      toLogin: '已有賬號，去登錄' },
+
+    "registerRestore": {
+      "helpWord": "助記詞",
+      "privateKey": "私鑰",
+      "copyKeystore": "複製粘貼官方錢包的Keystore文件內容至輸入框",
+      "enterPrivateKey": "輸入Private Key 至輸入框",
+      "enterHelpWord": "輸入助記詞單詞，並使用空格分隔",
+      "keystoreContent": "Keystore文件內容",
+      "enterPrivateKey2": "輸入私鑰 Private Key 至輸入框內",
+      "accountName": "賬戶名稱",
+      "enterAccount": "請輸入賬戶名稱",
+      "pwd": "密碼",
+      "enterKeyStore": "請輸入錢包Keystore文件內容的密碼",
+      "enterKeystorePwd": "確認Keystore 密碼",
+      "enterOldWalletKeystore": "請確認錢原Keystore文件內容的密碼",
+      "setPwd": "設置密碼",
+      "enterWalletPwd": "請輸入錢包密碼",
+      "confirmPwd": "確認密碼",
+      "twiceEnterPwd": "請再次輸入錢包密碼",
+      "startExport": "開始導入",
+      "enter": "請填寫輸入框內容",
+      "enterPwd": "請輸入密碼",
+      "twicePwd": "請再次輸入密碼",
+      "pwdDiff": "兩次輸入的密碼不一致" },
+
+    "trade": {
+      "restNum": "當前剩餘賣出熵值",
+      "gu": "ETV",
+      "myOrder": "我的訂單",
+      "amount": "數量",
+      "cellPrice": "單價",
+      "num": "金額",
+      "tradeCenter": "交易中心",
+      "all": "全部",
+      "processing": "進行中",
+      "completed": "已完成",
+      "buy": "我要買",
+      "sell": "我要賣",
+      "time": "時間",
+      "buyIn": "買入",
+      "sellOut": "賣出",
+      "orderState": "訂單狀態",
+      "tradePrice": "交易價格",
+      "tradeAmount": "交易數量",
+      "completeTime": "完成時間",
+      "queuingTime": "排隊時間",
+      starCredit: '星信用',
+      tradingTotal: '成交總額',
+      tradengAvePrice: '成交均價',
+      tradingPrice: '成交價',
+      tradingAmount: '成交量',
+      bindMobile: '請先綁定手機號' },
+
+    "payment": {
+      "edit": "編輯",
+      "wechat": "微信",
+      "alipay": "支付寶",
+      "bank": "銀行卡",
+      "add": "添加",
+      "enterName": "請輸入姓名",
+      "enterWechatAccount": "請輸入您的微信賬號",
+      "addCode": "添加收款二維碼",
+      "pleaseAddCode": "請添加收款二維碼",
+      "save": "保存",
+      "linkType": "鏈類型",
+      "enterAddress": "請輸入收款地址",
+      "enterBankNum": "請輸入銀行卡號",
+      "enterBankName": "請輸入開戶銀行",
+      "enterBranch": "請輸入開戶行分行",
+      "enterAlipay": "請輸入您的支付寶賬號",
+      "chosePayment": "選擇收款方式" },
+
+    otc: {
+      orderRecord: '訂單記錄',
+      myPending: '我的掛單',
+      releasePending: '發佈掛單',
+      unComplete: '未完成',
+      completed: '已完成',
+      stateUnpay: '待支付',
+      stateUnSure: '待確認',
+      tradeSucess: '交易成功',
+      orderComplete: '訂單關閉',
+      arbitrate: '仲裁',
+      arbitrateDetail: '仲裁詳情',
+      arbComplete: '仲裁完成',
+      arbitration: '仲裁中',
+      tradeTotal: '交易總額',
+      buyPending: '我發佈的買單',
+      sellPending: '我發佈的賣單',
+      deleteText: '刪除',
+      sureDeletePending: '確認要刪除掛單？',
+      needBuy: '我要購買',
+      needSell: '我要出售',
+      choseCoin: '選擇幣種',
+      payment: '支付方式',
+      tradePrice: '交易價格',
+      tradeAmount: '交易數量',
+      enterAmount: '請輸入交易數量',
+      balance: '可用餘額',
+      fee: '手續費',
+      deleted: '已刪除',
+      type: '類型',
+      coin: '幣種',
+      cancel: '取消',
+      sureRelease: '確認發佈',
+      paymentTip: '您還未添加支付方式，暫時不能出售，是否去添加支付方式',
+      atLeast: '請選擇至少一種支付方式',
+      sellName: '賣家暱稱',
+      buyName: '買家暱稱',
+      orderNum: '訂單號',
+      createOrderTime: '下單時間',
+      buyDetail: '買入詳情',
+      sellDetail: '賣出詳情',
+      watingPay: '等待買家付款',
+      orderCancel: '訂單已取消',
+      buyHasPay: '買家已付款',
+      remain: '剩餘',
+      screenShot: '收款截圖',
+      clickToView: '點擊查看',
+      recept: '確定收款',
+      receptConfirm: '確認收款',
+      receptMoneyConfirm: '確認已收到買家的付款',
+      aplyArbitration: '申請仲裁',
+      aplyArbitrationConfirm: '確認要申請仲裁？',
+      tips: '提示',
+      tipContent: '請查看收款賬戶，確認收款金額',
+      checkbox: '我已登錄收款賬號，並確認收款無誤',
+      saveImg: '保存圖片',
+      saveSuccess: '保存成功',
+      saveFail: '保存失敗',
+      confirmAndCheck: '請確認後勾選',
+      pleasePay: '請付款',
+      timeTip1: '請在',
+      timeTip2: '內付款給賣家',
+      tradeTip: '請及時付款',
+      openBank: '開戶銀行',
+      bankName: '開戶人姓名',
+      bankNum: '銀行卡號',
+      bankBranch: '開戶支行',
+      receptAccount: '收款賬號',
+      receptAddress: '收款地址',
+      receptCode: '收款二維碼',
+      note1: '轉換賦能贈送給買家獲利',
+      note2: '如您已向賣家轉賬付款,請務必點擊「標記為已支付」按鈕,否則有可能造成資金損失。',
+      onSure: '確認',
+      payNote: '請確認您已向賣家付款,惡意點擊將直接凍結賬戶',
+      originator: '發起仲裁方',
+      arbitrator: '被仲裁方',
+      enterApply: '輸入申請請求',
+      pleaseEnterApply: '請輸入申請請求',
+      uploadImg: '上傳圖片',
+      imgFormat: '請保存照片的內容完整並清晰可見，僅支持JPG/PNG圖片格式',
+      confirmSumit: '確認提交',
+      applySuccess: '申請成功',
+      waitingNote: '請耐心等待，我們會在3~5個工作日內處理',
+      processComplete: '處理完成',
+      pending: '待處理',
+      buyer: '買家',
+      seller: '賣家',
+      uploadPayImg: '上傳支付截圖',
+      onSurePay: '確認付款',
+      uploadWarn: '虛假上傳將直接凍結賬戶',
+      pleaseUpload: '請上傳付款截圖',
+      uploadTip: '請確認您已向賣家付款,虛假上傳將直接凍結賬戶',
+      uploadTip1: '付款後請上傳付款截圖',
+      buySuccess: '買入成功',
+      sellSuccess: '賣出成功',
+      waitingRelease: '等待賣家放行',
+      contactWay: '聯繫方式' },
+
+    v2: {
+      home: '首頁',
+      total: '總餘額',
+      ecoBanner: '實時掌握 生態建設',
+      ecoDec: '有限的生命力 無限的全球熵',
+      ecoItem1: '區塊瀏覽器',
+      ecoItem2: '第三方DAPP建設',
+      ecoItem3: '我要申請',
+      createConcept: '創建全新理念',
+      notBuyTip: '未認購，無法參與USDE交易！',
+      thirdplatform: '第三方平台',
+      thirdWallet: '第三方錢包',
+      activeTip: '激活提示',
+      activeTipContent: '激活Entropy Chain後，可進行相關操作。' },
+
+    v2Eco: {
+      service: '能量中心',
+      nodeApply: '節點申請',
+      applyInfo: '申請人信息',
+      applyName: '申請人',
+      applyMobile: '聯繫電話',
+      applyEmail: '聯繫郵箱',
+      dl: '下載表格',
+      xls1: '能量中心申請表格',
+      xls2: '節點申請表格',
+      upload: '上傳表格',
+      baseInfo: '端口協議下載',
+      nodeLevel: '申請節點等級',
+      applyFee: '申請節點服務器質押費用',
+      submit: '提交',
+      enter: '請輸入',
+      error: '格式錯誤',
+      node1: '主節點',
+      node2: '副節點',
+      node3: '小節點',
+      type: '類型',
+      time: '時間',
+      result: '結果',
+      platform: '平台',
+      wallet: '錢包',
+      officalAddress: '官網地址',
+      dlsuccess: '下載成功',
+      dlfail: '下載失敗',
+      uploadFile: '請上傳表格',
+      noAddress: '暫無下載地址' },
+
+    pro: {
+      showLang: '顯示語言',
+      myShare: '我的分享',
+      teamNum: '團隊人數',
+      destroyNum: '銷毀量',
+      level: '等級',
+      totalAsset: '總資產',
+      safeTip: '安全提醒',
+      safeNote: '為防止忘記密碼、刪除App或丟失手機等情況導致資產損失，請務必備份助記詞',
+      backup: '立即備份',
+      transfer: '轉賬',
+      collect: '收款',
+      tradeRecord: '交易記錄',
+      all: "全部" },
+
+    proHome: {
+      yestodayProfit: '昨日挖礦收益',
+      totalProfit: '累計收益',
+      mySuanli: '我的算力',
+      dynSuanli: '動態算力',
+      myDynSuanli: '我的動態算力',
+      netSuanli: '當前全網算力',
+      research: '銷毀查詢',
+      tip1: '重磅來襲',
+      tip2: '你還在等什麼，趕快來參與吧',
+      guide: '新手指南',
+      guideNote: '使用EntropyPro遇到難題？進入新手指南尋找幫助',
+      join: '參與挖礦',
+      myMachine: '我的礦機',
+      sign: '每日簽到',
+      class1: '視頻區',
+      class2: '音頻區',
+      class3: '百問答題',
+      suanliRecord: '算力記錄',
+      systemInfo: '系統信息',
+      systemNote: '系統公告',
+      machineType: '礦機型號',
+      level: '等級常數',
+      upgrade: '升級條件',
+      cumulative: '累計銷毀',
+      fee: '手續費',
+      miningRecord: '挖礦記錄',
+      destroy: '銷毀',
+      destroyRecord: '銷毀記錄',
+      machineMall: '礦機商城',
+      mallTip: '推廣即可獲得礦機參與挖礦',
+      machineDetail: '礦機詳情',
+      apply: '申請條件',
+      share: '立即邀請',
+      shareNum: '邀請',
+      person: '人',
+      money: '金額',
+      minerFee: '礦工費用',
+      enterAddress: '收款地址',
+      payAddress: '付款地址',
+      tradeNum: '交易號',
+      block: '區塊' },
+
+    sign: {
+      signed: '已連續簽到',
+      todaySigned: '今日已簽',
+      click: '點擊簽到',
+      record: '簽到記錄',
+      date1: '一',
+      date2: '二',
+      date3: '三',
+      date4: '四',
+      date5: '五',
+      date6: '六',
+      date7: '日',
+      day: '天' },
+
+    destroy: {
+      title: 'EntropyPro銷毀記錄',
+      view: '銷毀方案查看',
+      updateTime: '數據更新時間',
+      newNotice: '最新銷毀公示',
+      project: '銷毀項目',
+      time: '銷毀時間',
+      circle: '銷毀週期',
+      amount: '銷毀數量',
+      amountTab: '數量（個）',
+      address: '銷毀地址',
+      readMore: '點擊查看',
+      history: '歷史累計銷毀',
+      historyCart: '歷史銷毀概覽',
+      dataDisclosure: '流通數據披露',
+      disclosureRecord: '流通數據披露記錄',
+      viewTab: '查看',
+      week: '周銷毀' },
+
+    v2Active: {
+      condition: '激活條件',
+      note: '開通合約交易，需滿足以下條件',
+      mobileVal: '手機驗證',
+      valed: '已驗證',
+      unval: '未驗證',
+      valFail: '驗證失敗',
+      validate: '驗證',
+      need: '需要扣除1USDE作為激活損耗',
+      agree: '我已理解並同意',
+      toAgree: '請先理解並同意',
+      agreement: '《用戶協議》',
+      content: '的全部內容',
+      notActive: '暫不激活',
+      confirm: '確定並激活',
+      valToast: '請先完成手機驗證' } } };exports.default = _default;
+
+/***/ }),
+
+/***/ 242:
 /*!******************************************************************************************!*\
   !*** /Users/lee/Documents/HBuilderProjects/chaifen/js_sdk/u-charts/u-charts/u-charts.js ***!
   \******************************************************************************************/
@@ -15445,7 +19090,7 @@ if ( true && typeof module.exports === "object") {
 
 /***/ }),
 
-/***/ 25:
+/***/ 27:
 /*!**********************************************************************!*\
   !*** /Users/lee/Documents/HBuilderProjects/chaifen/common/update.js ***!
   \**********************************************************************/
@@ -15454,7 +19099,7 @@ if ( true && typeof module.exports === "object") {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-var _index = __webpack_require__(/*! ./language/update/index.js */ 26); // import { domain, version } from '@/config.js'
+var _index = __webpack_require__(/*! ./language/update/index.js */ 28); // import { domain, version } from '@/config.js'
 var lang = _index.cn;
 
 var UpdateVersion = function UpdateVersion() {
@@ -15614,7 +19259,7 @@ UpdateVersion;exports.default = _default;
 
 /***/ }),
 
-/***/ 26:
+/***/ 28:
 /*!*************************************************************************************!*\
   !*** /Users/lee/Documents/HBuilderProjects/chaifen/common/language/update/index.js ***!
   \*************************************************************************************/
@@ -15622,16 +19267,16 @@ UpdateVersion;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });Object.defineProperty(exports, "cn", { enumerable: true, get: function get() {return _zhCn.default;} });Object.defineProperty(exports, "hk", { enumerable: true, get: function get() {return _zhHk.default;} });Object.defineProperty(exports, "en", { enumerable: true, get: function get() {return _en.default;} });Object.defineProperty(exports, "ko", { enumerable: true, get: function get() {return _ko.default;} });Object.defineProperty(exports, "ru", { enumerable: true, get: function get() {return _ru.default;} });Object.defineProperty(exports, "ja", { enumerable: true, get: function get() {return _ja.default;} });var _zhCn = _interopRequireDefault(__webpack_require__(/*! ./zh-cn.js */ 27));
-var _zhHk = _interopRequireDefault(__webpack_require__(/*! ./zh-hk.js */ 28));
-var _en = _interopRequireDefault(__webpack_require__(/*! ./en.js */ 29));
-var _ko = _interopRequireDefault(__webpack_require__(/*! ./ko.js */ 30));
-var _ru = _interopRequireDefault(__webpack_require__(/*! ./ru.js */ 31));
-var _ja = _interopRequireDefault(__webpack_require__(/*! ./ja.js */ 32));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });Object.defineProperty(exports, "cn", { enumerable: true, get: function get() {return _zhCn.default;} });Object.defineProperty(exports, "hk", { enumerable: true, get: function get() {return _zhHk.default;} });Object.defineProperty(exports, "en", { enumerable: true, get: function get() {return _en.default;} });Object.defineProperty(exports, "ko", { enumerable: true, get: function get() {return _ko.default;} });Object.defineProperty(exports, "ru", { enumerable: true, get: function get() {return _ru.default;} });Object.defineProperty(exports, "ja", { enumerable: true, get: function get() {return _ja.default;} });var _zhCn = _interopRequireDefault(__webpack_require__(/*! ./zh-cn.js */ 29));
+var _zhHk = _interopRequireDefault(__webpack_require__(/*! ./zh-hk.js */ 30));
+var _en = _interopRequireDefault(__webpack_require__(/*! ./en.js */ 31));
+var _ko = _interopRequireDefault(__webpack_require__(/*! ./ko.js */ 32));
+var _ru = _interopRequireDefault(__webpack_require__(/*! ./ru.js */ 33));
+var _ja = _interopRequireDefault(__webpack_require__(/*! ./ja.js */ 34));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 /***/ }),
 
-/***/ 27:
+/***/ 29:
 /*!*************************************************************************************!*\
   !*** /Users/lee/Documents/HBuilderProjects/chaifen/common/language/update/zh-cn.js ***!
   \*************************************************************************************/
@@ -15661,70 +19306,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
   updateSuccess1: '最新版安装完成，请立即重启',
   updateSuccess2: '更新成功,重启APP后即可使用最新版！' };exports.default = _default;
-
-/***/ }),
-
-/***/ 28:
-/*!*************************************************************************************!*\
-  !*** /Users/lee/Documents/HBuilderProjects/chaifen/common/language/update/zh-hk.js ***!
-  \*************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
-{
-  currentVersionTip: '當前已經是最新版本',
-
-  updateAlert: '已檢測到新版本，該版本有重大更新，請立即更新',
-  updateInquiry: '已檢測到新版本，是否立即更新',
-  tipBtn: '更新提示',
-  tipBtn2: '立即更新',
-  tipbtn3: '更新提示',
-  confirm: '確定',
-  cancel: '取消',
-
-  downloading: '下載更新中，請勿關閉',
-  downloadFail: '下載失敗',
-  installing: '安裝更新文件中...',
-  installFail: '安裝失敗',
-  updateProgress: '更新進度',
-  reloadTip: '重啟提示',
-  nowReload: '立即重啟',
-
-  updateSuccess1: '最新版安裝完成，請立即重啟',
-  updateSuccess2: '更新成功,重啟APP後即可使用最新版！' };exports.default = _default;
-
-/***/ }),
-
-/***/ 29:
-/*!**********************************************************************************!*\
-  !*** /Users/lee/Documents/HBuilderProjects/chaifen/common/language/update/en.js ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  currentVersionTip: 'The current version is already the latest',
-  updateAlert: 'A new version has been detected, this version has a major update, please update now',
-  updateInquiry: 'A new version has been detected, is it updated immediately',
-  tipBtn: 'update hint',
-  tipBtn2: 'Update now',
-  tipbtn3: 'Update Tips',
-  confirm: 'OK',
-  cancel: 'Cancel',
-
-  downloading: "Don't close the download update",
-  downloadFail: 'Download failed',
-  installation: 'Install update file...',
-  installFail: 'Installation failed',
-  updateProgress: 'Update progress',
-  reloadTip: 'Restart hints',
-  nowReload: 'Restart immediately',
-
-  updateSuccess1: 'The latest version is installed, do you want to restart the app now?',
-  updateSuccess2: 'Update is successful, you can use the latest version after restarting the app! ' };exports.default = _default;
 
 /***/ }),
 
@@ -15760,6 +19341,70 @@ module.exports = g;
 /***/ }),
 
 /***/ 30:
+/*!*************************************************************************************!*\
+  !*** /Users/lee/Documents/HBuilderProjects/chaifen/common/language/update/zh-hk.js ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+{
+  currentVersionTip: '當前已經是最新版本',
+
+  updateAlert: '已檢測到新版本，該版本有重大更新，請立即更新',
+  updateInquiry: '已檢測到新版本，是否立即更新',
+  tipBtn: '更新提示',
+  tipBtn2: '立即更新',
+  tipbtn3: '更新提示',
+  confirm: '確定',
+  cancel: '取消',
+
+  downloading: '下載更新中，請勿關閉',
+  downloadFail: '下載失敗',
+  installing: '安裝更新文件中...',
+  installFail: '安裝失敗',
+  updateProgress: '更新進度',
+  reloadTip: '重啟提示',
+  nowReload: '立即重啟',
+
+  updateSuccess1: '最新版安裝完成，請立即重啟',
+  updateSuccess2: '更新成功,重啟APP後即可使用最新版！' };exports.default = _default;
+
+/***/ }),
+
+/***/ 31:
+/*!**********************************************************************************!*\
+  !*** /Users/lee/Documents/HBuilderProjects/chaifen/common/language/update/en.js ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  currentVersionTip: 'The current version is already the latest',
+  updateAlert: 'A new version has been detected, this version has a major update, please update now',
+  updateInquiry: 'A new version has been detected, is it updated immediately',
+  tipBtn: 'update hint',
+  tipBtn2: 'Update now',
+  tipbtn3: 'Update Tips',
+  confirm: 'OK',
+  cancel: 'Cancel',
+
+  downloading: "Don't close the download update",
+  downloadFail: 'Download failed',
+  installation: 'Install update file...',
+  installFail: 'Installation failed',
+  updateProgress: 'Update progress',
+  reloadTip: 'Restart hints',
+  nowReload: 'Restart immediately',
+
+  updateSuccess1: 'The latest version is installed, do you want to restart the app now?',
+  updateSuccess2: 'Update is successful, you can use the latest version after restarting the app! ' };exports.default = _default;
+
+/***/ }),
+
+/***/ 32:
 /*!**********************************************************************************!*\
   !*** /Users/lee/Documents/HBuilderProjects/chaifen/common/language/update/ko.js ***!
   \**********************************************************************************/
@@ -15791,7 +19436,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 31:
+/***/ 33:
 /*!**********************************************************************************!*\
   !*** /Users/lee/Documents/HBuilderProjects/chaifen/common/language/update/ru.js ***!
   \**********************************************************************************/
@@ -15823,7 +19468,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 32:
+/***/ 34:
 /*!**********************************************************************************!*\
   !*** /Users/lee/Documents/HBuilderProjects/chaifen/common/language/update/ja.js ***!
   \**********************************************************************************/
@@ -15867,7 +19512,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 409:
+/***/ 411:
 /*!****************************************************************************!*\
   !*** /Users/lee/Documents/HBuilderProjects/chaifen/components/richText.js ***!
   \****************************************************************************/
@@ -15949,7 +19594,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 57:
+/***/ 59:
 /*!************************************************************************!*\
   !*** /Users/lee/Documents/HBuilderProjects/chaifen/common/wxqrcode.js ***!
   \************************************************************************/

@@ -2,14 +2,14 @@
 	<view>
 		<view style="margin: 30upx 30upx;">
 			<view>
-				<input class="inputClass" v-model="form.userCode" type="number" placeholder="請輸入用戶ID" placeholder-class="placeholderClass"/>
+				<input class="inputClass" v-model="form.userCode" type="number" :placeholder="i18n.registerBackup.userId" placeholder-class="placeholderClass"/>
 			</view>
 			<view style="margin-top: 40upx;">
-				<input class="inputClass" v-model="form.walletPassword" type="password" placeholder="錢包密碼" placeholder-class="placeholderClass"/>
+				<input class="inputClass" v-model="form.walletPassword" type="password" :placeholder="i18n.user.walletPassword" placeholder-class="placeholderClass"/>
 			</view>
 			
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="submit">登錄</view>
+				<view class="inClass" @tap="submit">{{i18n.registerBackup.login}}</view>
 			</view>
 			<tfggVerify ref="verifyElement" @result="verifyResult" ></tfggVerify>
 		</view>
@@ -19,8 +19,16 @@
 <script>
 	import tfggVerify from "@/components/tfgg-verify/tfgg-verify.vue"
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		components:{
 			tfggVerify
+		},
+		onLoad:function(){
+			
 		},
 		data() {
 			return {

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "第三方平臺",
+  "usingComponents": {
+    "pop-me": "/components/popupMe"
+  }
+}

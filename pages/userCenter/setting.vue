@@ -30,7 +30,13 @@
 		},
 		methods:{
 			clearStoreage:function(){
-				uni.clearStorageSync('token')
+				
+				uni.removeStorage({
+				    key: 'token',
+				    success: function (res) {
+				        console.log('success');
+				    }
+				});
 				uni.redirectTo({
 					url: '/pages/register/login'
 				})

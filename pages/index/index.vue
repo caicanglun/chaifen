@@ -89,12 +89,17 @@
 		components:{
 			popupMessage
 		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				 type:'',
 				 title: 'Hello',
 				 msg : [],
-				 isActive: '',
+				 isActive: false,
 				 isShow: false,
 				 userDetail:'',
 				 content:'',
@@ -102,24 +107,56 @@
 			}
 		},
 		onShow:function(){
+			this.setBar()
 			this.fetchUserDetail()
 			this.getVersion()
 			this.fetchBulletin()
 			this.checkOut()
 			this.fetchAddress()
 			this.checkBindPhone()
+			
 		},
 		onLoad() {
 			_this = this
+			this.setBar()
 			this.fetchUserDetail()
 			this.getVersion()
 			this.fetchBulletin()
 			this.checkOut()
 			this.fetchAddress()
 			this.checkBindPhone()
+			
 
 		},
 		methods: {
+				
+			setBar:function(){
+				uni.setTabBarItem(
+				  {
+					index: 0,
+					text: this.$i18nMsg().tab.wallet
+				   } 
+				)
+				uni.setTabBarItem(
+				  {
+					index: 1,
+					text: this.$i18nMsg().tab.ecology
+				   } 
+				);
+				uni.setTabBarItem(
+				  {
+					index: 2,
+					text: this.$i18nMsg().tab.trade
+				   } 
+				);
+				uni.setTabBarItem(
+				  {
+					index: 3,
+					text: this.$i18nMsg().tab.user
+				   } 
+				);
+				
+			},
 			checkBindPhone:function(){
 				if (this.userDetail.phone == ''){
 					this.type = 3

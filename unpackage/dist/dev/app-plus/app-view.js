@@ -4466,7 +4466,7 @@ var render = function() {
           _c(
             "v-uni-view",
             { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
-            [_vm._v("導入身份")]
+            [_vm._v(_vm._$g(2, "t0-0"))]
           )
         ],
         1
@@ -4482,7 +4482,7 @@ var render = function() {
           },
           attrs: { _i: 3 }
         },
-        [_vm._v("已擁有錢包")]
+        [_vm._v(_vm._$g(3, "t0-0"))]
       ),
       _c(
         "v-uni-view",
@@ -4517,7 +4517,7 @@ var render = function() {
               staticStyle: { color: "#fe2c2c" },
               attrs: { _i: 6 }
             },
-            [_vm._v("身份創建")]
+            [_vm._v(_vm._$g(6, "t0-0"))]
           )
         ],
         1
@@ -4533,7 +4533,7 @@ var render = function() {
           },
           attrs: { _i: 7 }
         },
-        [_vm._v("第壹次使用錢包")]
+        [_vm._v(_vm._$g(7, "t0-0"))]
       ),
       _c(
         "v-uni-view",
@@ -4541,18 +4541,57 @@ var render = function() {
           staticStyle: {
             display: "flex",
             margin: "100upx 30upx",
-            "justify-content": "flex-end",
+            "justify-content": "space-between",
             "font-size": "14px",
             color: "white"
           },
-          attrs: { _i: 8 },
-          on: {
-            click: function($event) {
-              return _vm.$handleViewEvent($event)
-            }
-          }
+          attrs: { _i: 8 }
         },
-        [_vm._v("已有賬號，去登錄")]
+        [
+          _c(
+            "v-uni-view",
+            { attrs: { _i: 9 } },
+            [
+              _c(
+                "v-uni-picker",
+                {
+                  attrs: {
+                    value: _vm._$g(10, "a-value"),
+                    range: _vm._$g(10, "a-range"),
+                    _i: 10
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.$handleViewEvent($event)
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(11, "sc"), attrs: { _i: 11 } },
+                    [_vm._v(_vm._$g(11, "t0-0"))]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _c(
+            "v-uni-view",
+            {
+              attrs: { _i: 12 },
+              on: {
+                click: function($event) {
+                  return _vm.$handleViewEvent($event)
+                }
+              }
+            },
+            [_vm._v(_vm._$g(12, "t0-0"))]
+          )
+        ],
+        1
       )
     ],
     1
@@ -9346,7 +9385,7 @@ var render = function() {
                 staticClass: _vm._$g(3, "sc"),
                 attrs: {
                   type: "number",
-                  placeholder: "請輸入用戶ID",
+                  placeholder: _vm._$g(3, "a-placeholder"),
                   "placeholder-class": "placeholderClass",
                   _i: 3
                 },
@@ -9369,7 +9408,7 @@ var render = function() {
                 staticClass: _vm._$g(5, "sc"),
                 attrs: {
                   type: "password",
-                  placeholder: "錢包密碼",
+                  placeholder: _vm._$g(5, "a-placeholder"),
                   "placeholder-class": "placeholderClass",
                   _i: 5
                 },
@@ -9403,7 +9442,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("登錄")]
+                [_vm._v(_vm._$g(7, "t0-0"))]
               )
             ],
             1

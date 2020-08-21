@@ -3,7 +3,7 @@ let cn = {
 		ecology: '生态建设',
 		user: '我的',
 		trade: '交易',
-		wallet: '钱包'
+		wallet: '首页'
 	},
 	"page": {
 		"news": "消息",

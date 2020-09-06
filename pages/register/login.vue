@@ -14,11 +14,12 @@
 			 {{i18n.registerIndex.firstWallet}}
 		</view>
 		<view  style="display: flex;margin: 100upx 30upx;justify-content: space-between;font-size: 14px;color: white;">
-			<view>
+			<!-- <view>
 				 <picker @change="bindPickerChange" :value="index" :range="array">
 				      <view class="uni-input">{{array[index]}}</view>
 				 </picker>
-			</view>
+			</view> -->
+			<view></view>
 			<view @tap='toLogin'>{{i18n.registerIndex.toLogin}}</view>
 		</view>
 		<!-- {{i18n.tab.user}} -->

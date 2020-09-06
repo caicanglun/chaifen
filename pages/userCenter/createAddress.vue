@@ -14,11 +14,11 @@
 			
 			
 			<view style="margin-top: 30upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.name" class="inputClass" type="password" placeholder="名稱" placeholder-class="placeholderClass"/>
+				<input v-model="form.name" class="inputClass" type="text" placeholder="名稱" placeholder-class="placeholderClass"/>
 	
 			</view>
 			<view style="margin-top: 30upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.subscript" class="inputClass" type="password" placeholder="描述(選填)" placeholder-class="placeholderClass"/>
+				<input v-model="form.subscript" class="inputClass" type="text" placeholder="描述(選填)" placeholder-class="placeholderClass"/>
 				
 			</view>
 			

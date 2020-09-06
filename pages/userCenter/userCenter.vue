@@ -133,6 +133,10 @@
 				// 	icon:'none',
 				// 	duration: 1000
 				// });
+				uni.navigateTo({
+					url: './AccountManager',
+					
+				});
 			},
 			toSetIcon:function(){
 				uni.navigateTo({

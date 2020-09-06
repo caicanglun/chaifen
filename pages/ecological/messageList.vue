@@ -53,6 +53,9 @@
 	onLoad:function(){
 		_this = this
 		this.fetchList()
+		uni.setNavigationBarTitle({
+		            title:this.$i18nMsg().page.feedBack
+		        });
 	},
 		methods:{
 			async fetchList(){

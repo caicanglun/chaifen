@@ -3,36 +3,36 @@
 		
 		<view style="margin: 30upx 30upx;">
 			<view style="font-size: 16px;height:80upx;" class="flex_c">
-				<text style="padding-left: 10upx;font-weight: bold;">助記詞</text>
+				<text style="padding-left: 10upx;font-weight: bold;">{{i18n.registerRestore.helpWord}}</text>
 			</view>
 			<view class="wrap">
-				<textarea  placeholder-style="color:#7d889a;" placeholder="輸入助記詞,並用空格隔開" 
+				<textarea  placeholder-style="color:#7d889a;" :placeholder="i18n.registerRestore.enterHelpWord" 
 				  style="background: #121c31;height: 150upx;width:620upx;font-size: 15px;padding: 30upx;" v-model="form.mnemonicWord"></textarea>
 			</view>
 			<view style="font-size: 14px;height:80upx;" class="flex_c">
-				<text style="padding-left: 10upx;">用戶名稱</text>
+				<text style="padding-left: 10upx;">{{i18n.registerRestore.accountName}}</text>
 			</view>
 			<view style="background: #121c31;" class="flex_sb">
-				<input v-model="form.userCode" type="number" class="inputClass"  placeholder="請輸入賬戶名" placeholder-class="placeholderClass"/>
+				<input v-model="form.userCode" type="number" class="inputClass"  :placeholder="i18n.registerRestore.enterAccount" placeholder-class="placeholderClass"/>
 		
 			</view>
 			<view style="font-size: 14px;height:80upx;" class="flex_c">
-				<text style="padding-left: 10upx;">設置密碼</text>
+				<text style="padding-left: 10upx;">{{i18n.registerRestore.setPwd}}</text>
 			</view>
 			<view style="background: #121c31;" class="flex_sb">
-				<input v-model="form.newPassword" type="password" class="inputClass"  placeholder="請輸入錢包密碼" placeholder-class="placeholderClass"/>
+				<input v-model="form.newPassword" type="password" class="inputClass"  :placeholder="i18n.registerRestore.enterWalletPwd" placeholder-class="placeholderClass"/>
 					
 			</view>
 			<view style="font-size: 14px;height:80upx;" class="flex_c">
-				<text style="padding-left: 10upx;">確認密碼</text>
+				<text style="padding-left: 10upx;">{{i18n.registerRestore.confirmPwd}}</text>
 			</view>
 			<view style="background: #121c31;" class="flex_sb">
-				<input v-model="repeatPassword" type="password" class="inputClass" placeholder="請再次輸入錢包密碼" placeholder-class="placeholderClass"/>
+				<input v-model="repeatPassword" type="password" class="inputClass" :placeholder="i18n.registerRestore.twiceEnterPwd" placeholder-class="placeholderClass"/>
 					
 			</view>
 
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="submit">開始導入</view>
+				<view class="inClass" @tap="submit">{{i18n.registerRestore.startExport}}</view>
 			</view>
 			
 		</view>
@@ -54,10 +54,18 @@
 				
 			};
 		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		onLoad:function(options){
 			// this.fetchUserDetail()
 			this.phone = options.phone
 			this.email = options.email
+			uni.setNavigationBarTitle({
+			            title:this.$i18nMsg().page.restore
+			});
 		},
 		methods:{
 			
@@ -66,7 +74,7 @@
 			async submit(){
 				if (this.form.newPassword !== this.repeatPassword) { 
 					uni.showToast({
-						title: '兩次密碼不一致',
+						title: this.$i18nMsg().registerRestore.pwdDiff,
 						icon: 'none'
 					});
 					return

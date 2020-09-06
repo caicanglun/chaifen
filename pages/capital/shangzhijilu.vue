@@ -4,8 +4,8 @@
 			<view style="text-align: center;padding-top: 60upx;font-size: 26px;font-weight: bold;">
 				<text style="font-size:16px;padding-right: 10upx;padding-top: 5upx;font-weight: bold;">ECF</text>{{userDetail.stockCount}}
 			</view>
-			<view class="flex_c_c" style="font-size: 14px;">可用餘額</view>
-			<view style="text-align: center;"><text style="font-size: 16px;">折合：</text><text style="font-size: 14px;">{{(userDetail.stockCount*price).toFixed(6)}}</text><text style="padding-left:10upx;font-size: 15px;">USDF</text></view>
+			<view class="flex_c_c" style="font-size: 14px;">{{i18n.ecologyDetail.avalible}}</view>
+			<view style="text-align: center;"><text style="font-size: 16px;">{{i18n.ecologyDetail.equivalent}}：</text><text style="font-size: 14px;">{{(userDetail.stockCount*price).toFixed(6)}}</text><text style="padding-left:10upx;font-size: 15px;">USDF</text></view>
 		</view>
 		<view class="flex">
 			<block v-for="(item,index) in sliceArr" :key="index">
@@ -15,9 +15,9 @@
 		</view>
 		<view style="margin-top: 40upx;">
 			<view class="flex_c" style="font-size: 14px;background: #23355d;height: 80upx;">
-				<view style="width: 30%;padding-left: 20upx;">時間</view>
-				<view style="width: 20%;">類型</view>
-				<view style="width: 50%;display: flex;justify-content: flex-end;padding-right: 20upx;">數量</view>
+				<view style="width: 30%;padding-left: 20upx;">{{i18n.ecologyDetail.time}}</view>
+				<view style="width: 20%;">{{i18n.ecologyDetail.type}}</view>
+				<view style="width: 50%;display: flex;justify-content: flex-end;padding-right: 20upx;">{{i18n.ecologyDetail.amount}}</view>
 			</view>
 			<block v-for="(item,index) in record" :key="index">
 				<view class="flex_c" style="font-size: 14px;height: 80upx;background: #1a2843;padding-bottom: 30upx;" v-if="item.isFinish==1">
@@ -39,11 +39,17 @@
 		components:{
 			uniLoadMore
 		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				record:[],
 				loadingType: 'more',
-				sliceArr: [{id: 1,name: '交易記錄'},{id: 2,name: '配送記錄'}],
+				sliceArr: [{id: 1,name: this.$i18nMsg().ecologyDetail.tradeRecord},
+				           {id: 2,name: this.$i18nMsg().ecologyDetail.distributionRecord}],
 				sliceIndex: 1,
 				pageNum: 1,
 				pageSize: 20,
@@ -54,6 +60,9 @@
 		},
 		onLoad:function(){
 			_this = this
+			uni.setNavigationBarTitle({
+			            title:this.$i18nMsg().ecologyDetail.types['3']
+			        });
 			this.fetchPrice()
 			this.fetchUserDetail()
 			this.fetchList()

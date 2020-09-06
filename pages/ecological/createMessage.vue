@@ -2,15 +2,15 @@
 	<view>
 		<view style="margin: 0 30upx;">
 			<view style="background: #121c31;" class="flex_sb">
-				<input v-model="form.messageTitle" type="text" class="inputClass"  placeholder="請輸入您要反饋的問題" placeholder-class="placeholderClass"/>
+				<input v-model="form.messageTitle" type="text" class="inputClass"  :placeholder="i18n.user.feedbackQuestion" placeholder-class="placeholderClass"/>
 					
 			</view>
 			<view class="wrap">
-				<textarea  placeholder-style="color:#7d889a;font-size:14px;" placeholder="請輸入您要反饋的內容和建議..." style="height: 200upx;font-size: 14px;padding: 20upx;" v-model="form.messageDetails"></textarea>
+				<textarea  placeholder-style="color:#7d889a;font-size:14px;" :placeholder="i18n.user.feedbackContent" style="height: 200upx;font-size: 14px;padding: 20upx;" v-model="form.messageDetails"></textarea>
 			</view>
             
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="btn_class" @tap="submit">提交反饋</view>
+				<view class="btn_class" @tap="submit">{{i18n.user.feedbackSubmit}}</view>
 			</view>
 		</view>
 	</view>
@@ -28,13 +28,24 @@
 				
 			};
 		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		onNavigationBarButtonTap:function(val){
 			 
 			this.tapSettingButton() 
 		    
 		},
 		onLoad:function(options){
-
+             uni.setNavigationBarTitle({
+                         title:this.$i18nMsg().user.contactUs
+                     });
+			var currentWebview = this.$mp.page.$getAppWebview();  
+			currentWebview.setTitleNViewButtonStyle(0, {  
+				text: this.$i18nMsg().user.moreMessage, 
+			});  
 		},
 		methods:{
             tapSettingButton:function(){

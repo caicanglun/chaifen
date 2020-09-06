@@ -6,7 +6,7 @@
 			<view class="banner-class">
 				<view class="flex_column" style="padding: 80upx;">
 					<view class="flex_c_c">
-						<text style="font-size:13px;color: #50bdef">資產折合</text>
+						<text style="font-size:13px;color: #50bdef">{{i18n.wallet.assetAdd}}</text>
 						<image src="../../static/icon_shut@2x.png" class="home_eye" mode="aspectFit" @tap="switchShow" v-if="!isShow"></image>
 						<image src="../../static/icon_visible@2x.png" class="home_eye" mode="aspectFit" @tap="switchShow" v-if="isShow"></image>
 					</view>
@@ -34,34 +34,35 @@
 		</view>
 		<view class="bottomBlock">
 			<view class="content" v-if="!isActive">
-				<view><text style="font-size: 16px;color: white;">激活賬戶</text></view>
+				<view><text style="font-size: 16px;color: white;">{{i18n.wallet.activeAccount}}</text></view>
 				<view style="color: white;font-size: 15px;">
-					授信令牌是社區身份的標識，在熵鏈網絡及各類延展DAPP中具有無障礙的通行能力和資產行使權力，未來熵鏈還將
-					在生態圈內外擁有各種服務特權，廣泛用於互聯網及實體經濟中
+					{{i18n.wallet.activeTip}}
+					<!-- 授信令牌是社區身份的標識，在熵鏈網絡及各類延展DAPP中具有無障礙的通行能力和資產行使權力，未來熵鏈還將
+					在生態圈內外擁有各種服務特權，廣泛用於互聯網及實體經濟中 -->
 				</view>
 				<view class="flex_c_c" style="margin-top: 30upx;" @tap="toActive">
-					<view class="inClass">立即激活</view>
+					<view class="inClass">{{i18n.wallet.nowActive}}</view>
 				</view>
 			</view>
-			<view v-else class="flex_sa" style="padding: 20upx;">
+			<view v-if="isActive" class="flex_sa" style="padding: 20upx;">
 				<view class="flex_column" @tap="toInitBuy">
 					<image src="../../static/home-menu1.png" mode="aspectFit" style="height: 120upx; width: 120upx;"></image>
-					<text style="color: white;font-size: 14px;padding-top: 10upx;">初始源認購</text>
+					<text style="color: white;font-size: 14px;padding-top: 10upx;width:150upx;">{{i18n.ecologyIndex.link3}}</text>
 				</view>
 				<view class="flex_column" @tap="toWallet">
 					<image src="../../static/home-menu2.png" mode="aspectFit" style="height: 120upx; width: 120upx;"></image>
-					<text style="color: white;font-size: 14px;padding-top: 10upx;">資產錢包</text>
+					<text style="color: white;font-size: 14px;padding-top: 10upx;">{{i18n.wallet.assetWallet}}</text>
 				</view>
 				<view class="flex_column" @tap="toUSDFDeal">
 					<image src="../../static/home-menu3.png" mode="aspectFit" style="height: 120upx; width: 120upx;"></image>
-					<text style="color: white;font-size: 14px;padding-top: 10upx;">USDF交易</text>
+					<text style="color: white;font-size: 14px;padding-top: 10upx;">{{i18n.ecologyIndex.link5}}</text>
 				</view>
 				
 			</view>
 			<view v-if="isActive" class="flex_sa" style="padding: 20upx;">
 				<view class="flex_column" @tap="toCharge">
 					<image src="../../static/home-menu4.png" mode="aspectFit" style="height: 120upx; width: 120upx;"></image>
-					<text style="color: white;font-size: 14px;padding-top: 10upx;">系統充值</text>
+					<text style="color: white;font-size: 14px;padding-top: 10upx;">{{i18n.ecologyIndex.link2}}</text>
 				</view>
 				<view style="width: 120upx;"></view>
 			    <view style="width: 120upx;"></view>
@@ -99,13 +100,15 @@
 				 type:'',
 				 title: 'Hello',
 				 msg : [],
-				 isActive: false,
+				 isActive: '',
+				 
 				 isShow: false,
 				 userDetail:'',
 				 content:'',
 				 link:''
 			}
 		},
+		
 		onShow:function(){
 			this.setBar()
 			this.fetchUserDetail()
@@ -125,7 +128,9 @@
 			this.checkOut()
 			this.fetchAddress()
 			this.checkBindPhone()
-			
+			uni.setNavigationBarTitle({
+			            title:this.$i18nMsg().v2.home
+			        });
 
 		},
 		methods: {
@@ -177,7 +182,7 @@
 			toCharge:function(){
 				if(this.userDetail.phone == ''){
 					uni.showToast({
-						title: '請先綁定手機號碼',
+						title: this.$i18nMsg().trade.bindMobile,
 						icon: 'none'
 					});
 					return
@@ -204,11 +209,16 @@
 				
 				if (this.type ==1){
 					this.content = `當前賬戶靜態已出局,複投後享受正常收益`
+					// this.content = this.$i18nMsg().wallet.currentAccount+this.$i18nMsg().wallet.staticState+this.$i18nMsg().wallet.goOut
 				}else if (this.type ==2){
 					this.content = `當前賬戶動態已出局,複投後享受正常收益`
+					// this.content = this.$i18nMsg().wallet.currentAccount+this.$i18nMsg().wallet.dynamicStatic+this.$i18nMsg().wallet.goOut
 				}
 				else if (this.type ==3){
-					this.content = `檢測到妳未綁定郵箱和手機，請綁定`
+					console.log()
+					// this.content = '檢測到妳未綁定郵箱和手機，請綁定'
+					this.content = this.$i18nMsg().wallet.examinate
+					// console.log(this.$i18nMsg().wallet.examinate)
 				}
 				this.$refs.dialog.show()
 			},
@@ -259,8 +269,9 @@
 				let version = plus.runtime.version 
 				console.log(version)
 				const res1 = await this.$http.get('/basicdata/versions')
-				console.log(res1)
-				if (version!==res1.data.data.versions){
+				console.log(res1.data.data.versions)
+				if (version.toString() !== res1.data.data.versions.toString()){
+					
 					uni.showModal({ //提醒用户更新  
 						title: "更新提示",  
 						content: '請更新到最新版本',  
@@ -278,7 +289,7 @@
 				const res  = await this.$http.get('/user/details')
 				console.log(res)
 				this.userDetail = res.data.data
-				if (this.userDetail.userStatus !== 0){
+				if (this.userDetail.userStatus !== 0){	
 					this.isActive = true
 				}else {
 					this.isActive = false

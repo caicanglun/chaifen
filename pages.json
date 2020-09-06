@@ -1,13 +1,17 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	    
-        {
-        	"path": "pages/index/index",
-        	"style": {
-        		
-        		"navigationBarTitleText": "首页"
-        	}
-        },
+	   {
+	   	"path": "pages/index/index",
+	   	"style": {
+	   		
+	   		"navigationBarTitleText": "首页"
+	   	}
+	   },
+	   {
+	        "path" : "pages/userCenter/AccountManager",
+	        "style" : {"navigationBarTitleText": "賬戶管理"}
+	    },
+       
 		{
 		    "path" : "pages/usdfDeal/hall",
 		    "style" : {"navigationBarTitleText": "USDF交易"}
@@ -324,6 +328,15 @@
         ,{
             "path" : "pages/ecological/thirdWallet",
             "style" : {"navigationBarTitleText": "第三方錢包"}
+        }
+        
+        ,{
+            "path" : "pages/userCenter/importID",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/userCenter/createNewAccount",
+            "style" : {}
         }
     ],
 	"tabBar": {

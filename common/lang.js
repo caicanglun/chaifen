@@ -35,6 +35,8 @@ export default {
        	transfer: 'Transfer',
        	recordDetail: 'Transaction details',
        	settingPaypw: 'Payment password setting',
+		USDFExchange:'USDF Exchange',
+		exchageRecord: 'exchange record'
        },
        common: {
        	unopen: 'Not yet open',
@@ -87,7 +89,7 @@ export default {
        	switchConfirm: 'Are you sure you want to switch accounts? ',
        	current: 'Current',
        	currentAccount: 'Current',
-       	collectConfirm: 'Will the child account USDE collect the master account? ',
+       	collectConfirm: 'Will the child account USDF collect the master account? ',
        	viewAllAccount: 'View all subaccounts',
        	subAccountTip: 'Creating a sub-account requires activation to complete the creation. The sub-account will be bound to the master account for life. The operation of the sub-account will be completed by switching the master account. And the sub-account subscription and creation amount are all deducted from the main account funds. ',
        	oneStepCollect: 'collection',
@@ -155,6 +157,7 @@ export default {
        	feedbackQuestion: 'Question for input feedback',
        	feedbackContent: 'Enter feedback content and suggestions ...',
        	feedbackSubmit: 'Submit Feedback',
+		"moreMessage":'more',
        	completeInfo: 'Enter complete information',
        	valCode: 'Verification Code',
        	pleaseEnter: 'Enter',
@@ -193,7 +196,7 @@ export default {
        	activeTip1: 'Notice: enter credit token and pay',
        	activeTip2: 'Credit line, you can activate your account',
        	activeTip3: 'Notice: Pay',
-       	activeTip4: 'Boost source or USDE, you can activate the sub account',
+       	activeTip4: 'Boost source or USDF, you can activate the sub account',
        	nodeCode: 'Node code(Optional)',
        	enterNodeCode: 'Enter the node code and select your area',
        	enterCreditCode: 'Enter a credit token and need it',
@@ -218,7 +221,8 @@ export default {
        	staticState: 'Static',
        	dynamicStatic: 'Dynamic',
        	assetWallet: 'Asset wallet',
-       	qrCode: 'QR code'
+       	qrCode: 'QR code',
+		examinate: 'It is detected that your email and mobile phone are not bound, please bind'
        },
        walletAsset: {
        	"avalible": "Available",
@@ -292,7 +296,13 @@ export default {
        	copyAddress: 'Copy Address',
        	tip1: 'Do not recharge any assets other than the currency to the above address, otherwise the assets will not be recovered. Minimum recharge amount ',
        	tip2: 'Deposits less than the minimum amount will not be credited and cannot be returned',
-       	selectCode: 'Select QR code'
+		tip3: 'Do not recharge any assets other than the currency to the above address, otherwise the assets will not be recovered. Minimum recharge amount.Deposits less than the minimum amount will not be credited and cannot be returned',
+       	selectCode: 'Select QR code',
+		needUSDT:'Need to recharge the amount of USDT',
+		'remark':'remark',
+		'remarkPlaceHold':'Please fill in the remarks',
+		'exchangeRecord': 'exchange record',
+		'showPayPic':'show'
        },
        walletWithdraw: {
        	selectCoin: 'Select currency',
@@ -327,7 +337,9 @@ export default {
        		'b': 'Power B',
        		'c': 'Power C'
        	},
-       	equivalent: 'Equivalent'
+       	equivalent: 'Equivalent',
+		tradeRecord:'tradeRecord',
+		distributionRecord:'distributionRecord'
        },
        ecologyIndex: {
        	app: 'App Recommendation',
@@ -335,7 +347,7 @@ export default {
        	link2: 'Asset Deposit',
        	link3: 'Initial source subscription',
        	link4: 'Entropy Trading',
-       	link5: 'USDE trading',
+       	link5: 'USDF trading',
        	link6: 'Power Source',
        	browser: 'Browser',
        	inDevelopment: 'in development'
@@ -586,12 +598,12 @@ export default {
        	home: 'Home',
        	total: 'Total balance',
        	ecoBanner: 'Ecological construction',
-       	ecoDec: 'Limited vitality, unlimited global entropy',
+       	ecoDec: 'Limited vitality, unlimited Entropy Century',
        	ecoItem1: 'Block Explorer',
        	ecoItem2: 'DAPP construction',
        	ecoItem3: 'I want to apply',
        	createConcept: 'Create a new concept',
-       	notBuyTip: 'Unsubscribed, unable to participate in USDE trading!',
+       	notBuyTip: 'Unsubscribed, unable to participate in USDF trading!',
        	thirdplatform: 'Third-party platform',
        	thirdWallet: 'Third-party wallet',
        	activeTip: 'Activation prompt',
@@ -727,7 +739,7 @@ export default {
        	unval: 'Unverified',
        	valFail: 'verification failed',
        	validate: 'Verify',
-       	need: 'Need to deduct 1USDE as activation loss',
+       	need: 'Need to deduct 1USDF as activation loss',
        	agree: 'I have understood and agreed',
        	toAgree: 'Please understand and agree first',
        	agreement: '"User Agreement"',
@@ -771,7 +783,9 @@ export default {
         		settingPaypw: '支付密碼設置',
         		"team": "我的團隊",
         		"transfer": "互轉",
-        		recordDetail: '成交明細'
+        		recordDetail: '成交明細',
+				USDFExchange:'USDF兌換',
+				exchangeRecord: '兌換記錄'
         	},
         	"common": {
         		"unopen": "暫未開放",
@@ -824,7 +838,7 @@ export default {
         		"switchConfirm": "確認要切換賬戶？",
         		"current": '當前',
         		"currentAccount": "當前賬戶",
-        		"collectConfirm": "確認將所有子帳戶USDE收集至主帳戶？",
+        		"collectConfirm": "確認將所有子帳戶USDF收集至主帳戶？",
         		"viewAllAccount": "查看全部子賬戶",
         		"subAccountTip": "創建子帳戶需要激活方可完成創建，子帳戶將終身綁定到主帳戶，子帳戶的操作將通過主帳戶切換進入完成。並且子帳戶認購、創建金額全部由主帳戶的資金扣除。",
         		"oneStepCollect": "一鍵收集",
@@ -892,6 +906,7 @@ export default {
         		"feedbackQuestion": "請輸入您要反饋的問題",
         		"feedbackContent": "請輸入您要反饋的內容和建議...",
         		"feedbackSubmit": "提交反饋",
+				"moreMessage":'更多',
         		"completeInfo": "請輸入完整信息",
         		"valCode": "驗證碼",
         		"pleaseEnter": "請輸入",
@@ -930,7 +945,7 @@ export default {
         		"activeTip1": "須知：輸入授信令牌並支付",
         		"activeTip2": "授信額度，便可激活賬戶",
         		"activeTip3": "須知：支付",
-        		"activeTip4": "助力源或USDE，便可激活子賬戶",
+        		"activeTip4": "助力源或USDF，便可激活子賬戶",
         		"nodeCode": "節點碼(選填)",
         		"enterNodeCode": "請輸入節點碼，選擇您的所在區",
         		"enterCreditCode": "請輸入授信令牌，並且需要",
@@ -955,7 +970,8 @@ export default {
         		staticState: '靜態',
         		dynamicStatic: '動態',
         		assetWallet: '資產錢包',
-        		qrCode: '二維碼'
+        		qrCode: '二維碼',
+				"examinate":'檢測到妳未綁定郵箱和手機，請綁定'
         	},
         	"walletAsset": {
         		"avalible": "可用",
@@ -965,7 +981,7 @@ export default {
         		"exchange": "轉換",
         		"transfer": "划轉",
         		"assetAccount": "資產賬戶",
-        		"powAccount": "獎金賬戶",
+        		"powAccount": "資金賬戶",
         		"record": "財務記錄",
         		"filter": "篩選",
         		"notRecord": "暫無記錄"
@@ -1024,12 +1040,20 @@ export default {
         		"selectCoin": "選擇資產",
         		"chainType": "鏈類型",
         		"saveImg": "保存到相冊",
-        		"rechargeAddress": "充幣地址",
+        		"rechargeAddress": "錢包地址",
         		copy: '複製',
         		"copyAddress": "複製地址",
         		"tip1": "請勿向上述地址充值任何非該幣種資產，否則資產將不可找回。最小充值金額",
         		"tip2": "小於最小金額的充值將不會入賬，且無法退回",
-        		selectCode: '選擇二維碼'
+				"tip3": "請按照匯率換算準確充值，否則將無法審核通過，有誤請聯系客服。請勿向上述地址充值任何非ERC20_USDT幣種，否則資產將不可找回。 最小充值金額100，小於最小金額的充值將無法入賬，且無法退回",
+        		selectCode: '選擇二維碼',
+				'needUSDT':'需充值USDT數量',
+				'remark':'備註',
+				'remarkPlaceHold':'請填写备注信息',
+				'exchangeRecord': '兌換記錄',
+				'showPayPic':'查看憑證'
+				
+				
         	},
         	"walletWithdraw": {
         		"selectCoin": "選擇幣種",
@@ -1064,7 +1088,9 @@ export default {
         			"b": "動力B",
         			"c": "動力C"
         		},
-        		equivalent: '折合'
+        		equivalent: '折合',
+				tradeRecord:'交易記錄',
+				distributionRecord:'配送記錄'
         	},
         	"ecologyIndex": {
         		"app": "應用推薦",
@@ -1072,7 +1098,7 @@ export default {
         		"link2": "資產充值",
         		"link3": "初始源認購",
         		"link4": "熵值交易",
-        		"link5": "USDE交易",
+        		"link5": "USDF交易",
         		"link6": "動力源",
         		browser: '瀏覽器',
         		inDevelopment: '正在開發中'
@@ -1176,7 +1202,7 @@ export default {
         	},
         	"trade": {
         		"restNum": "當前剩餘賣出熵值",
-        		"gu": "ETV",
+        		"gu": "ECF",
         		"myOrder": "我的訂單",
         		"amount": "數量",
         		"cellPrice": "單價",
@@ -1201,6 +1227,7 @@ export default {
         		tradingPrice: '成交價',
         		tradingAmount: '成交量',
         		bindMobile: '請先綁定手機號',
+				
         	},
         	"payment": {
         		"edit": "編輯",
@@ -1323,12 +1350,12 @@ export default {
         		home: '首頁',
         		total: '總餘額',
         		ecoBanner: '實時掌握 生態建設',
-        		ecoDec: '有限的生命力 無限的全球熵',
+        		ecoDec: '有限的生命力 無限的熵世紀',
         		ecoItem1: '區塊瀏覽器',
         		ecoItem2: '第三方DAPP建設',
         		ecoItem3: '我要申請',
         		createConcept: '創建全新理念',
-        		notBuyTip: '未認購，無法參與USDE交易！',
+        		notBuyTip: '未認購，無法參與USDF交易！',
         		thirdplatform: '第三方平台',
         		thirdWallet: '第三方錢包',
         		activeTip: '激活提示',
@@ -1464,7 +1491,7 @@ export default {
         		unval: '未驗證',
         		valFail: '驗證失敗',
         		validate: '驗證',
-        		need: '需要扣除1USDE作為激活損耗',
+        		need: '需要扣除1USDF作為激活損耗',
         		agree: '我已理解並同意',
         		toAgree: '請先理解並同意',
         		agreement: '《用戶協議》',

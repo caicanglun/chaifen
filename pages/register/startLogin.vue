@@ -28,7 +28,9 @@
 			tfggVerify
 		},
 		onLoad:function(){
-			
+			uni.setNavigationBarTitle({
+			            title:this.$i18nMsg().registerBackup.login
+			        });
 		},
 		data() {
 			return {

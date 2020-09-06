@@ -2,8 +2,8 @@
 	<view>
 		<view style="margin: 30upx 30upx;">
 			<view class="flex_sb" style="font-size: 14px;margin-top: 20upx;">
-				<view>錢包地址：</view>
-				<view>鏈類型：ERC20</view>
+				<view>{{i18n.walletRecharge.rechargeAddress}}：</view>
+				<view>{{i18n.walletRecharge.chainType}}：ERC20</view>
 			</view>
 			<view style="background: #121c31;font-size: 14px;height:80upx;margin-top: 20upx;" class="flex_c">
 				
@@ -19,39 +19,38 @@
 			<!-- <view class="flex_c_c" style="height: 250upx;width: 250upx;background: white;">
 				<image :src="img" mode="aspectFit" style="height: 210upx;width:210upx;"></image>
 			</view> -->
-			<view style="font-size: 14px;margin-top: 20upx;">兌換USDF</view>
+			<view style="font-size: 14px;margin-top: 20upx;">{{i18n.user.exchange}}USDF</view>
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.money" class="inputClass" type="number" @blur="quzheng" placeholder="請輸入兌換充值數量"  placeholder-class="placeholderClass"/>
+				<input v-model="form.money" class="inputClass" type="number" @blur="quzheng" :placeholder="i18n.walletEx.enterCoinnum"  placeholder-class="placeholderClass"/>
 			</view>
-			<view style="font-size: 14px;margin-top: 20upx;">需充值USDT數量：<text style="color: #34f073">{{amounter}}</text></view>
+			<view style="font-size: 14px;margin-top: 20upx;">{{i18n.walletRecharge.needUSDT}}：<text style="color: #34f073">{{amounter}}</text></view>
 			<view style="font-size: 14px;margin-top: 20upx;">
-				支付密碼
+				{{ i18n.registerBackup.paymentPassword}}
 			</view>
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.payPassword" class="inputClass" type="password" placeholder="請輸入支付密碼" placeholder-class="placeholderClass"/>
+				<input v-model="form.payPassword" class="inputClass" type="password" :placeholder="i18n.common.paymentPassword" placeholder-class="placeholderClass"/>
 	
 			</view>
 			<view style="font-size: 14px;margin-top: 20upx;">
-				备注
+				{{ i18n.walletRecharge.remark}}
 			</view>
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.remark" class="inputClass" type="text" placeholder="請填写备注信息" placeholder-class="placeholderClass"/>
+				<input v-model="form.remark" class="inputClass" type="text" :placeholder="i18n.walletRecharge.remarkPlaceHold" placeholder-class="placeholderClass"/>
 				
 			</view>
 			<view style="font-size: 15px;margin-top: 20upx;font-weight: bold;">
-				上傳憑證
+				{{i18n.otc.uploadPayImg}}
 			</view>
             <view style="margin-top: 30upx;" @tap="uploadUSDT">
 				<image src="/static/img_add.png" mode="aspectFit" style="height: 200upx;width:200upx;"></image>
 				<image :src="form.provePicture" @tap.stop="showPicture(form.provePicture)" mode="aspectFit" style="height: 200upx;width:200upx; margin-left: 30upx;" v-if="form.provePicture !==''"></image>
 			</view>
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="submit">保存</view>
+				<view class="inClass" @tap="submit">{{i18n.user.save}}</view>
 			</view>
 		</view>
 		<view style="position: fixed;bottom:10px;color: #818b9e;font-size: 13px;margin-top:30upx;padding: 30upx;">
-			請按照匯率換算準確充值，否則將無法審核通過，有誤請聯系客服。
-			請勿向上述地址充值任何非ERC20_USDT幣種，否則資產將不可找回。 最小充值金額100，小於最小金額的充值將無法入賬，且無法退回
+			{{i18n.walletRecharge.tip3}}
 		</view>
 	</view>
 </template>
@@ -75,6 +74,11 @@
 				amounter:''
 			};
 		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		onNavigationBarButtonTap:function(val){
 			 
 			this.tapSettingButton() 
@@ -83,6 +87,9 @@
 		
 		onLoad:function(){
 			_this  = this
+			uni.setNavigationBarTitle({
+			            title:this.$i18nMsg().page.USDFExchange
+			        });
 			this.fetchAddr()
 			// this.fetch()
 			this.fetchUnitPrice()

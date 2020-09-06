@@ -2,15 +2,15 @@
 	<view>
 		
 		<view class="flex_sb" style="font-size: 16px;margin-top:30upx;padding: 0 20upx;">
-			<view>兌換記錄</view>
+			<view>{{i18n.walletRecharge.exchangeRecord}}</view>
 			
 		</view>
 		<popupMessage ref="dialog" title="友情提示" @input="confirmInput()" :label="content"></popupMessage>
 		<view style="margin-top: 40upx;">
 			<view class="flex_c" style="font-size: 14px;background: #23355d;height: 80upx;">
-				<view style="width: 30%;padding-left: 20upx;">時間</view>
-				<view style="width: 30%;">狀態</view>
-				<view style="width: 40%;display: flex;justify-content: flex-end;padding-right: 20upx;">金額</view>
+				<view style="width: 30%;padding-left: 20upx;">{{i18n.ecologyDetail.time}}</view>
+				<view style="width: 30%;">{{i18n.ecologyDetail.type}}</view>
+				<view style="width: 40%;display: flex;justify-content: flex-end;padding-right: 20upx;">{{i18n.ecologyDetail.amount}}</view>
 			</view>
 			<block v-for="(item,index) in record" :key="index">
 				<view style="margin-top:20upx;">
@@ -21,11 +21,11 @@
 					</view>
 					<view class="flex" style="background: #1a2843;width:100%;justify-content: flex-end;padding-bottom: 20upx;" >
 						<view class="flex_c_c btnClass" style="margin-right: 20upx;" @tap="showPicture(item.provePicture)" v-if="item.proofPicture !==''">
-							查看憑證
+							{{i18n.walletRecharge.showPayPic}}
 						</view>
 						
 						<view class="flex_c_c btnClass" @tap="showDialog(item.applyCode)" v-if="item.applyStatusCode==1">
-							取消
+							{{i18n.common.cancel}}
 						</view>
 					</view>
 				</view>
@@ -45,6 +45,11 @@
 		components:{
 			uniLoadMore,
 			popupMessage
+		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
 		},
 		data() {
 			return {
@@ -67,6 +72,9 @@
 		},
 		onLoad:function(){
 			_this = this
+			uni.setNavigationBarTitle({
+			            title:this.$i18nMsg().page.exchageRecord
+			        });
 			this.fetchList()
 			
 		},

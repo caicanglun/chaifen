@@ -3,18 +3,18 @@
 	<view style="margin: 0 30upx;">
 		<view class="topBlock">
 			<view style="padding: 30upx;">
-				<view class="flex_c_c" style="margin-top: 50upx;font-size: 16px;">總餘額（USDF)</view>
+				<view class="flex_c_c" style="margin-top: 50upx;font-size: 16px;">{{i18n.v2.total}}（USDF)</view>
 				<view class="flex_c_c" style="margin-top: 30upx;">
 					<view style="font-size: 30px;font-weight: bold;">{{userDetail.usde||0}}</view>
 				</view>
 				<view style="margin-top: 80upx;" class="flex_sa">
 					<view class="flex_c">
 						<image src="/static/opt2.png" mode="aspectFit" style="height: 40upx;width:40upx;"></image>
-						<text style="font-size: 15px;padding-left: 20upx;" @tap="toTixian">提幣</text>
+						<text style="font-size: 15px;padding-left: 20upx;" @tap="toTixian">{{i18n.walletAsset.withdraw}}</text>
 					</view>
 					<view class="flex_c">
 						<image src="/static/opt3.png" mode="aspectFit" style="height: 40upx;width:40upx;"></image>
-						<text style="font-size: 15px;padding-left: 20upx;" @tap="toFaZhuan">劃轉</text>
+						<text style="font-size: 15px;padding-left: 20upx;" @tap="toFaZhuan">{{i18n.walletAsset.transfer}}</text>
 					</view>
 
 				</view>
@@ -23,27 +23,27 @@
 		<view style="margin-top: 50upx;padding: 0 39upx;">
 			<view class="flex_sb">
 				<view style="height: 200upx;width: 300upx;background: #111c30;" @tap="toInitStore">
-					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">初始源</view>
+					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">{{i18n.ecologyDetail.types[1]}}</view>
 					<view class="flex_c_c"><image src="/static/next.png" mode="aspectFit" style="height: 100upx;width: 100upx;"></image></view>
 				</view>
 				<view style="height: 200upx;width: 300upx;background: #111c30;" @tap="toShangZhi">
-					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">熵值</view>
+					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">{{i18n.ecologyDetail.types[3]}}</view>
 					<view class="flex_c_c"><image src="/static/next.png" mode="aspectFit" style="height: 100upx;width: 100upx;"></image></view>
 				</view>
 			</view>
 			<view class="flex_sb" style="margin-top: 20upx;">
 				<view style="height: 200upx;width: 300upx;background: #111c30;" @tap="toDongliyuan">
-					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">動力源</view>
+					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">{{i18n.ecologyIndex.link6}}</view>
 					<view class="flex_c_c"><image src="/static/next.png" mode="aspectFit" style="height: 100upx;width: 100upx;"></image></view>
 				</view>
 				<view style="height: 200upx;width: 300upx;background: #111c30;" @tap="toZhuliyuan">
-					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">助力源</view>
+					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">{{i18n.ecologyDetail.types[2]}}</view>
 					<view class="flex_c_c"><image src="/static/next.png" mode="aspectFit" style="height: 100upx;width: 100upx;"></image></view>
 				</view>
 			</view>
 			<view class="flex_sb" style="margin-top: 20upx;">
 				<view style="height: 200upx;width: 300upx;background: #111c30;" @tap="toEnergyPool">
-					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">儲能池</view>
+					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">{{i18n.ecologyDetail.types[4]}}</view>
 					<view class="flex_c_c"><image src="/static/next.png" mode="aspectFit" style="height: 100upx;width: 100upx;"></image></view>
 				</view>
 				<view style="height: 200upx;width: 300upx;background: #111c30;" @tap="toMoney">
@@ -73,11 +73,19 @@
 				userDetail:''
 			};
 		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		onShow:function(){
 			this.fetchUserDetail()
 		},
 		onLoad:function(){
 			this.fetchUserDetail()
+			uni.setNavigationBarTitle({
+			            title:this.$i18nMsg().wallet.assetWallet
+			        });
 		},
 		methods:{
 			async fetchUserDetail(){

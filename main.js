@@ -11,7 +11,7 @@ Vue.prototype.$http = request
 Vue.config.productionTip = false
 const i18n = new VueI18n({ 
   // locale : 'zh-CN', //语言标识
-  locale : uni.getStorageSync('locale')||'zh-CN', //语言标识
+  locale : uni.getStorageSync('locale')||'en-US', //语言标识
   messages
 })  
 Vue.prototype._i18n = i18n 

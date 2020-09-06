@@ -7,7 +7,7 @@
 						<view style="font-size: 25px;font-weight: bold;font-style: italic;">创建熵生态<text style="padding-left: 20upx;">感受新境界</text></view>
 					</view>
 					<view class="flex_c_c" style="margin-top: 80upx;">
-						<view style="font-size: 14px;">有限的生命力 <text style="padding-left: 20upx;">無限的熵世紀</text></view>
+						<view style="font-size: 14px;">{{i18n.v2.ecoDec}}</text></view>
 					</view>
 				</view>
 			</view>
@@ -17,12 +17,12 @@
 			<view class="flex_sb">
 				<view style="height: 210upx;;width: 320upx;background: #111c30;" @tap="toInitStore">
 					<view class="flex_c_c"><image src="/static/gif/eco1.png" mode="aspectFit" style="padding-top:40upx;;height: 80upx;width: 80upx;"></image></view>
-					<view style="margin-top:20upx;font-size: 15px;" class="flex_c_c">區塊瀏覽器</view>
+					<view style="margin-top:20upx;font-size: 15px;" class="flex_c_c">{{i18n.v2.ecoItem1}}</view>
 					
 				</view>
 				<view style="height: 210upx;;width: 320upx;background: #111c30;" @tap="toContact">
 					<view class="flex_c_c"><image src="/static/gif/eco2.png" mode="aspectFit" style="padding-top:40upx;;height: 80upx;width: 80upx;"></image></view>
-					<view style="margin-top:20upx;font-size: 15px;" class="flex_c_c">聯系客服</view>
+					<view style="margin-top:20upx;font-size: 15px;" class="flex_c_c">{{i18n.user.contactUs}}</view>
 					
 				</view>
 				
@@ -36,7 +36,7 @@
 				
 				<view style="height: 210upx;;width: 320upx;background: #111c30;" @tap="toInitStore">
 					<view class="flex_c_c"><image src="/static/gif/eco4.png" mode="aspectFit" style="padding-top:40upx;;height: 80upx;width: 80upx;"></image></view>
-					<view style="margin-top:20upx;font-size: 15px;" class="flex_c_c">我要申請</view>
+					<view style="margin-top:20upx;font-size: 15px;" class="flex_c_c">{{i18n.v2.ecoItem3}}</view>
 					
 				</view>
 				
@@ -44,13 +44,13 @@
 			<view class="flex_sb" style="margin-top: 20upx;">
 				<view style="height: 210upx;;width: 320upx;background: #111c30;" @tap="toThirdPlat">
 					<view class="flex_c_c"><image src="/static/gif/etvpro.png" mode="aspectFit" style="padding-top:40upx;;height: 80upx;width: 80upx;"></image></view>
-					<view style="margin-top:20upx;font-size: 15px;" class="flex_c_c">第三方平台</view>
+					<view style="margin-top:20upx;font-size: 15px;" class="flex_c_c">{{i18n.v2.thirdplatform}}</view>
 					
 				</view>
 				
 				<view style="height: 210upx;;width: 320upx;background: #111c30;" @tap="toThirdWallet">
 					<view class="flex_c_c"><image src="/static/gif/third-wallet.png" mode="aspectFit" style="padding-top:40upx;;height: 80upx;width: 80upx;"></image></view>
-					<view style="margin-top:20upx;font-size: 15px;" class="flex_c_c">第三方錢包</view>
+					<view style="margin-top:20upx;font-size: 15px;" class="flex_c_c">{{i18n.v2.thirdWallet}}</view>
 					
 				</view>
 			</view>
@@ -78,6 +78,11 @@
 				pageSize: 20,
 				flowType:'股份认购',
 			};
+		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
 		},
 		onLoad:function(){
 			// this.fetchList()

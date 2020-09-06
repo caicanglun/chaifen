@@ -2,7 +2,7 @@
 	<view>
 		<view class="flex_sb" style="height: 90upx;border-bottom: 1upx solid #2a3855;" @tap="toDetails(1)">
 			<view class="flex_c">
-				<text style="padding-left: 30upx;font-size: 15px;font-weight: bold;">動力A</text>
+				<text style="padding-left: 30upx;font-size: 15px;font-weight: bold;">{{i18n.ecologyDetail.types['a']}}</text>
 			</view>
 			<view class="flex_c">
 				<text style="padding-right: 20upx;font-size: 14px;">{{detail.recommend ||0.0000}}</text>
@@ -11,7 +11,7 @@
 		</view>
 		<view class="flex_sb" style="height: 90upx;border-bottom: 1upx solid #2a3855;" @tap="toDetails(2)">
 			<view class="flex_c">
-				<text style="padding-left: 30upx;font-size: 15px;font-weight: bold;">動力B</text>
+				<text style="padding-left: 30upx;font-size: 15px;font-weight: bold;">{{i18n.ecologyDetail.types['b']}}</text>
 			</view>
 			<view class="flex_c">
 				<text style="padding-right: 20upx;font-size: 14px;">{{detail.crash ||0.0000}}</text>
@@ -20,7 +20,7 @@
 		</view>
 		<view class="flex_sb" style="height: 90upx;border-bottom: 1upx solid #2a3855;" @tap="toDetails(3)">
 			<view class="flex_c">
-				<text style="padding-left: 30upx;font-size: 15px;font-weight: bold;">動力C</text>
+				<text style="padding-left: 30upx;font-size: 15px;font-weight: bold;">{{i18n.ecologyDetail.types['c']}}</text>
 			</view>
 			<view class="flex_c">
 				<text style="padding-right: 20upx;font-size: 14px;">{{detail.lead ||0.0000}}</text>
@@ -38,7 +38,15 @@
 				userDetail:''
 			};
 		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		onLoad:function(){
+			uni.setNavigationBarTitle({
+			            title:this.$i18nMsg().page.power
+			        });
 			this.fetchUserDetail()
 			this.fetchData()
 		},

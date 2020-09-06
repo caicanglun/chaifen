@@ -4,17 +4,17 @@
 			<view style="text-align: center;padding-top: 60upx;font-size: 26px;font-weight: bold;">
 				{{ablelity}}
 			</view>
-			<view class="flex_c_c" style="font-size: 14px;">可用餘額</view>
+			<view class="flex_c_c" style="font-size: 14px;">{{i18n.ecologyDetail.avalible}}</view>
 			<!-- <view style="text-align: center;"><text style="font-size: 16px;">折合：</text><text style="font-size: 14px;">0.056855</text><text style="padding-left:10upx;font-size: 15px;">USDE</text></view> -->
 		</view>
 		<view class="flex" style="font-size: 16px;">
-			財務記錄
+			{{i18n.ecologyDetail.record}}
 		</view>
 		<view style="margin-top: 40upx;">
 			<view class="flex_c" style="font-size: 14px;background: #23355d;height: 80upx;">
-				<view style="width: 30%;padding-left: 20upx;">時間</view>
-				<view style="width: 20%;">類型</view>
-				<view style="width: 50%;display: flex;justify-content: flex-end;padding-right: 20upx;">金額</view>
+				<view style="width: 30%;padding-left: 20upx;">{{i18n.ecologyDetail.time}}</view>
+				<view style="width: 20%;">{{i18n.ecologyDetail.type}}</view>
+				<view style="width: 50%;display: flex;justify-content: flex-end;padding-right: 20upx;">{{i18n.ecologyDetail.amount}}</view>
 			</view>
 			<block v-for="(item,index) in record" :key="index">
 				<view class="flex_c" style="font-size: 14px;height: 80upx;background: #1a2843;padding-bottom: 30upx;">
@@ -47,8 +47,16 @@
 				ablelity:0
 			};
 		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		onLoad:function(){
 			_this = this
+			uni.setNavigationBarTitle({
+			            title:this.$i18nMsg().ecologyDetail.types['1']
+			        });
 			this.fetchList()
 		},
 		onReachBottom:function(){

@@ -3,7 +3,7 @@
 		<!-- <view class="qiun-bg-white qiun-title-bar qiun-common-mt" >
 			<view class="qiun-title-dot-light">基本柱状图</view>
 		</view> -->
-		<view class="qiun-charts">
+		<view class="qiun-charts" >
 			<canvas canvas-id="canvasColumn" id="canvasColumn" class="charts" @touchstart="touchLineA" disable-scroll=true  @touchmove="moveLineA" @touchend="touchEndLineA"></canvas>
 			<!-- <canvas canvas-id="canvasColumn" id="canvasColumn" class="charts" @touchstart="touchColumn" disable-scroll=true  @touchmove="moveLineA" @touchend="touchEndLineA"></canvas> -->
 		</view>
@@ -106,9 +106,7 @@
 			this.cHeight=uni.upx2px(400);
 			this.fetchPrice()
 			// this.getServerData();
-			setTimeout(function() {
-				_self.showColumn("canvasColumn",_self.chartData);
-			}, 500);
+			
 			
 			this.fetchPrice()
 			this.fetchBuy()
@@ -130,8 +128,11 @@
 
 				})
 				this.chartData.series[0].data = arr
+				setTimeout(function() {
+					_self.showColumn("canvasColumn",_self.chartData);
+				}, 500);
 				console.log(this.chartData)
-				console.log(res)
+				// console.log(res)
 			},
 			async fetchBuy(){
 				if (this.loadingType=''){

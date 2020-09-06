@@ -13,7 +13,7 @@
 					<view style="font-size: 15px;padding-top: 20upx;padding-left: 5upx;">USDF</view>
 				</view>
 				<view  class="flex_c_c" style="font-size: 14px;color: #909baf;" v-if="sliceIndex ==1">
-					¥{{userDetail.usde*7 ||0}}
+					¥{{(userDetail.usde*7).toFixed(6)||0}}
 				</view>
 				<view class="flex_c_c" style="margin-top: 30upx;" v-if="sliceIndex ==2">
 					<view  style="font-size: 30px;font-weight: bold;">{{userDetail.signinUsde||0}}</view>
@@ -26,20 +26,20 @@
 			
 		</view>
 		<view class="flex_sb" style="font-size: 16px;margin-top:30upx;padding: 0 20upx;">
-			<view>財務記錄</view>
+			<view>{{i18n.ecologyDetail.record}}</view>
 			<view class="flex_c">
 				<image src="/static/icon_filter@2x.png" mode="aspectFit" style="height: 30upx;width:30upx;"></image>
 				<text style="padding-left: 20upx;"></text>
 				<picker @change="bindPickerChange" :value="index" :range="array">
-				     <view class="uni-input">{{index==-1?'篩選':array[index]}}</view>
+				     <view class="uni-input">{{index==-1?i18n.walletAsset.filter:array[index]}}</view>
 				</picker>
 			</view>
 		</view>
 		<view style="margin-top: 40upx;">
 			<view class="flex_c" style="font-size: 14px;background: #23355d;height: 80upx;">
-				<view style="width: 30%;padding-left: 20upx;">時間</view>
-				<view style="width: 30%;">類型</view>
-				<view style="width: 40%;display: flex;justify-content: flex-end;padding-right: 20upx;">金額</view>
+				<view style="width: 30%;padding-left: 20upx;">{{i18n.ecologyDetail.time}}</view>
+				<view style="width: 30%;">{{i18n.ecologyDetail.type}}</view>
+				<view style="width: 40%;display: flex;justify-content: flex-end;padding-right: 20upx;">{{i18n.ecologyDetail.amount}}</view>
 			</view>
 			<block v-for="(item,index) in record" :key="index">
 				<view v-if="sliceIndex ==1">
@@ -70,11 +70,16 @@
 		components:{
 			uniLoadMore
 		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				record:[{time: '01-12 06:05',usde: '25.2356',counter: '50.0000'}],
 				loadingType: 'more',
-				sliceArr: [{id: 1,name: '資金賬戶'},{id: 2,name: '資產賬戶'}],
+				sliceArr: [{id: 1,name: this.$i18nMsg().walletAsset.powAccount},{id: 2,name: this.$i18nMsg().walletAsset.assetAccount}],
 				sliceIndex: 1,
 				userDetail:'',
 				pageNum: 1,

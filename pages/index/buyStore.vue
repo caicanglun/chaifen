@@ -7,14 +7,14 @@
 					<view style="font-size: 25px;font-weight: bold;font-style: italic;">引领熵趋势 掌握熵价值</view>
 				</view>
 				<view class="flex_c_c" style="margin-top: 80upx;">
-					<view style="font-size: 14px;">當前交易價格：1ECF ≈ {{price}} USDF</view>
+					<view style="font-size: 14px;">{{i18n.ecologyInitsource.currentPrice}}：1ECF ≈ {{price}} USDF</view>
 				</view>
 			</view>
 		</view>
-		<view v-if="isActive" style="font-size:15px;margin-top: 60upx;">參與認購</view>
-		<view v-else style="font-size:15px;margin-top: 60upx;"> 靜/動態複投</view>
+		<view v-if="isActive" style="font-size:15px;margin-top: 60upx;">{{i18n.ecologyInitsource.join}}</view>
+		<view v-else style="font-size:15px;margin-top: 60upx;"> {{i18n.ecologyInitsource.sAndDy}}</view>
 		<view style="font-size:15px;margin-top: 30upx;">
-			購買金額
+			{{i18n.ecologyInitsource.buyAmount}}
 		</view>
 		<view class="flex" style="flex-wrap: wrap;margin-top: 30upx;">
 			<block v-for='(item,index) in level' :key="index">
@@ -23,30 +23,30 @@
 		</view>
 		<view class="flex_sb" style="margin-top: 40upx;">
 			<view v-if="userDetail.isMain==1">
-				<text style="font-size: 13px;color: #909baf;">可用：</text><text style="font-size: 13px;color: #34f073;">{{userDetail.signinUsde|| 0}}</text>
+				<text style="font-size: 13px;color: #909baf;">{{i18n.ecologyInitsource.avalible}}：</text><text style="font-size: 13px;color: #34f073;">{{userDetail.signinUsde|| 0}}</text>
 			</view>
 			<view v-if="userDetail.isMain==0">
-				<text style="font-size: 13px;color: #909baf;">可用：</text><text style="font-size: 13px;color: #34f073;">{{ablityShut}}助力源</text>
+				<text style="font-size: 13px;color: #909baf;">{{i18n.ecologyInitsource.avalible}}：</text><text style="font-size: 13px;color: #34f073;">{{ablityShut}}{{i18n.ecologyInitsource.help}}</text>
 			</view>
 			<view @tap="toDealHall" v-if="userDetail.isMain==1">
-				<text style="font-size: 13px;color: #909baf;">還沒有USDF?</text><text style="font-size: 13px;color: #34f073;padding-left: 10upx;">去獲取</text>
+				<text style="font-size: 13px;color: #909baf;">{{i18n.ecologyInitsource.not}}USDF?</text><text style="font-size: 13px;color: #34f073;padding-left: 10upx;">{{i18n.ecologyInitsource.go}}</text>
 			</view>
 		</view>
 		<view style="margin-top: 30upx;">
 			<view v-if="isActive" class="flex_c_c" >
 				<view  class="btn_class" @tap="showDialog(1)">
-					立即購買
+					{{i18n.ecologyInitsource.nowBuy}}
 				</view>
 			</view>
 			
 			<view v-else class="flex_sa">
-				<view class="btn_class" @tap="showDialog(2)">靜態複投</view>
-				<view class="btn_class" style="color: #ff0000" @tap="showDialog(3)">動態複投</view>
+				<view class="btn_class" @tap="showDialog(2)">{{i18n.ecologyInitsource.staticReinvestment}}</view>
+				<view class="btn_class" style="color: #ff0000" @tap="showDialog(3)">{{i18n.ecologyInitsource.dyReinvestment}}</view>
 			</view>
 		</view>
 		<view class="flex_c_c">
 				<view>
-					<text style="font-size: 13px;color: #909baf;">可獲得</text><text style="font-size: 13px;color: #34f073;padding-left: 20upx;">{{ storeRate }}</text><text style="font-size: 13px;color: #909baf;">初始源進入認購賬戶</text>
+					<text style="font-size: 13px;color: #909baf;">{{i18n.ecologyInitsource.get}}</text><text style="font-size: 13px;color: #34f073;padding-left: 20upx;">{{ storeRate }}</text><text style="font-size: 13px;color: #909baf;">{{i18n.ecologyInitsource.startAccount}}</text>
 				</view>
 		</view>
     </view>
@@ -64,9 +64,9 @@
 			</view>
 			<view style="margin-top: 40upx;">
 				<view class="flex_c" style="font-size: 14px;background: #23355d;height: 80upx;">
-					<view style="width: 30%;padding-left: 20upx;">時間</view>
-					<view style="width: 20%;">類型</view>
-					<view style="width: 50%;display: flex;justify-content: flex-end;padding-right: 20upx;">購買數量</view>
+					<view style="width: 30%;padding-left: 20upx;">{{i18n.ecologyInitsource.time}}</view>
+					<view style="width: 20%;">{{i18n.ecologyInitsource.type}}</view>
+					<view style="width: 50%;display: flex;justify-content: flex-end;padding-right: 20upx;">{{i18n.ecologyInitsource.buyAmount}}</view>
 				</view>
 				<block v-for="(item,index) in record" :key="index">
 					<view class="flex_c" style="font-size: 14px;height: 80upx;background: #1a2843;padding-bottom: 30upx;">
@@ -90,6 +90,11 @@
 		components:{
 			popupMessage
 		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				ablityShut:'',
@@ -101,7 +106,7 @@
 				selectIndex: -1,
 				record:[],
 				sliceIndex: 1,
-				sliceArr: [{id: 1,name: '靜態認購'},{id: 2,name: '動態認購'}],
+				sliceArr: [{id: 1,name: this.$i18nMsg().ecologyInitsource.staticBuy},{id: 2,name: this.$i18nMsg().ecologyInitsource.dyBuy}],
 				userDetail:'',
 				storeRate: 0,
 				pageNum: 1,
@@ -123,6 +128,13 @@
 			this.fetchList()
 			this.fetchList11()
 			this.fetchUserDetail()
+			uni.setNavigationBarTitle({
+			            title:this.$i18nMsg().ecologyIndex.link3
+			        });
+			var currentWebview = this.$mp.page.$getAppWebview();
+			currentWebview.setTitleNViewButtonStyle(0, {  
+				text: this.$i18nMsg().ecologyInitsource.titleRight, 
+			});  
 		},
 		methods:{
 			async fetchShut(){

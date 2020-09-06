@@ -2,22 +2,22 @@
 	<view>
 		<view style="margin: 60upx 30upx;">
 			<view>
-				<input class="inputClass" v-model="form.userName" placeholder="請輸入賬號" placeholder-class="placeholderClass"/>
+				<input class="inputClass" v-model="form.userName" :placeholder="i18n.registerBackup.enterAccount" placeholder-class="placeholderClass"/>
 			</view>
 			<view style="margin-top: 40upx;">
-				<input class="inputClass" v-model="form.password" type="password" placeholder="請輸入8-16位錢包密碼" placeholder-class="placeholderClass"/>
+				<input class="inputClass" v-model="form.password" type="password" :placeholder="i18n.registerBackup.enterRule+i18n.registerBackup.walletPwd" placeholder-class="placeholderClass"/>
 			</view>
 			<view style="margin-top: 40upx;">
-				<input class="inputClass" v-model="form.passwordRepeat" type="password" placeholder="重複輸入密碼" placeholder-class="placeholderClass"/>
+				<input class="inputClass" v-model="form.passwordRepeat" type="password" :placeholder="i18n.registerBackup.enterPwd" placeholder-class="placeholderClass"/>
 			</view>
 			<view style="margin-top: 40upx;">
-				<input class="inputClass" v-model="form.secondPassword" type="password" placeholder="請輸入8-16位支付密碼" placeholder-class="placeholderClass"/>
+				<input class="inputClass" v-model="form.secondPassword" type="password" :placeholder="i18n.registerBackup.paymentPw" placeholder-class="placeholderClass"/>
 			</view>
 			<view style="margin-top: 40upx;">
-				<input class="inputClass" v-model="form.secondPasswordRepeat" type="password" placeholder="重複輸入支付密碼" placeholder-class="placeholderClass"/>
+				<input class="inputClass" v-model="form.secondPasswordRepeat" type="password" :placeholder="i18n.registerBackup.confirmPaymentPw" placeholder-class="placeholderClass"/>
 			</view>
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="submit">創建</view>
+				<view class="inClass" @tap="submit">{{i18n.registerBackup.create}}</view>
 			</view>
 		</view>
 	</view>
@@ -35,6 +35,16 @@
 					secondPasswordRepeat:''
 				}
 			};
+		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
+		onLoad:function(){
+			uni.setNavigationBarTitle({
+			            title:this.$i18nMsg().page.createWallet
+			});
 		},
 		methods:{
 			hasCaseLetter(str) {

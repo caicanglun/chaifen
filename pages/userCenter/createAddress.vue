@@ -18,7 +18,7 @@
 	
 			</view>
 			<view style="margin-top: 30upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.subscript" class="inputClass" type="text" placeholder="描述(選填)" placeholder-class="placeholderClass"/>
+				<input v-model="form.details" class="inputClass" type="text" placeholder="描述(選填)" placeholder-class="placeholderClass"/>
 				
 			</view>
 			
@@ -35,9 +35,9 @@
 		data() {
 			return {
 				form:{
-					address:'',	   //目标用户id
-					name:'',			//金额
-					subscript:'',	//支付密码
+					address:'',	   //地址
+					name:'',			//名称
+					details:'',	//描述
 
 				},
 				ratio:''
@@ -49,22 +49,16 @@
 		methods:{
 			
 			async submit(){
-				uni.showToast({
-					
-					title: '格式不符',
-					icon:'none',
-					duration: 1000
-				});
-				return
+				
 				uni.showLoading({
 					title: '提交中',
 					mask: true
 				});
-				const res = await this.$http.get('/deal/signin_shift',{data: this.form})
+				const res = await this.$http.get('/address/add',{data: this.form})
 				uni.hideLoading()
 				
 				uni.showToast({
-					title: '轉賬成功',
+					title: '创建成功',
 					icon: 'none',
 					duration: 1000
 				});

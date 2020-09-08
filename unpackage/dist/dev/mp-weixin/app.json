@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/userCenter/AccountManager",
     "pages/usdfDeal/hall",
     "pages/usdfDeal/buySellUsdf",
     "pages/userCenter/share",
@@ -59,7 +60,9 @@
     "pages/chongzhi/createCharge",
     "pages/chongzhi/chargeList",
     "pages/ecological/thirdPlat",
-    "pages/ecological/thirdWallet"
+    "pages/ecological/thirdWallet",
+    "pages/userCenter/importID",
+    "pages/userCenter/createNewAccount"
   ],
   "subPackages": [],
   "window": {
@@ -100,5 +103,6 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap35.json"
 }

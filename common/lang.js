@@ -1202,7 +1202,7 @@ export default {
         	},
         	"trade": {
         		"restNum": "當前剩餘賣出熵值",
-        		"gu": "ECF",
+        		"gu": "ETF",
         		"myOrder": "我的訂單",
         		"amount": "數量",
         		"cellPrice": "單價",

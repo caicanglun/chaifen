@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view style="margin: 20upx 30upx;"> 
-			<view style="font-size: 16px;">買入熵值(ECF)</view>
+			<view style="font-size: 16px;">買入熵值(ETF)</view>
 			<view class="flex_sb" style="margin-top: 20upx;">
 				<view class="flex_column">
 					<view style="color: #6c7587;font-size: 14px;">成交總額(初始源)</view>
@@ -12,7 +12,7 @@
 					<view style="font-size: 15px;margin-top: 10upx;" class="flex_c_c">{{detail.unitPrice}}</view>
 				</view>
 				<view>
-					<view style="color: #6c7587;font-size: 14px;">成交量(ECF)</view>
+					<view style="color: #6c7587;font-size: 14px;">成交量(ETF)</view>
 					<view style="font-size: 15px;margin-top: 10upx;justify-content: flex-end;" class="flex">{{detail.stockCount}}</view>
 				</view>
 			</view>

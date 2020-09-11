@@ -2,7 +2,7 @@
 	<view>
 		<view style="margin: 20upx; 40upx;background: #121c31; height: 300upx;" >
 			<view style="text-align: center;padding-top: 60upx;font-size: 26px;font-weight: bold;">
-				<text style="font-size:16px;padding-right: 10upx;padding-top: 5upx;font-weight: bold;">ECF</text>{{userDetail.stockCount}}
+				<text style="font-size:16px;padding-right: 10upx;padding-top: 5upx;font-weight: bold;">ETF</text>{{userDetail.stockCount}}
 			</view>
 			<view class="flex_c_c" style="font-size: 14px;">{{i18n.ecologyDetail.avalible}}</view>
 			<view style="text-align: center;"><text style="font-size: 16px;">{{i18n.ecologyDetail.equivalent}}：</text><text style="font-size: 14px;">{{(userDetail.stockCount*price).toFixed(6)}}</text><text style="padding-left:10upx;font-size: 15px;">USDF</text></view>

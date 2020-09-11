@@ -22,7 +22,7 @@
 				<view class="flex_sb" style="margin: 20upx 30upx;">
 					<view>
 						<view>
-							<text style="font-size: 13px;">數量：</text><text style="font-size: 16px;">{{item.stockCount}}</text><text style="font-size: 16px;padding-left: 10upx;">ECF</text>
+							<text style="font-size: 13px;">數量：</text><text style="font-size: 16px;">{{item.stockCount}}</text><text style="font-size: 16px;padding-left: 10upx;">ETF</text>
 						</view>
 						<view style="color: #3d4663;">
 							<text style="font-size: 13px;">單價：</text><text style="font-size: 14px;">{{item.unitPrice}}</text><text style="font-size: 13px;padding-left: 10upx;">USDF</text>

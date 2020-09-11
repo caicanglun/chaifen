@@ -30,7 +30,7 @@
 			<view class="flex_sb" style="margin-top: 20upx;">
 				<view style="height: 210upx;;width: 320upx;background: #111c30;" @tap="toInitStore">
 					<view class="flex_c_c"><image src="/static/gif/eco9.png" mode="aspectFit" style="padding-top:40upx;;height: 80upx;width: 80upx;"></image></view>
-					<view style="margin-top:20upx;font-size: 15px;" class="flex_c_c">ECFPro</view>
+					<view style="margin-top:20upx;font-size: 15px;" class="flex_c_c">ETF</view>
 					
 				</view>
 				

@@ -14,7 +14,7 @@
 		<view style="margin-top: 40upx;">
 			<view class="flex_c" style="font-size: 14px;height: 80upx;color: #6c7587;">
 				<view style="width: 30%;padding-left: 20upx;">時間</view>
-				<view style="width: 20%;">數量(ECF)</view>
+				<view style="width: 20%;">數量(ETF)</view>
 				<view style="width: 50%;display: flex;justify-content: flex-end;padding-right: 20upx;">金額(初始源)</view>
 			</view>
 			<block v-for="(item,index) in record" :key="index">

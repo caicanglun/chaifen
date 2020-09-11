@@ -7,7 +7,7 @@
 					<view style="font-size: 25px;font-weight: bold;font-style: italic;">引领熵趋势 掌握熵价值</view>
 				</view>
 				<view class="flex_c_c" style="margin-top: 80upx;">
-					<view style="font-size: 14px;">{{i18n.ecologyInitsource.currentPrice}}：1ECF ≈ {{price}} USDF</view>
+					<view style="font-size: 14px;">{{i18n.ecologyInitsource.currentPrice}}：1ETF ≈ {{price}} USDF</view>
 				</view>
 			</view>
 		</view>

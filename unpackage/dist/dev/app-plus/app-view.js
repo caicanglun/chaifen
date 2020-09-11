@@ -5803,7 +5803,7 @@ var render = function() {
                         [
                           _vm._v(
                             _vm._$g(7, "t0-0") +
-                              "：1ECF ≈ " +
+                              "：1ETF ≈ " +
                               _vm._$g(7, "t0-1") +
                               " USDF"
                           )
@@ -12031,7 +12031,7 @@ var render = function() {
                   },
                   attrs: { _i: 3 }
                 },
-                [_vm._v("ECF")]
+                [_vm._v("ETF")]
               ),
               _vm._v(_vm._$g(2, "t1-0"))
             ],
@@ -14408,7 +14408,7 @@ var render = function() {
                                   },
                                   attrs: { _i: "17-" + $30 }
                                 },
-                                [_vm._v("ECF")]
+                                [_vm._v("ETF")]
                               )
                             ],
                             1
@@ -16634,7 +16634,7 @@ var render = function() {
                       },
                       attrs: { _i: 23 }
                     },
-                    [_vm._v("ECFPro")]
+                    [_vm._v("ETF")]
                   )
                 ],
                 1
@@ -18741,7 +18741,7 @@ var render = function() {
               _c(
                 "v-uni-view",
                 { staticStyle: { width: "20%" }, attrs: { _i: 13 } },
-                [_vm._v("數量(ECF)")]
+                [_vm._v("數量(ETF)")]
               ),
               _c(
                 "v-uni-view",
@@ -19009,7 +19009,7 @@ var render = function() {
           _c(
             "v-uni-view",
             { staticStyle: { "font-size": "16px" }, attrs: { _i: 2 } },
-            [_vm._v("買入熵值(ECF)")]
+            [_vm._v("買入熵值(ETF)")]
           ),
           _c(
             "v-uni-view",
@@ -19082,7 +19082,7 @@ var render = function() {
                       staticStyle: { color: "#6c7587", "font-size": "14px" },
                       attrs: { _i: 11 }
                     },
-                    [_vm._v("成交量(ECF)")]
+                    [_vm._v("成交量(ETF)")]
                   ),
                   _c(
                     "v-uni-view",
@@ -21270,7 +21270,7 @@ var render = function() {
           staticStyle: { "font-size": "18px", "font-weight": "bold" },
           attrs: { _i: 3 }
         },
-        [_vm._v("ECFPro")]
+        [_vm._v("ETF")]
       ),
       _c(
         "v-uni-view",

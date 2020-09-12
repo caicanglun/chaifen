@@ -63,7 +63,7 @@
 				userCode:'',
 				creditToken:'',
 				img:'',
-				link:'http://web.ecfpros.com/#/'
+				link:'http://web.etfspro.com/#/'
 			};
 		},
 		onLoad:function(options){

@@ -96,7 +96,7 @@
 			},
 			pasterLink:function(){
 				uni.setClipboardData({
-					data: 'http://web.ecfpros.com/#/'
+					data: 'http://web.etfspro.com/#/'
 				})
 			},
 			pasterShouxin:function(){
@@ -122,7 +122,7 @@
 			      provider: "weixin",
 			      scene: "WXSceneSession",
 			      type: 1,
-			      summary: "歡迎來到ECFPro！",
+			      summary: "歡迎來到ETF！",
 			      success: function (res) {
 			          console.log("success:" + JSON.stringify(res));
 			      },

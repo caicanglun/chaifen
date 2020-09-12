@@ -231,7 +231,7 @@ var _wxqrcode = _interopRequireDefault(__webpack_require__(/*! @/common/wxqrcode
 //
 var _default = { data: function data() {return { userCode: '', creditToken: '', img: '', content: '', userDetail: '', index: -1, array: ['收款碼', '授信令牌', '節點碼'] };}, onLoad: function onLoad(options) {if (options.type == 2) {this.index = 0;}if (options.type == 1) {this.index = 2;}this.userDetail = JSON.parse(options.userDetail);this.content = this.userDetail.userCode;this.img = _wxqrcode.default.createQrCodeImg(this.content, { size: parseInt(300) //二维码大小  
     });}, methods: { bindPickerChange: function bindPickerChange(e) {this.index = e.target.value;console.log(this.index);if (this.index == 0) {this.content = this.userDetail.userCode;} else if (this.index == 1) {this.content = this.userDetail.creditToken;} else if (this.index == 2) {this.content = this.userDetail.userCode;}this.img = _wxqrcode.default.createQrCodeImg(this.content, { size: parseInt(300) //二维码大小  
-      });uni.setNavigationBarTitle({ title: this.array[this.index] });}, pasterLink: function pasterLink() {uni.setClipboardData({ data: 'http://web.ecfpros.com/#/' });}, pasterShouxin: function pasterShouxin() {
+      });uni.setNavigationBarTitle({ title: this.array[this.index] });}, pasterLink: function pasterLink() {uni.setClipboardData({ data: 'http://web.etfspro.com/#/' });}, pasterShouxin: function pasterShouxin() {
       uni.setClipboardData({
         data: this.creditToken });
 
@@ -254,7 +254,7 @@ var _default = { data: function data() {return { userCode: '', creditToken: '', 
         provider: "weixin",
         scene: "WXSceneSession",
         type: 1,
-        summary: "歡迎來到ECFPro！",
+        summary: "歡迎來到ETF！",
         success: function success(res) {
           console.log("success:" + JSON.stringify(res));
         },

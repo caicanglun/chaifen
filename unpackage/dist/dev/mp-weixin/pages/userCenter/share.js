@@ -245,7 +245,7 @@ var _wxqrcode = _interopRequireDefault(__webpack_require__(/*! @/common/wxqrcode
 //
 //
 //
-var _default = { data: function data() {return { userCode: '', creditToken: '', img: '', link: 'http://web.ecfpros.com/#/' };}, onLoad: function onLoad(options) {this.userCode = options.userCode;this.creditToken = options.creditToken;this.img = _wxqrcode.default.createQrCodeImg(this.link, { size: parseInt(300) //二维码大小  
+var _default = { data: function data() {return { userCode: '', creditToken: '', img: '', link: 'http://web.etfspro.com/#/' };}, onLoad: function onLoad(options) {this.userCode = options.userCode;this.creditToken = options.creditToken;this.img = _wxqrcode.default.createQrCodeImg(this.link, { size: parseInt(300) //二维码大小  
     });}, methods: { pasterLink: function pasterLink() {uni.setClipboardData({ data: this.link });}, pasterShouxin: function pasterShouxin() {uni.setClipboardData({ data: this.creditToken });}, pasterNode: function pasterNode() {uni.setClipboardData({ data: this.userCode });}, backTo: function backTo() {uni.navigateBack({ delta: -1 });}, share: function share() {// 分享图文到微信聊天界面
       uni.share({ provider: "weixin", scene: "WXSceneSession", type: 1, summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！", success: function success(res) {console.log("success:" + JSON.stringify(res));}, fail: function fail(err) {console.log("fail:" + JSON.stringify(err));} });}, share11: function share11() {var pages = getCurrentPages();var page = pages[pages.length - 1];console.log("当前页" + pages.length - 1);var bitmap = null;
       var currentWebview = page.$getAppWebview();

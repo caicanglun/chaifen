@@ -1,6 +1,7 @@
 import request from './js_sdk/cooke-request/request/request.js'
-const ServerUrl = "http://192.168.11.125"
+// const ServerUrl = "http://192.168.11.125"
 // const ServerUrl = "http://test.144f.com:8080/sl-web"
+const ServerUrl = "http://app.etfspro.com:8080/sl-web"
 //const ServerUrl = "http://app.ecfpros.com:8080/sl-web"
 
 request.setConfig({

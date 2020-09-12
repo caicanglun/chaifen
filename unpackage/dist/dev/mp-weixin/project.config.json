@@ -9,7 +9,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.9.2",
 	"appid": "touristappid",
-	"projectname": "ECFPro",
+	"projectname": "ETF",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {

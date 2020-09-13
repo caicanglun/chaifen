@@ -64,7 +64,7 @@
 				});
 				setTimeout(function() {
 					uni.navigateBack({
-						delta: -1
+						delta: 1
 					});
 				}, 2000);
 

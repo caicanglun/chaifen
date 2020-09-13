@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "動力B",
-  "usingComponents": {
-    "uni-load-more": "/components/uni-load-more/uni-load-more"
-  }
-}

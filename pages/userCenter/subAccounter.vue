@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view>
-			<view style="margin: 20upx 30upx;">
+			<view style="margin: 20upx 30upx;" v-if="items.length>0">
 					 <uni-grid :column="3" :show-border="false" :square="false">
 					 
 							<uni-grid-item v-for="(item, index) in items " :key="index" >

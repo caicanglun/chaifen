@@ -47,7 +47,7 @@
 			</view>
 			
 			
-			<view class="flex_sb" style="height: 90upx;border-bottom: 1upx solid #2a3855;" @tap="toAccountManage">
+			<!-- <view class="flex_sb" style="height: 90upx;border-bottom: 1upx solid #2a3855;" @tap="toAccountManage">
 				<view class="flex_c">
 					<image src="/static/user2.png" class="iconClass" mode="aspectFit"></image>
 					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">賬號管理</text>
@@ -55,7 +55,7 @@
 				<view class="flex_c">
 					<image src="/static/icon_next@2x.png" mode="aspectFit" style="height: 30upx;width:30upx;"></image>
 				</view>
-			</view>
+			</view> -->
 			<view class="flex_sb" style="height: 90upx;border-bottom: 1upx solid #2a3855;" @tap="toShouKuan">
 				<view class="flex_c">
 					<image src="/static/user8.png" class="iconClass" mode="aspectFit"></image>

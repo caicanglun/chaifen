@@ -58,6 +58,7 @@
 		    
 		},
 		onShow:function(){
+			this.loadingType = 'more'
 			this.fetch()
 		},
 		onLoad:function(){
@@ -87,14 +88,32 @@
 				console.log(res)
 			},
 			async delAddress(code){
-				let data ={
-					addressCode: code
-				}
-				const res = await this.$http.get('/address/del',{data: data})
-				uni.showToast({
-					title: '删除成功'
+				let that = this
+				uni.showModal({
+					title: '删除提示',
+					content: '确定要删除该地址吗？',
+					showCancel: true,
+					cancelText: '取消',
+					confirmText: '确定',
+					success: async res => {
+						if (res.confirm) {
+						          let data ={
+						          	addressCode: code
+						          }
+						          const res1 = await that.$http.get('/address/del',{data: data})
+						          uni.showToast({
+						          	title: '删除成功'
+						          });
+						          that.loadingType = 'more'
+						          that.fetch()  
+						        } else if (res.cancel) {
+						            console.log('用户点击取消');
+						        }
+					},
+					fail: () => {},
+					complete: () => {}
 				});
-				this.fetch()
+				
 				
 			},
 			tapSettingButton:function(){

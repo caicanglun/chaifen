@@ -1,1 +1,0 @@
-<view><view style="margin:20rpx;"><view class="flex_sb"><view class="flex_c"><image style="width:40rpx;height:40rpx;" src="/static/usdt.png" mode="aspectFit"></image><text style="padding-left:20rpx;">USDT</text></view><view data-event-opts="{{[['tap',[['toEdit',['$event']]]]]}}" bindtap="__e">編輯</view></view></view></view>

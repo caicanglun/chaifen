@@ -33,7 +33,7 @@
 
 		</view>
 		<view class="bottomBlock">
-			<view class="content" v-if="!isActive">
+			<view class="content" v-if="!isActive&&userDetail!=''">
 				<view><text style="font-size: 16px;color: white;">{{i18n.wallet.activeAccount}}</text></view>
 				<view style="color: white;font-size: 15px;">
 					{{i18n.wallet.activeTip}}
@@ -123,7 +123,7 @@
 			_this = this
 			this.setBar()
 			this.fetchUserDetail()
-			this.getVersion()
+			// this.getVersion()
 			this.fetchBulletin()
 			this.checkOut()
 			this.fetchAddress()
@@ -175,6 +175,7 @@
 					success:function(res){
 						
 						_this.link = `http://download.bq04.com/apps/5f5b2e3a23389f4eeee0a551/install?download_token=${res.data.download_token}`
+						console.log(_this.link)
 						
 					}
 				})

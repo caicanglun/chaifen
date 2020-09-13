@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "支付密碼設置",
-  "usingComponents": {
-    "popup-verify": "/components/popupVerify"
-  }
-}

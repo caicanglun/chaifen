@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "公告",
-  "usingComponents": {
-    "drop-menu-region": "/components/dropMenuRegion"
-  }
-}

@@ -87,13 +87,13 @@
 					 });
 					 return
 				 }
-				 if (!this.hasCaseLetter(this.form.password)){
-					 uni.showToast({
-						title: '密碼必須包含大寫字母',
-						icon: 'none'
-					 });
-					 return
-				 }
+				 // if (!this.hasCaseLetter(this.form.password)){
+					//  uni.showToast({
+					// 	title: '密碼必須包含大寫字母',
+					// 	icon: 'none'
+					//  });
+					//  return
+				 // }
 				 
 				 if (this.form.secondPassword.length<8){
 					 uni.showToast({
@@ -102,13 +102,13 @@
 					 });
 					 return
 				 }
-				 if (!this.hasCaseLetter(this.form.secondPassword)){
-						 uni.showToast({
-							title: '支付密碼必須包含大寫字母',
-							icon: 'none'
-						 });
-						 return
-				 }
+				 // if (!this.hasCaseLetter(this.form.secondPassword)){
+					// 	 uni.showToast({
+					// 		title: '支付密碼必須包含大寫字母',
+					// 		icon: 'none'
+					// 	 });
+					// 	 return
+				 // }
 				 if (this.form.password !== this.form.passwordRepeat) {
 					 uni.showToast({
 					 	title: '登錄密碼不一致',

@@ -168,17 +168,20 @@
 					this.showDialog()
 				}
 			},
-			fetchAddress:function(){
-				
-				uni.request({
-					url: 'http://api.bq04.com/apps/5f5b2e3a23389f4eeee0a551/download_token?api_token=8bf033a4189a8fc5faf4010a8af18964',
-					success:function(res){
+			async fetchAddress(){
+				const res1 = await this.$http.get('/basicdata/versions')
+				console.log(res1)
+				// uni.request({
+				// 	url: `http://api.bq04.com/apps/${res1.data.data.address}/download_token?api_token=8bf033a4189a8fc5faf4010a8af18964`,
+				// 	success:function(res){
 						
-						_this.link = `http://download.bq04.com/apps/5f5b2e3a23389f4eeee0a551/install?download_token=${res.data.download_token}`
-						console.log(_this.link)
+				// 		_this.link = `http://download.bq04.com/apps/${res1.data.data.address}/install?download_token=${res.data.download_token}`
+				// 		console.log(_this.link)
 						
-					}
-				})
+				// 	}
+				// })
+				_this.link = res1.data.data.address
+				console.log(_this.link)
 			},
 			toCharge:function(){
 				if(this.userDetail.phone == ''){

@@ -15,8 +15,8 @@
 				<input v-model="content" type="password" style="text-align: center;" :placeholder="placeholder" placeholder-style="text-align: center;color: #b3b3b3;font-size: 13px;" class="input-class"/>
 			</view>
 			<view class="flex_sb" style="margin: 0 30upx 20upx 30upx;">
-				 <view class="newPartCancel" @tap="closeBanner">取消</view>
-				 <view class="newPart" @tap="confirmBanner">确定</view>
+				 <view class="newPartCancel" @tap="closeBanner">{{i18n.common.cancel}}</view>
+				 <view class="newPart" @tap="confirmBanner">{{i18n.common.confirm}}</view>
 			</view>
 			
 
@@ -32,6 +32,11 @@
 	export default {
 		components:{
 			uniIcon
+		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
 		},
 		props:{
 			title:{

@@ -6,7 +6,7 @@
 			</view>
 			
 			<view style="margin-top: 30upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.address" class="inputClass" placeholder="請輸入有效地址" placeholder-class="placeholderClass"/>
+				<input v-model="form.address" class="inputClass" :placeholder="i18n.user.enterAddress" placeholder-class="placeholderClass"/>
 				<view class="flex_c">
 					<image src="/static/icon_Scan@2x.png" mode="aspectFit" style="height: 50upx;width: 50upx;padding-right: 20upx;" @tap="scanCodeToken"></image>
 				</view>
@@ -14,17 +14,17 @@
 			
 			
 			<view style="margin-top: 30upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.name" class="inputClass" type="text" placeholder="名稱" placeholder-class="placeholderClass"/>
+				<input v-model="form.name" class="inputClass" type="text" :placeholder="i18n.user.addressName" placeholder-class="placeholderClass"/>
 	
 			</view>
 			<view style="margin-top: 30upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.details" class="inputClass" type="text" placeholder="描述(選填)" placeholder-class="placeholderClass"/>
+				<input v-model="form.details" class="inputClass" type="text" :placeholder="i18n.user.addressNote" placeholder-class="placeholderClass"/>
 				
 			</view>
 			
 			
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="submit">保存</view>
+				<view class="inClass" @tap="submit">{{ i18n.payment.save}}</view>
 			</view>
 		</view>
 	</view>
@@ -32,6 +32,11 @@
 
 <script>
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				form:{

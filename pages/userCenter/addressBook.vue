@@ -5,18 +5,18 @@
 			
 			<view style="margin-top: 20upx;border-bottom: 1upx solid #7d889a;font-weight: bold;line-height: 40upx;">
 				<view style="font-size: 14px;padding: 20upx;">
-					<view>名称：{{item.name||''}}</view>
+					<view>{{i18n.user.addressName}}：{{item.name||''}}</view>
 					<view class="flex_sb">
-						<view>地址：{{item.address}}</view>
+						<view>{{i18n.user.addressNameDetail}}：{{item.address}}</view>
 						<view class="img_back" @tap="pasterNode(item.address)">
 							<image src="/static/pro/copy.png" mode="aspectFit" style="height: 40upx;width:40upx;"></image>
 						</view>
 					</view>     
-					<view>备注：{{item.details||''}}</view>
+					<view>{{i18n.user.addressNoteDetail}}：{{item.details||''}}</view>
 				</view>
 				<view class="flex" style="width:97%;justify-content: flex-end;padding-bottom: 10upx;" @tap="delAddress(item.addressCode)">
 					<view class="flex_c_c" style="color: #ff0000;width: 100upx;heigh: 90upx;border-radius: 20upx;border: 2upx solid #ff0000;font-size: 15px;">
-						刪除
+						{{i18n.user.deleteText}}
 					</view>
 				</view>
 				
@@ -63,6 +63,9 @@
 		},
 		onLoad:function(){
 			this.fetch()
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().user.addressBook
+			});
 		},
 		methods:{
 			pasterNode:function(address){

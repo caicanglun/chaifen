@@ -2,27 +2,27 @@
 	<view>
 		<view class="flex">
 			<view class="flex_c inputWarp">
-				<input placeholder="用戶ID" v-model="searchCode" width="7" type="number" @confirm="inputConfirm" placeholder-style="font-size:13px;padding-left: 10upx;" class="searchTeam">
+				<input :placeholder="i18n.registerBackup.userId" v-model="searchCode" width="7" type="number" @confirm="inputConfirm" placeholder-style="font-size:13px;padding-left: 10upx;" class="searchTeam">
 				<image src="/static/icon_search@2x.png" style="width: 20upx;height:20upx;padding-right: 20upx;" @tap="inputConfirm" mode="aspectFit"></image>
 			</view>
 			
 			<view class="flex_c_c backtoTop" @tap="backtoTop">
-				回到頂部
+				{{i18n.user.backTop}}
 			</view>
 		</view>
 		<view  style="margin-top: 50upx;margin-left: 350upx;">
 			<view class="tipsbox" v-if="active">
 				<view>
-					節點碼：{{tips.userCode}}
+					{{ i18n.user.nodeCode}}：{{tips.userCode}}
 				</view>
 				<view>
-					熵增業績：{{tips.leftPerformance}}
+					{{ i18n.user.leftNum}}：{{tips.leftPerformance}}
 				</view>
 				<view>
-					熵減業績：{{tips.rightPerformance}}
+					{{ i18n.user.rightNum}}：{{tips.rightPerformance}}
 				</view>
 				
-				<view>今日業績：{{tips.dayPerformance}}</view>
+				<view>{{i18n.user.todayNum}}：{{tips.dayPerformance}}</view>
 			</view>
 		</view>
 		
@@ -71,6 +71,11 @@
 
 <script>
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				isShow:false,
@@ -90,6 +95,9 @@
 			};
 		},
 		onLoad:function(){
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().user.relationship
+			});
 			this.userCode = this.$store.state.userCode
 			this.orgion = this.$store.state.userCode
 			this.last.push(this.orgion)

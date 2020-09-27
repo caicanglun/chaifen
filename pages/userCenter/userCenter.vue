@@ -4,7 +4,7 @@
 			<view style="padding: 30upx;">
 				<view class="flex_sb">
 					<text style="font-size: 14px;">ID: {{userDetail.userCode}}</text>
-					<text style="font-size: 16px;font-weight: bold;" @tap="toSubAccounter">查看子賬戶</text>
+					<text style="font-size: 16px;font-weight: bold;" @tap="toSubAccounter">{{i18n.user.viewSubAccount}}</text>
 				</view>
 				<view class="flex_c_c" style="margin-top: 30upx;" @tap="toSetIcon">
 					<view v-if="userDetail.icon!==''">
@@ -23,23 +23,23 @@
 				<view style="margin-top:30upx;" class="flex_sb">
 					<view class="flex_c" @tap="showDialog(1)">
 						<image src="/static/icon_manag@2x.png" mode="aspectFit" style="height: 40upx;width:40upx;"></image>
-						<text style="font-size: 15px; padding-left: 20upx;">身份管理</text>
+						<text style="font-size: 15px; padding-left: 20upx;">{{i18n.user.identManager}}</text>
 					</view>
 					<view  class="flex_c" @tap="toAddress">
 						<image src="/static/icon_address@2x.png" mode="aspectFit" style="height: 40upx;width:40upx;"></image>
-						<text style="font-size: 15px; padding-left: 20upx;">地址本</text>
+						<text style="font-size: 15px; padding-left: 20upx;">{{i18n.user.addressBook}}</text>
 					</view>
 				</view>
 				
 			</view>
 		</view>
-		<popMe ref="dialog" title="请输入密碼" @input="confirmInput" placeholder="請輸入支付密碼"></popMe>
+		<popMe ref="dialog" :title="i18n.common.enterPw" @input="confirmInput" :placeholder="i18n.common.enterSafePwd"></popMe>
 		<view style="margin-top: 30upx;">
 			
 			<view class="flex_sb" style="height: 90upx;border-bottom: 1upx solid #2a3855;" @tap="showDialog(2)">
 				<view class="flex_c">
 					<image src="/static/user1.png" class="iconClass" mode="aspectFit"></image>
-					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">我的團隊</text>
+					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">{{i18n.user.myTeam}}</text>
 				</view>
 				<view class="flex_c">
 					<image src="/static/icon_next@2x.png" mode="aspectFit" style="height: 30upx;width:30upx;"></image>
@@ -59,7 +59,7 @@
 			<view class="flex_sb" style="height: 90upx;border-bottom: 1upx solid #2a3855;" @tap="toShouKuan">
 				<view class="flex_c">
 					<image src="/static/user8.png" class="iconClass" mode="aspectFit"></image>
-					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">收款方式</text>
+					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">{{i18n.user.payment}}</text>
 				</view>
 				<view class="flex_c">
 					<image src="/static/icon_next@2x.png" mode="aspectFit" style="height: 30upx;width:30upx;"></image>
@@ -68,7 +68,7 @@
 			<view class="flex_sb" style="height: 90upx;border-bottom: 1upx solid #2a3855;" @tap="toSecureCenter">
 				<view class="flex_c">
 					<image src="/static/user3.png" class="iconClass" mode="aspectFit"></image>
-					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">安全中心</text>
+					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">{{i18n.user.safeCenter}}</text>
 				</view>
 				<view class="flex_c">
 					<image src="/static/icon_next@2x.png" mode="aspectFit" style="height: 30upx;width:30upx;"></image>
@@ -78,7 +78,7 @@
 			<view class="flex_sb" style="height: 90upx;border-bottom: 1upx solid #2a3855;" @tap="toShare">
 				<view class="flex_c">
 					<image src="/static/user5.png" class="iconClass" mode="aspectFit"></image>
-					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">邀請好友</text>
+					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">{{i18n.user.inviteFriend}}</text>
 				</view>
 				<view class="flex_c">
 					<image src="/static/icon_next@2x.png" mode="aspectFit" style="height: 30upx;width:30upx;"></image>
@@ -88,7 +88,7 @@
 			<view class="flex_sb" style="height: 90upx;border-bottom: 1upx solid #2a3855;" @tap="about">
 				<view class="flex_c">
 					<image src="/static/user6.png" class="iconClass" mode="aspectFit"></image>
-					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">關於我們</text>
+					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">{{i18n.page.about}}</text>
 				</view>
 				<view class="flex_c">
 					<image src="/static/icon_next@2x.png" mode="aspectFit" style="height: 30upx;width:30upx;"></image>
@@ -97,7 +97,7 @@
 			<view class="flex_sb" style="height: 90upx;border-bottom: 1upx solid #2a3855;" @tap="toSetting">
 				<view class="flex_c">
 					<image src="/static/user7.png" class="iconClass" mode="aspectFit"></image>
-					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">設置</text>
+					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">{{i18n.page.setting}}</text>
 				</view>
 				<view class="flex_c">
 					<image src="/static/icon_next@2x.png" mode="aspectFit" style="height: 30upx;width:30upx;"></image>
@@ -113,6 +113,11 @@
 		components:{
 			popMe
 		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				secondPassword:'',
@@ -125,6 +130,10 @@
 		},
 		onLoad:function(){
 			this.fetch()
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().tab.user
+			});
+			
 		},
 		methods:{
 			toAccountManage:function(){

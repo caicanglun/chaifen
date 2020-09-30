@@ -2,10 +2,11 @@
 	<view>
 		<view style="margin: 0 30upx;">
 			<view class="tip">
-				請按順序點擊您的助記詞，以便確認備份助記詞的正確
+				{{ i18n.registerBackup.tip3}}
+				<!-- 請按順序點擊您的助記詞，以便確認備份助記詞的正確 -->
 			</view>
 			<view @longpress="tapPaste" class="wrap">
-				<textarea  placeholder-style="color:#7d889a;" placeholder="長按可粘貼助記詞" style="text-align: center;height: 200upx;font-size: 15px;padding: 30upx;" v-model="words"></textarea>
+				<textarea  placeholder-style="color:#7d889a;" :placeholder="i18n.registerBackup.pressAndPaste" style="text-align: center;height: 200upx;font-size: 15px;padding: 30upx;" v-model="words"></textarea>
 			</view>
             <view class="flex_wrap" style="margin-top:30upx;">
 				<block v-for="(item,index) in shuffleWord" :key="index">
@@ -16,7 +17,7 @@
 				</block>
 			</view>
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="btn_class" @tap="submit">下壹步</view>
+				<view class="btn_class" @tap="submit">{{ i18n.registerBackup.next}}</view>
 			</view>
 		</view>
 	</view>
@@ -24,6 +25,11 @@
 
 <script>
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				words:'',
@@ -32,7 +38,9 @@
 			};
 		},
 		onLoad:function(options){
-
+            uni.setNavigationBarTitle({
+                title:this.$i18nMsg().page.confirm
+            });
 			this.userCode = options.userCode
 			console.log(this.userCode)
 			this.getShuffleWord()

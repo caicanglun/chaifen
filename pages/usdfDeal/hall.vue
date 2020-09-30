@@ -3,8 +3,8 @@
 		<view class="flex_sb" style="padding: 0 10upx;height: 80upx;">
 			<view></view>
 			<view class="flex_sb" style="width: 350upx;">
-				<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">買入</view>
-				<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">賣出</view>
+				<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">{{ i18n.trade.buyIn}}</view>
+				<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">{{ i18n.trade.sellOut}}</view>
 			</view>
 		    <view class="flex_c" style="font-size: 30px;font-weight: bold;width:60upx;padding-bottom: 30upx;position: relative;" @tap="setShowLabel">... 
 			</view>	
@@ -25,12 +25,12 @@
 						</view>
 						<text style="font-size: 15px;font-weight: bold;padding-left: 20upx;">{{item.userName}}</text>
 					</view>
-					<view style="font-size: 14px;font-weight: bold;">{{item.creditLevel}}星信用</view>
+					<view style="font-size: 14px;font-weight: bold;">{{item.creditLevel}}{{ i18n.trade.starCredit}}</view>
 				</view>
 				<view class="flex_sb">
 					<view>
-						<view><text style="color: #7d889a;font-size: 15px;">數量</text><text style="padding-left:10upx;font-size: 16px;font-weight: bold;">{{item.usde}}</text> </view>
-						<view><text style="color: #7d889a;font-size: 15px;">價格</text><text style="padding-left:10upx;font-size: 16px;font-weight: bold;">{{item.usdtUnitPrice}}USDT/{{item.cnyUnitPrice}}CNY</text>  </view>
+						<view><text style="color: #7d889a;font-size: 15px;">{{ i18n.trade.amount}}</text><text style="padding-left:10upx;font-size: 16px;font-weight: bold;">{{item.usde}}</text> </view>
+						<view><text style="color: #7d889a;font-size: 15px;">{{ i18n.trade.tradePrice}}</text><text style="padding-left:10upx;font-size: 16px;font-weight: bold;">{{item.usdtUnitPrice}}USDT/{{item.cnyUnitPrice}}CNY</text>  </view>
 					</view>
 					<view class="flex_c">
 						<image src="/static/usdt.png" mode="aspectFit" style="width: 40upx;height: 40upx;"></image>
@@ -50,6 +50,11 @@
 	import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
 	let _this,timer;
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		components:{
 			popupMenu,
 			uniLoadMore
@@ -81,6 +86,9 @@
 		},
 		onLoad:function(){
 			_this = this
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().page.USDFTransaction
+			});
 			this.fetchList()
 		},
 		methods:{

@@ -3,17 +3,17 @@
 		
 		<view style="margin: 30upx 30upx;">
 			<view style="font-size: 14px;height:80upx;" class="flex_c">
-				<text style="padding-left: 10upx;">郵箱</text>
+				<text style="padding-left: 10upx;">{{i18n.user.email}}</text>
 			</view>
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.mail" class="inputClass" type="text" placeholder="請輸入郵箱號碼" placeholder-class="placeholderClass"/>
+				<input v-model="form.mail" class="inputClass" type="text" :placeholder="i18n.registerBackup.enterEmail" placeholder-class="placeholderClass"/>
 		
 			</view>
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.vCode" class="inputClass" type="text" placeholder="請輸入郵箱驗證碼" placeholder-class="placeholderClass"/>
+				<input v-model="form.vCode" class="inputClass" type="text" :placeholder="i18n.user.enterValCode" placeholder-class="placeholderClass"/>
 				<view class="flex_c" style="justify-content: flex-end;width: 30%;padding: 0 20upx;">
 					
-					<view style="font-size:14px;color: #34F073;" v-show="showBotton" @tap="sendVcode">發送驗證碼</view>
+					<view style="font-size:14px;color: #34F073;" v-show="showBotton" @tap="sendVcode">{{i18n.common.getCode}}</view>
 					<view style="font-size:14px;color: #FFFFFF;" v-show="!showBotton" >{{count}} s</view>
 				</view>
 			</view>
@@ -21,7 +21,7 @@
 			
 			
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="submit">綁定</view>
+				<view class="inClass" @tap="submit">{{i18n.common.confirm}}</view>
 			</view>
 			
 		</view>
@@ -30,6 +30,11 @@
 
 <script>
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				form:{
@@ -44,6 +49,9 @@
 		},
 		onLoad:function(){
 			// this.fetchUserDetail()
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().user.emailBinding
+			});
 		},
 		methods:{
 			getCode(){

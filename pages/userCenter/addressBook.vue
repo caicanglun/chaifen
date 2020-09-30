@@ -66,6 +66,10 @@
 			uni.setNavigationBarTitle({
 			    title:this.$i18nMsg().user.addressBook
 			});
+			var currentWebview = this.$mp.page.$getAppWebview();
+			currentWebview.setTitleNViewButtonStyle(0, {  
+				text: this.$i18nMsg().user.create, 
+			});
 		},
 		methods:{
 			pasterNode:function(address){

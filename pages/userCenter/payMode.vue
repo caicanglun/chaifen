@@ -7,7 +7,7 @@
 					<text style="padding-left: 20upx;">USDT</text>
 				</view>
 			    <view @tap="toEdit">
-					編輯
+					{{ i18n.payment.edit}}
 				</view>
 			</view>
 			<view style="color: #909baf;margin-top: 20upx;">
@@ -28,6 +28,11 @@
 
 <script>
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				userDetail:''
@@ -38,6 +43,9 @@
 			this.fetch()
 		},
 		onLoad:function(){
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().user.payment
+			});
 		    this.fetch()	
 		},
 		methods:{

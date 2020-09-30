@@ -4,7 +4,7 @@
 			<view class="flex_c" @tap="backTo">
 				<image src="/static/icon_back@2x.png" mode="aspectFit" class="iconClass"></image>
 			</view>
-			<view class="flex_c_c title" >邀請好友
+			<view class="flex_c_c title" >{{ i18n.user.inviteFriend }}
 			
 			</view>
 			<view style="width:20upx;"></view>
@@ -24,17 +24,17 @@
 			
 			<view class="flex_sa" style="margin-top: 30upx;">
 				<view style="height: 200upx;" v-if="userCode">
-					<view class="flex_c" style="color: #9caccd;font-size: 15px;">節點碼</view>
+					<view class="flex_c" style="color: #9caccd;font-size: 15px;">{{ i18n.user.nodeCode }}</view>
 					<view class="flex_c" style="padding-top: 20upx;color: white;font-size: 16px;font-weight: bold;">{{userCode}}</view>
 					
 				</view>
 				<view style="height: 200upx;" v-if="creditToken">
-					<view class="flex_c" style="color: #9caccd;font-size: 15px;">授信令牌</view>
+					<view class="flex_c" style="color: #9caccd;font-size: 15px;">{{ i18n.user.creditCode }}</view>
 					<view class="flex_c" style="padding-top: 20upx;color: white;font-size: 16px;font-weight: bold;">{{creditToken}}</view>
 					
 				</view>
 				<view style="height: 200upx;width: 33%;">
-					<view class="flex_c" style="color: #9caccd;font-size: 15px;">專屬分享鏈接</view>
+					<view class="flex_c" style="color: #9caccd;font-size: 15px;">{{ i18n.user.exLink }}</view>
 					<view class="flex_c" style="box-sizing: border-box;word-break: break-word ;padding-top: 20upx;color: white;font-size: 16px;font-weight: bold;">{{link}}</view>
 					
 				</view>
@@ -46,8 +46,8 @@
 			</view>
 		</view>
 		<view class="flex_sa" style="margin-top: 30upx;">
-			<view class="btn_class" @tap="capture">保存二維碼</view>
-			<view class="btn_class" style="color: #ff0000" @tap="share11">邀請好友</view>
+			<view class="btn_class" @tap="capture">{{ i18n.user.saveQrCode }}</view>
+			<view class="btn_class" style="color: #ff0000" @tap="share11">{{ i18n.user.inviteFriend }}</view>
 		</view>
 		<!-- <view class="flex_c_c" style="height: 240upx;width: 240upx;background: white;">
 			<image :src="img" mode="aspectFit" style="height: 200upx;width:200upx;"></image>
@@ -58,6 +58,11 @@
 <script>
 	import QR from "@/common/wxqrcode.js";
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				userCode:'',
@@ -67,6 +72,7 @@
 			};
 		},
 		onLoad:function(options){
+			
 			this.userCode = options.userCode
 			this.creditToken = options.creditToken
 			this.img = QR.createQrCodeImg(this.link, {  

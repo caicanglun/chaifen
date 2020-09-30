@@ -28,7 +28,7 @@
 										</view>
 										
 									</view>
-									<view class="flex_c_c" style="font-size: 14px;margin-top: 20upx;">創建子賬戶</view>
+									<view class="flex_c_c" style="font-size: 14px;margin-top: 20upx;">{{i18n.user.create}}</view>
 								</view>
 							</uni-grid-item>
 							
@@ -57,12 +57,15 @@
 		</view>
 		<view style="margin-top: 100upx;" class="fixedButton" >
 			<view>
-				<view class="btn_class" @tap="submit">壹鍵收集</view>
+				<view class="btn_class" @tap="submit">{{ i18n.user.oneStepCollect }}</view>
 			</view>
 			<view style="color: #818b9e;font-size: 13px;margin-top:10upx;">
-				溫馨提示
+				{{ i18n.common.warmTip}}
 			</view>
-			<view style="color: #818b9e;font-size: 13px;margin-top:10upx;">
+			<view style="color: #818b9e;font-size: 13px;margin-top:10upx;padding: 0 30upx;">
+				{{i18n.user.subAccountTip}}
+			</view>
+			<!-- <view style="color: #818b9e;font-size: 13px;margin-top:10upx;">
 				創建子賬戶需要激活方可創建，子賬戶將終身綁定主賬戶，子賬
 			</view>
 			<view style="color: #818b9e;font-size: 13px;margin-top:10upx;">
@@ -70,7 +73,7 @@
 			</view>
 			<view style="color: #818b9e;font-size: 13px;margin-top:10upx;">
 				額全部由主賬戶的資金扣除
-			</view>
+			</view> -->
 		</view>
 		
 	</view>
@@ -80,7 +83,11 @@
 	import uniGrid from "@/components/uni-grid/uni-grid.vue"
 	import uniGridItem from "@/components/uni-grid-item/uni-grid-item.vue"
 	export default {
-		
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				items:[]
@@ -91,6 +98,9 @@
 		},
 		onLoad:function(){
 			this.fetch()
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().page.subAccount
+			});
 		},
 		methods:{
 			async switchID(userCode,isUsing){

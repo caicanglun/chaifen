@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view style="margin: 30upx 30upx;">
-			<view style="font-size: 14px;margin-top: 20upx;">鏈類型</view>
+			<view style="font-size: 14px;margin-top: 20upx;">{{i18n.payment.linkType}}</view>
 			<view style="background: #121c31;font-size: 14px;height:80upx;margin-top: 20upx;" class="flex_c">
 				<picker @change="bindPickerChange" :value="index" :range="array">
 					<view class="flex_sb" style="padding: 0 20upx;width: 650upx;">
@@ -17,24 +17,24 @@
 			
 			
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.usdt" class="inputClass" type="text" placeholder="請輸入"  placeholder-class="placeholderClass"/>
+				<input v-model="form.usdt" class="inputClass" type="text" :placeholder="i18n.payment.enterAddress"  placeholder-class="placeholderClass"/>
 			</view>
 			<view style="font-size: 14px;margin-top: 20upx;">
-				支付密碼
+				{{i18n.registerBackup.paymentPassword}}
 			</view>
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.payPassword" class="inputClass" type="password" placeholder="請輸入支付密碼" placeholder-class="placeholderClass"/>
+				<input v-model="form.payPassword" class="inputClass" type="password" :placeholder="i18n.common.paymentPassword" placeholder-class="placeholderClass"/>
 	
 			</view>
 			<view style="font-size: 15px;margin-top: 20upx;font-weight: bold;">
-				添加收款二維碼
+				{{i18n.payment.addCode}}
 			</view>
             <view style="margin-top: 30upx;" @tap="uploadUSDT">
 				<image src="/static/img_add.png" mode="aspectFit" style="height: 200upx;width:200upx;"></image>
 				<image :src="form.qrCode" @tap.stop="showPicture(form.qrCode)" mode="aspectFit" style="height: 200upx;width:200upx; margin-left: 30upx;" v-if="form.qrCode !==''"></image>
 			</view>
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="submit">保存</view>
+				<view class="inClass" @tap="submit">{{i18n.user.save}}</view>
 			</view>
 		</view>
 	</view>
@@ -43,6 +43,11 @@
 <script>
 	let _this
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				index: 0,
@@ -59,6 +64,9 @@
 		},
 		onLoad:function(){
 			_this  = this
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().user.modify
+			});
 			this.fetch()
 			
 		},

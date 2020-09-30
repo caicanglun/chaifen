@@ -1,20 +1,20 @@
 <template>
 	<view>
 		<view class="flex">
-			<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">未完成</view>
-			<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">已完成</view>
+			<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">{{i18n.otc.unComplete}}</view>
+			<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">{{i18n.otc.completed}}</view>
 		</view>
 		
 		<popupMessage ref="dialog" title="友情提示" @input="confirmInput()" :label="content"></popupMessage>
 		<block v-for="(item,index) in items" :key="index">
 			<view class="flex_sb" style="padding: 0upx 20upx;margin-top: 20upx;">
-				<view style="font-size: 15px;font-weight: bold;">{{item.buyOrSell==1?'買入':'賣出'}}USDF</view>
+				<view style="font-size: 15px;font-weight: bold;">{{item.buyOrSell==1?i18n.trade.buyIn:i18n.trade.sellOut}}USDF</view>
 				<view style="font-size: 15px;color: #7d889a;font-weight: bold;">{{item.dealStatus | returnStatus}}</view>
 			</view>
 			<view class="flex_c" style="font-size: 14px;height: 80upx;color: #7d889a;">
-				<view style="width: 30%;padding-left: 20upx;">時間</view>
-				<view style="width: 50%;">交易總額</view>
-				<view style="width: 20%;display: flex;justify-content: flex-end;padding-right: 20upx;">數量(USDF)</view>
+				<view style="width: 30%;padding-left: 20upx;">{{i18n.trade.time}}</view>
+				<view style="width: 50%;">{{i18n.otc.tradeTotal}}</view>
+				<view style="width: 20%;display: flex;justify-content: flex-end;padding-right: 20upx;">{{i18n.trade.amount}}(USDF)</view>
 			</view>
 			<view style="margin-top: 20upx;border-bottom: 1upx solid #7d889a;font-weight: bold;">
 				<view class="flex_c" style="font-size: 14px;height: 80upx;padding: 10upx;">
@@ -32,13 +32,13 @@
 					
 				<view class="flex" style="width:97%;justify-content: flex-end;padding-bottom: 10upx;margin-top: 10upx;" >
 					<view class="flex_c_c btnClass" style="margin-right: 20upx;" @tap="showPicture(item.proofPicture)" v-if="item.proofPicture !==''">
-						查看憑證
+						{{i18n.walletRecharge.showPayPic}}
 					</view>
 					<view class="flex_c_c btnClass" @tap="uploadPZ(item.dealCode)" v-if="item.buyOrSell==1&&item.dealStatus<2">
-						上傳憑證
+						{{i18n.walletRecharge.uploadPic}}
 					</view>
 					<view class="flex_c_c btnClass" @tap="showDialog(item.dealCode)" v-if="item.buyOrSell==2&&item.dealStatus<2">
-						完成訂單
+						{{i18n.walletRecharge.complete}}
 					</view>
 				</view>
 				
@@ -58,6 +58,11 @@
 	import popupMessage from "@/components/popupMessage.vue"
 	let _this,timer;
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		components:{
 			uniLoadMore,
 			popupMessage,
@@ -109,6 +114,9 @@
 		},
 		onLoad:function(){
 			_this = this
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().otc.orderRecord
+			});
 			this.fetchList()
 			this.fetchUserDetail()
 		},

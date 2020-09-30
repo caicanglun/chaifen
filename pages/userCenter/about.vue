@@ -7,7 +7,7 @@
 			 ETF
 		</view>
 		<view class="flex_sb" style="align-items: center;margin-top: 100upx;border-bottom: 1upx solid #2a3855;padding: 0 20upx;height: 100upx;">
-			<view style="font-size: 15px;">版本</view>
+			<view style="font-size: 15px;">{{i18n.common.version}}</view>
 			<view style="font-size: 15px;color: #999999">{{ version }}</view>
 		</view>
 	</view>
@@ -15,6 +15,11 @@
 
 <script>
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				version:''
@@ -22,6 +27,9 @@
 		},
 		onLoad:function(){
 			this.version = plus.runtime.version
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().page.about
+			});
 		}
 	}
 </script>

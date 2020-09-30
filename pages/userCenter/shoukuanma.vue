@@ -3,11 +3,11 @@
 		<view style="margin: 10upx 30upx;">
 			<view style="background: #121c31;font-size: 14px;height:80upx;align-items: center;" class="flex_sb">
 				<view>
-					<text style="padding-left: 10upx;">{{index==-1?'收款碼':array[index]}}</text>
+					<text style="padding-left: 10upx;">{{index==-1?i18n.user.paymentCode:array[index]}}</text>
 				</view>
 				<view style="padding-rigth: 10upx;">
 					<picker @change="bindPickerChange" :value="index" :range="array">
-					     <view class="uni-input">{{index==-1?'選擇二維碼':array[index]}}</view>
+					     <view class="uni-input">{{index==-1?i18n.walletRecharge.selectCode:array[index]}}</view>
 					</picker>
 				</view>
 			</view>
@@ -25,9 +25,9 @@
 					 </view>
 				</view>
 				<view class="flex_c_c" style="margin-top: 40upx;">
-					<view class="btn_class" @tap="capture">保存到相冊</view>
+					<view class="btn_class" @tap="capture">{{i18n.walletRecharge.saveImg}}</view>
 				</view>
-				<view class="flex_c_c" style="font-size: 14px;margin-top: 30upx;" v-if="index==0">充幣地址</view>
+				<view class="flex_c_c" style="font-size: 14px;margin-top: 30upx;" v-if="index==0">{{i18n.walletWithdraw.withdrawAddress}}</view>
 				<view class="flex_c_c" style="font-size: 14px;margin-top: 20upx;">{{content}}</view>
 				<view class="flex_c_c" style="margin-top: 20upx;">
 					<view class="img_back" @tap="pasterNode">
@@ -42,7 +42,8 @@
 		
 		
 	    <view style="position: fixed;bottom:10px;color: #818b9e;font-size: 13px;margin-top:30upx;padding: 30upx;" v-if="index==0">
-			請勿向上述地址充值任何非該幣種資產，否則資產將不可找回。 最小充值金額--，小於最小金額的充值將無法入賬，且無法退回
+			<!-- 請勿向上述地址充值任何非該幣種資產，否則資產將不可找回。 最小充值金額--，小於最小金額的充值將無法入賬，且無法退回 -->
+			{{i18n.walletRecharge.tip1}}{{i18n.walletRecharge.tip2}}
 		</view>
 	</view>
 </template>
@@ -50,6 +51,11 @@
 <script>
 	import QR from "@/common/wxqrcode.js";
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				userCode:'',

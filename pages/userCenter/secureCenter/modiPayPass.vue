@@ -4,17 +4,17 @@
 		<view style="margin: 30upx 30upx;">
 			
 			<view style="font-size: 14px;height:80upx;" class="flex_c">
-				<text style="padding-left: 10upx;">新的密碼</text>
+				<text style="padding-left: 10upx;">{{i18n.user.newPw}}</text>
 			</view>
 			<view style="background: #121c31;" class="flex_sb">
-				<input v-model="form.newPassword" type="password" class="inputClass"  placeholder="請輸入妳要設置的密碼" placeholder-class="placeholderClass"/>
+				<input v-model="form.newPassword" type="password" class="inputClass"  :placeholder="i18n.user.enterNewPw" placeholder-class="placeholderClass"/>
 					
 			</view>
 			<view style="font-size: 14px;height:80upx;" class="flex_c">
-				<text style="padding-left: 10upx;">確認密碼</text>
+				<text style="padding-left: 10upx;">{{ i18n.user.confirmPw}}</text>
 			</view>
 			<view style="background: #121c31;" class="flex_sb">
-				<input v-model="repeatPassword" type="password" class="inputClass" placeholder="請重複輸入密碼" placeholder-class="placeholderClass"/>
+				<input v-model="repeatPassword" type="password" class="inputClass" :placeholder="i18n.user.repeatEnterPw" placeholder-class="placeholderClass"/>
 					
 			</view>
 			
@@ -29,7 +29,7 @@
 			
 			
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="showDialog">设置</view>
+				<view class="inClass" @tap="showDialog">{{i18n.page.setting}}</view>
 			</view>
 			
 		</view>
@@ -43,6 +43,11 @@
 		components:{
 			popupVerify
 		},
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				form:{
@@ -55,6 +60,9 @@
 			};
 		},
 		onLoad:function(options){
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().page.settingPaypw
+			});
 			this.phone = options.phone
 			this.email = options.email
 			console.log(options)

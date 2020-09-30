@@ -8,24 +8,24 @@
 			<!-- <canvas canvas-id="canvasColumn" id="canvasColumn" class="charts" @touchstart="touchColumn" disable-scroll=true  @touchmove="moveLineA" @touchend="touchEndLineA"></canvas> -->
 		</view>
 		<view  @tap="toMyorder" class="flex_sb" style="align-items: center;font-size: 16px;padding-left: 40upx;height: 90upx;padding-right: 20upx;margin-top: 30upx;">
-			<view>我的訂單</view>
+			<view>{{ i18n.trade.myOrder}}</view>
 			<view class="flex_c">
 				<image src="/static/icon_next@2x.png" mode="aspectFit" style="height: 30upx;width:30upx;"></image>
 			</view>
 		</view>
 		<view class="flex">
-			<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">買入</view>
-			<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">賣出</view>
+			<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">{{ i18n.trade.buyIn}}</view>
+			<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">{{ i18n.trade.sellOut}}</view>
 		</view>
 		<view v-if="dataIndex==1">
 			<block v-for="(item,index) in records" :key= "index" >
 				<view class="flex_sb" style="margin: 20upx 30upx;">
 					<view>
 						<view>
-							<text style="font-size: 13px;">數量：</text><text style="font-size: 16px;">{{item.stockCount}}</text><text style="font-size: 16px;padding-left: 10upx;">ETF</text>
+							<text style="font-size: 13px;">{{ i18n.trade.amount}}：</text><text style="font-size: 16px;">{{item.stockCount}}</text><text style="font-size: 16px;padding-left: 10upx;">ETF</text>
 						</view>
 						<view style="color: #3d4663;">
-							<text style="font-size: 13px;">單價：</text><text style="font-size: 14px;">{{item.unitPrice}}</text><text style="font-size: 13px;padding-left: 10upx;">USDF</text>
+							<text style="font-size: 13px;">{{ i18n.trade.cellPrice}}：</text><text style="font-size: 14px;">{{item.unitPrice}}</text><text style="font-size: 13px;padding-left: 10upx;">USDF</text>
 						</view>
 						
 					</view>
@@ -58,6 +58,11 @@
 	var canvaColumn=null;
 
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		components:{
 			uniLoadMore
 		},
@@ -102,6 +107,9 @@
 		},
 		onLoad() {
 			_self = this;
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().ecologyIndex.link4
+			});
 			this.cWidth=uni.upx2px(750);
 			this.cHeight=uni.upx2px(400);
 			this.fetchPrice()

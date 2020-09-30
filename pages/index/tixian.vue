@@ -5,51 +5,51 @@
 				<text style="padding-left: 10upx;">USDF</text>
 			</view>
 			<view style="font-size: 14px;margin-top: 20upx;">
-				充幣地址
+				{{i18n.walletWithdraw.withdrawAddress}}
 			</view>
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.userCode" class="inputClass" placeholder="請輸入用戶ID" placeholder-class="placeholderClass"/>
+				<input v-model="form.userCode" class="inputClass" :placeholder="i18n.walletWithdraw.enterWDAdr" placeholder-class="placeholderClass"/>
 				<view class="flex_c">
 					<image src="/static/icon_Scan@2x.png" mode="aspectFit" style="height: 50upx;width: 50upx;padding-right: 20upx;" @tap="scanCodeToken"></image>
 				</view>
 			</view>
-			<view style="font-size: 14px;margin-top: 20upx;">數量</view>
+			<view style="font-size: 14px;margin-top: 20upx;">{{i18n.walletWithdraw.num}}</view>
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.usde" class="inputClass" type="number" placeholder="請輸入提幣數量,最少10.00" @blur="quzheng" placeholder-class="placeholderClass"/>
+				<input v-model="form.usde" class="inputClass" type="number" :placeholder="i18n.walletWithdraw.enterWD1+'10.00'" @blur="quzheng" placeholder-class="placeholderClass"/>
 				<view class="flex_c" style="justify-content: space-around;width: 30%;">
 					<view style="font-size:14px;color: #34F073;padding-right: 25upx;border-right: 2upx solid #3F536E;">USDF</view>
-					<view style="font-size:14px;color: #34F073;" @tap="allin">全部</view>
+					<view style="font-size:14px;color: #34F073;" @tap="allin">{{i18n.walletWithdraw.all}}</view>
 				</view>
 			</view>
 			<view style="font-size: 11px;color: #7d889a;line-height: 20px;margin-top: 20upx;">
-				<view>可用： <text style="color:#34F073;">{{userDetail.signinUsde}}</text><text style="padding-left: 10upx;color:#34F073;">USDF</text></view>
+				<view>{{i18n.walletWithdraw.avalible}}： <text style="color:#34F073;">{{userDetail.signinUsde}}</text><text style="padding-left: 10upx;color:#34F073;">USDF</text></view>
 			</view>
 			<view style="font-size: 14px;margin-top: 20upx;">
-				支付密碼
+				{{i18n.registerBackup.paymentPassword}}
 			</view>
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.payPassword" class="inputClass" type="password" placeholder="請輸入支付密碼" placeholder-class="placeholderClass"/>
+				<input v-model="form.payPassword" class="inputClass" type="password" :placeholder="i18n.common.paymentPassword" placeholder-class="placeholderClass"/>
 	
 			</view>
 			<view style="font-size: 14px;margin-top: 20upx;">
-				手續費
+				{{i18n.walletWithdraw.fee}}
 			</view>
 			<view style="margin-top: 20upx;background: #121c31;font-size: 14px;height:80upx;padding:0 10upx;" class="flex_sb_c">
 				<text>{{ ratio }}</text>
 				<text>USDF</text>
 			</view>
 			<view style="font-size: 12px;color: #7d889a;line-height: 20px;margin-top: 20upx;">
-				<view>最小提幣數量為：10.0000USDF</view>
-				<view>請務必確認電腦及瀏覽器安全，防止信息被篡改或洩漏</view>
+				<view>{{i18n.walletWithdraw.enterWD1}}：10.0000USDF</view>
+				<view>{{i18n.walletWithdraw.minWD1}}</view>
 			</view>
 			<view style="font-size: 14px;margin-top: 20upx;">
-				預計到賬
+				{{i18n.walletWithdraw.get}}
 			</view>
 			<view style="background: #121c31;font-size: 14px;height:80upx;padding: 0 10upx;" class="flex_c">
 				<text>{{form.usde - form.usde*ratio}}</text><text style="padding-left: 10upx;">USDF</text>
 			</view>
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="submit">提幣</view>
+				<view class="inClass" @tap="submit">{{i18n.walletWithdraw.get}}</view>
 			</view>
 		</view>
 	</view>
@@ -57,6 +57,11 @@
 
 <script>
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				form:{
@@ -70,6 +75,9 @@
 			};
 		},
 		onLoad:function(){
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().walletWithdraw.wd
+			});
 			this.fetchRatio()
 			this.fetchUserDetail()
 			console.log(this.$store.userCode)

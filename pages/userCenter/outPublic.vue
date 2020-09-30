@@ -9,7 +9,7 @@
 			</view>
 			
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="btn_class" @tap="submit">複製</view>
+				<view class="btn_class" @tap="submit">{{ i18n.user.copy }}</view>
 			</view>
 		</view>
 	</view>
@@ -26,6 +26,11 @@
 	　　return arr
 	}
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				words:'',

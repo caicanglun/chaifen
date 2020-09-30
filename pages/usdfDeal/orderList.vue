@@ -1,20 +1,20 @@
 <template>
 	<view>
 		<view class="flex">
-			<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">我發佈的買單</view>
-			<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">我發佈的賣單</view>
+			<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">{{ i18n.otc.buyPending}}</view>
+			<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">{{ i18n.otc.sellPending}}</view>
 		</view>
 		
 		
 		<block v-for="(item,index) in items" :key="index">
 			<view class="flex_sb" style="padding: 0upx 20upx;margin-top: 20upx;">
-				<view style="font-size: 15px;font-weight: bold;">{{dataIndex==1?'買入':'賣出'}}USDF</view>
-				<view style="font-size: 15px;color: #7d889a;font-weight: bold;">{{item.isFinish==0?'進行中':'已完成'}}</view>
+				<view style="font-size: 15px;font-weight: bold;">{{dataIndex==1?i18n.trade.buyIn:i18n.trade.sellOut}}USDF</view>
+				<view style="font-size: 15px;color: #7d889a;font-weight: bold;">{{item.isFinish==0?i18n.trade.processing:i18n.trade.completed}}</view>
 			</view>
 			<view class="flex_c" style="font-size: 14px;height: 80upx;color: #7d889a;">
-				<view style="width: 30%;padding-left: 20upx;">時間</view>
-				<view style="width: 50%;">交易總額</view>
-				<view style="width: 20%;display: flex;justify-content: flex-end;padding-right: 20upx;">數量(USDF)</view>
+				<view style="width: 30%;padding-left: 20upx;">{{ i18n.trade.time}}</view>
+				<view style="width: 50%;">{{ i18n.otc.tradeTotal}}</view>
+				<view style="width: 20%;display: flex;justify-content: flex-end;padding-right: 20upx;">{{ i18n.trade.amount}}(USDF)</view>
 			</view>
 			<view style="margin-top: 20upx;border-bottom: 1upx solid #7d889a;font-weight: bold;">
 				<view class="flex_c" style="font-size: 14px;height: 80upx;padding: 10upx;">
@@ -24,7 +24,7 @@
 				</view>
 				<view class="flex" style="width:97%;justify-content: flex-end;padding-bottom: 10upx;" @tap="delOrder(item.orderCode)">
 					<view class="flex_c_c" style="color: #ff0000;width: 100upx;heigh: 90upx;border-radius: 20upx;border: 2upx solid #ff0000;font-size: 15px;">
-						刪除
+						{{ i18n.otc.deleteText}}
 					</view>
 				</view>
 				
@@ -42,6 +42,11 @@
 	import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
 	let _this,timer;
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		components:{
 			uniLoadMore
 		},
@@ -70,6 +75,9 @@
 			        }, 1000);
 		},
 		onLoad:function(){
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().otc.myPending
+			});
 			_this = this
 			this.fetchList()
 		},

@@ -1,21 +1,21 @@
 <template>
 	<view>
 		<view style="margin: 30upx 30upx;">
-			<view style="font-size: 14px;">賬戶名</view>
+			<view style="font-size: 14px;">{{i18n.user.accountName}}</view>
 			<view style="margin-top: 20upx;">
-				<input v-model="form.userName" class="inputClass" placeholder="請輸入賬號" placeholder-class="placeholderClass"/>
+				<input v-model="form.userName" class="inputClass" :placeholder="i18n.user.enterAccountName" placeholder-class="placeholderClass"/>
 			</view>
-			<view style="font-size: 14px;margin-top: 20upx;">錢包密碼</view>
+			<view style="font-size: 14px;margin-top: 20upx;">{{i18n.user.walletPassword}}</view>
 			<view style="margin-top: 20upx;">
-				<input class="inputClass" v-model="form.password" type="password" placeholder="請輸入8-16位錢包密碼" placeholder-class="placeholderClass"/>
+				<input class="inputClass" v-model="form.password" type="password" :placeholder="i18n.user.enterWalletPw" placeholder-class="placeholderClass"/>
 			</view>
-			<view style="font-size: 14px;margin-top: 20upx;">確認密碼</view>
+			<view style="font-size: 14px;margin-top: 20upx;">{{i18n.user.confirmPw}}</view>
 			<view style="margin-top: 20upx;">
-				<input v-model="passwordRepeat" class="inputClass" type="password" placeholder="重複輸入密碼" placeholder-class="placeholderClass"/>
+				<input v-model="passwordRepeat" class="inputClass" type="password" :placeholder="i18n.user.repeatEnterPw" placeholder-class="placeholderClass"/>
 			</view>
 			
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="submit">創建</view>
+				<view class="inClass" @tap="submit">{{i18n.user.create}}</view>
 			</view>
 		</view>
 	</view>
@@ -23,6 +23,11 @@
 
 <script>
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				form:{
@@ -32,6 +37,11 @@
 				},
 				passwordRepeat:''
 			};
+		},
+		onLoad:function(){
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().user.createSub
+			});
 		},
 		methods:{
 			async submit(){

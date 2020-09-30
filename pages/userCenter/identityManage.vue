@@ -13,32 +13,32 @@
 		<view style="margin-top: 50upx;padding: 0 39upx;">
 			<view class="flex_sb">
 				<view style="height: 200upx;width: 300upx;background: #111c30;" @tap="toShoukuanma(2)">
-					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">收款碼</view>
+					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">{{i18n.user.paymentCode}}</view>
 					<view class="flex_c_c"><image src="/static/next.png" mode="aspectFit" style="height: 100upx;width: 100upx;"></image></view>
 				</view>
 				<view style="height: 200upx;width: 300upx;background: #111c30;" @longpress="copyAddress">
-					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">長按複製地址</view>
+					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">{{i18n.user.copyAddress}}</view>
 					<view class="flex_c_c"><image src="/static/next.png" mode="aspectFit" style="height: 100upx;width: 100upx;"></image></view>
 				</view>
 			</view>
 			<popMe ref="dialog" title="请输入密碼" @input="confirmInput" placeholder="請輸入支付密碼"></popMe>
 			<view class="flex_sb" style="margin-top: 20upx;">
 				<view style="height: 200upx;width: 300upx;background: #111c30;" @tap="toShoukuanma(1)">
-					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">節點碼</view>
+					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">{{i18n.user.nodeCode}}</view>
 					<view class="flex_c_c"><image src="/static/next.png" mode="aspectFit" style="height: 100upx;width: 100upx;"></image></view>
 				</view>
 				<view style="height: 200upx;width: 300upx;background: #111c30;" @tap="showDialog(1)">
-					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">導出私鑰</view>
+					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">{{i18n.user.outputKey}}</view>
 					<view class="flex_c_c"><image src="/static/next.png" mode="aspectFit" style="height: 100upx;width: 100upx;"></image></view>
 				</view>
 			</view>
 			<view class="flex_sb" style="margin-top: 20upx;">
 				<view style="height: 200upx;width: 300upx;background: #111c30;" @tap="showDialog(2)">
-					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">導出keyStore</view>
+					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">{{i18n.user.output}} keyStore</view>
 					<view class="flex_c_c"><image src="/static/next.png" mode="aspectFit" style="height: 100upx;width: 100upx;"></image></view>
 				</view>
 				<view style="height: 200upx;width: 300upx;background: #111c30;" @tap="showDialog(3)">
-					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">導出助記詞</view>
+					<view style="margin-top:30upx;font-size: 18px;" class="flex_c_c">{{i18n.user.outputSeed}}</view>
 					<view class="flex_c_c"><image src="/static/next.png" mode="aspectFit" style="height: 100upx;width: 100upx;"></image></view>
 				</view>
 			</view>
@@ -54,6 +54,11 @@
 <script>
 	import popMe from "@/components/popupMe.vue";
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		components:{
 			popMe
 		},

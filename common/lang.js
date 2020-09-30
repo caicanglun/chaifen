@@ -36,7 +36,8 @@ export default {
        	recordDetail: 'Transaction details',
        	settingPaypw: 'Payment password setting',
 		USDFExchange:'USDF Exchange',
-		exchageRecord: 'exchange record'
+		exchageRecord: 'exchange record',
+		USDFTransaction:'USDF transaction'
        },
        common: {
        	unopen: 'Not yet open',
@@ -152,6 +153,7 @@ export default {
        	nickname: 'nickname',
        	enterNickname: 'Enter Nickname',
        	mobile: 'Mobile',
+		enterMobile:' Enter Mobile',
        	email: 'Email',
        	modify: 'Modify',
        	toBind: 'Go Bind',
@@ -200,7 +202,7 @@ export default {
        	activeTip1: 'Notice: enter credit token and pay',
        	activeTip2: 'Credit line, you can activate your account',
        	activeTip3: 'Notice: Pay',
-       	activeTip4: 'Boost source or USDF, you can activate the sub account',
+       	activeTip4: 'Boost source, you can activate the sub account',
        	nodeCode: 'Node code(Optional)',
        	enterNodeCode: 'Enter the node code and select your area',
        	enterCreditCode: 'Enter a credit token and need it',
@@ -306,7 +308,9 @@ export default {
 		'remark':'remark',
 		'remarkPlaceHold':'Please fill in the remarks',
 		'exchangeRecord': 'exchange record',
-		'showPayPic':'show'
+		'showPayPic':'show',
+		'uploadPic': 'upload',
+		'complete': 'complete'
        },
        walletWithdraw: {
        	selectCoin: 'Select currency',
@@ -789,7 +793,8 @@ export default {
         		"transfer": "互轉",
         		recordDetail: '成交明細',
 				USDFExchange:'USDF兌換',
-				exchangeRecord: '兌換記錄'
+				exchangeRecord: '兌換記錄',
+				USDFTransaction:'USDF交易'
         	},
         	"common": {
         		"unopen": "暫未開放",
@@ -905,6 +910,7 @@ export default {
         		"nickname": "暱稱",
         		"enterNickname": "請輸入暱稱",
         		"mobile": "手機",
+				"enterMobile":'請輸入手機號碼',
         		"email": "郵箱",
         		"modify": "修改",
         		"toBind": "去綁定",
@@ -953,7 +959,7 @@ export default {
         		"activeTip1": "須知：輸入授信令牌並支付",
         		"activeTip2": "授信額度，便可激活賬戶",
         		"activeTip3": "須知：支付",
-        		"activeTip4": "助力源或USDF，便可激活子賬戶",
+        		"activeTip4": "助力源，便可激活子賬戶",
         		"nodeCode": "節點碼(選填)",
         		"enterNodeCode": "請輸入節點碼，選擇您的所在區",
         		"enterCreditCode": "請輸入授信令牌，並且需要",
@@ -1059,7 +1065,9 @@ export default {
 				'remark':'備註',
 				'remarkPlaceHold':'請填写备注信息',
 				'exchangeRecord': '兌換記錄',
-				'showPayPic':'查看憑證'
+				'showPayPic':'查看憑證',
+				'uploadPic':'上傳憑證',
+				'complete':'完成訂單'
 				
 				
         	},

@@ -1,14 +1,14 @@
 <template>
 	<view>
 		<view style="margin: 30upx 30upx;">
-			<view class="tip">須知：支付0助力源，便可激活賬戶</view>
+			<view class="tip">{{ i18n.wallet.activeTip3}}0{{ i18n.wallet.activeTip4}}</view>
 			
 			<view class="flex_sb" style="margin-top: 100upx;">
-				<view><text class="tip">可用：</text><text style="color:#34f073;font-size:13px;">{{ablityShut}}助力源</text></view>
-				<view><text class="tip">需要支付：</text><text style="color:#34f073; font-size:13px;">0.0000助力源</text></view>
+				<view><text class="tip">{{i18n.walletAsset.avalible}}：</text><text style="color:#34f073;font-size:13px;">{{ablityShut}}{{i18n.wallet.help}}</text></view>
+				<view><text class="tip">{{ i18n.wallet.needPay}}：</text><text style="color:#34f073; font-size:13px;">0.0000{{i18n.wallet.help}}</text></view>
 			</view>
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="submit">激活</view>
+				<view class="inClass" @tap="submit">{{i18n.wallet.active}}</view>
 			</view>
 		</view>
 	</view>
@@ -17,6 +17,11 @@
 <script>
 	let _this
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				ablityShut:'',
@@ -31,6 +36,9 @@
 		},
 		onLoad:function(){
 			_this = this
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().wallet.activeAccount
+			});
 			this.fetchShut()
 		},
 		methods:{

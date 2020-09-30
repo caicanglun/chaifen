@@ -2,7 +2,7 @@
 	<view>
 		<view style="margin: 10upx 30upx;line-height: 50px;">
 			<view class="flex_sb" style="align-items: center;border-bottom: 1upx solid #2a3855;" @tap="upload">
-				<view>頭像</view>
+				<view>{{ i18n.user.avatar }}</view>
 				<view class="flex_c_c">
 					<view v-if="userDetail.icon!==''" class="flex_c">
 							<image :src="userDetail.icon" mode="aspectFit" style="width: 50upx;height: 50upx;"></image>
@@ -14,16 +14,16 @@
 				</view>
 			</view>
 			<view class="flex_sb" style="align-items: center;border-bottom: 1upx solid #2a3855;">
-				<view>昵稱</view>
-				<view class="flex_c_c"><input placeholder="請輸入昵稱" v-model="nickname" style="width: 150upx;"/></view>
+				<view>{{ i18n.user.nickname }}</view>
+				<view class="flex_c_c"><input :placeholder="i18n.user.enterNickname" v-model="nickname" style="width: 220upx;"/></view>
 			</view>
 			<view class="flex_sb" style="align-items: center;border-bottom: 1upx solid #2a3855;">
-				<view>賬戶名</view>
-				<view class="flex_c_c"><input placeholder="請輸入賬戶名稱" v-model="userName" style="width: 150upx;"/></view>
+				<view>{{ i18n.user.accountName}}</view>
+				<view class="flex_c_c"><input :placeholder="i18n.user.enterAccountName" v-model="userName" style="width: 220upx;"/></view>
 				<!-- <view class="flex_c_c"><text style="padding-right: 10upx;">{{userDetail.userName}}</text></view> -->
 			</view>
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="submit">保存</view>
+				<view class="inClass" @tap="submit">{{ i18n.user.save }}</view>
 			</view>
 		</view>
 		
@@ -33,6 +33,11 @@
 <script>
 	let _this
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				userDetail: '',
@@ -42,6 +47,9 @@
 		},
 		onLoad:function(){
 			_this = this
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().user.modify
+			});
 			this.fetch()
 		},	
 		methods:{

@@ -1,14 +1,14 @@
 <template>
 	<view>
 		<view class="flex">
-			<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">我要購買</view>
-			<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">我要出售</view>
+			<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">{{ i18n.otc.needBuy}}</view>
+			<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">{{ i18n.otc.needSell}}</view>
 		</view>
 		<view style="margin: 30upx 30upx;">
 			<view style="background: #121c31;font-size: 14px;height:80upx;" class="flex_c">
 				<text style="padding-left: 10upx;">USDF</text>
 			</view>
-			<view style="font-size: 14px;margin-top: 20upx;">支付方式</view>
+			<view style="font-size: 14px;margin-top: 20upx;">{{ i18n.otc.payment}}</view>
 			<view class="flex" style="margin-top: 30upx;color: white;">
 					<radio-group @change="radioChange" class="flex">
 						<label class="flex" style="font-size: 14px;padding-right: 30upx;" v-for="(item, index) in items" :key="item.value">
@@ -20,30 +20,30 @@
 					</radio-group>
 			</view>
 			<view class="flex_sb" style="font-size: 14px;margin-top: 30upx;">
-				<view>交易價格</view>
+				<view>{{ i18n.otc.tradePrice}}</view>
 				<view>7<text style="color:#34F073;">CNY</text>/1.00547<text style="color:#34F073;">USDT</text></view>
 			</view>
-			<view style="font-size: 14px;margin-top: 30upx;">交易數量</view>
+			<view style="font-size: 14px;margin-top: 30upx;">{{ i18n.otc.tradeAmount}}</view>
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.usde" class="inputClass" type="text" @blur="quzheng" placeholder="請輸入交易數量" placeholder-class="placeholderClass"/>
+				<input v-model="form.usde" class="inputClass" type="text" @blur="quzheng" :placeholder="i18n.otc.enterAmount" placeholder-class="placeholderClass"/>
 				<view class="flex_c" style="justify-content: flex-end;width: 30%;padding: 0 20upx;">
 					
 					<view style="font-size:14px;color: #34F073;">USDF</view>
 				</view>
 			</view>
-			<view style="font-size: 14px;margin-top: 30upx;">安全驗證</view>
+			<view style="font-size: 14px;margin-top: 30upx;">{{ i18n.common.safeTitle}}</view>
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.payPassword" class="inputClass" type="password" placeholder="請輸入支付密碼" placeholder-class="placeholderClass"/>
+				<input v-model="form.payPassword" class="inputClass" type="password" :placeholder="i18n.common.paymentPassword" placeholder-class="placeholderClass"/>
 				
 			</view>
 			
 			<view class="flex_sb" style="font-size: 11px;color: #7d889a;line-height: 20px;margin-top: 30upx;">
-				<view>可用余額： <text style="color:#34F073;">{{dataIndex==1?buyMaxCount:userDetail.usde}}</text></view>
-				<view>手續費： <text style="color:#34F073;">{{dataIndex==1?buyRate:sellRate}}</text></view>
+				<view>{{ i18n.otc.balance}}： <text style="color:#34F073;">{{dataIndex==1?buyMaxCount:userDetail.usde}}</text></view>
+				<view>{{ i18n.otc.fee}}： <text style="color:#34F073;">{{dataIndex==1?buyRate:sellRate}}</text></view>
 			</view>
 			
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="submit">發佈掛單</view>
+				<view class="inClass" @tap="submit">{{ i18n.otc.releasePending}}</view>
 			</view>
 			
 		</view>
@@ -52,6 +52,11 @@
 
 <script>
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				buyMaxCount: 0,
@@ -74,6 +79,9 @@
 			};
 		},
 		onLoad:function(){
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().otc.releasePending
+			});
 			this.fetchUserDetail()
 		},
 		methods:{

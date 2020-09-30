@@ -4,7 +4,7 @@
 			<view class="flex_sb" style="height: 90upx;border-bottom: 1upx solid #2a3855;">
 				<view class="flex_c">
 					<!-- <image src="/static/user1.png" class="iconClass" mode="aspectFit"></image> -->
-					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">清除緩存</text>
+					<text style="padding-left: 30upx;font-size: 16px;font-weight: bold;">{{ i18n.lang.clearStore}}</text>
 				</view>
 				<view class="flex_c">
 					<image src="/static/icon_next@2x.png" mode="aspectFit" style="height: 30upx;width:30upx;"></image>
@@ -12,7 +12,7 @@
 			</view>
 			<view class="flex_c_c" style="margin-top: 40upx;height: 150upx;">
 				<view class="confirmButton" @tap="clearStoreage">
-					安全退出
+					{{ i18n.lang.exit}}
 				</view>
 			</view>
 			
@@ -23,10 +23,20 @@
 
 <script>
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				
 			};
+		},
+		onLoad:function(){
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().page.setting
+			});
 		},
 		methods:{
 			clearStoreage:function(){

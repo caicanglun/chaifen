@@ -4,15 +4,15 @@
 		<view  class="uni-banner" style="font-size: 14px;line-height: 50px;padding: 30upx 50upx;" v-if="bannerShow">
 			<view  @tap="confirmBanner(1)">
 				<image src="/static/icon_1.png" mode="aspectFit" style="height: 30upx;width: 30upx;"></iamge>
-				<text style="padding-left: 20upx;">訂單記錄</text>
+				<text style="padding-left: 20upx;">{{ i18n.otc.orderRecord}}</text>
 			</view>
 			<view @tap="confirmBanner(2)">
 				<image src="/static/icon_2.png" mode="aspectFit" style="height: 30upx;width: 30upx;"></iamge>
-				<text style="padding-left: 20upx;">我的掛單</text>
+				<text style="padding-left: 20upx;">{{ i18n.otc.myPending}}</text>
 			</view>
 			<view @tap="confirmBanner(3)">
 				<image src="/static/icon_3.png" mode="aspectFit" style="height: 30upx;width: 30upx;"></iamge>
-				<text style="padding-left: 20upx;">發佈掛單</text>
+				<text style="padding-left: 20upx;">{{ i18n.otc.releasePending}}</text>
 			</view>
 		</view>
 		
@@ -24,6 +24,11 @@
 <script>
 	import uniIcon from "@/components/uni-icons/uni-icons.vue";
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		components:{
 			uniIcon
 		},
@@ -80,7 +85,7 @@
 <style lang="scss">
      /* 弹出层形式的广告 */
      	.uni-banner {
-     		width: 200upx;
+     		width: 250upx;
      		position: fixed;
      		right: 50upx;
      		top: 8vh;

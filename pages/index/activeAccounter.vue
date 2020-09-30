@@ -1,17 +1,17 @@
 <template>
 	<view>
 		<view style="margin: 30upx 30upx;">
-			<view class="tip">須知：輸入授信令牌並支付0授信額度，便可激活賬戶</view>
-			<view style="font-size: 14px;margin-top: 20upx;">授信令牌</view>
+			<view class="tip">{{ i18n.wallet.activeTip1}}0{{ i18n.wallet.activeTip2}}</view>
+			<view style="font-size: 14px;margin-top: 20upx;">{{ i18n.user.creditCode}}</view>
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.creditToken" class="inputClass" placeholder="請輸入授信令牌,並且需要0授信額度" placeholder-class="placeholderClass"/>
+				<input v-model="form.creditToken" class="inputClass" :placeholder="i18n.wallet.enterCreditCode" placeholder-class="placeholderClass"/>
 				<view class="flex_c">
 					<image src="/static/icon_Scan@2x.png" mode="aspectFit" style="height: 50upx;width: 50upx;padding-right: 20upx;" @tap="scanCodeToken"></image>
 				</view>
 			</view>
-			<view style="font-size: 14px;margin-top: 20upx;">節點碼(選填)</view>
+			<view style="font-size: 14px;margin-top: 20upx;">{{ i18n.wallet.nodeCode }}</view>
 			<view style="margin-top: 20upx;background: #121c31;" class="flex_sb">
-				<input v-model="form.userCode" class="inputClass" type="text" placeholder="請輸入節點碼,選擇您的所在區" placeholder-class="placeholderClass"/>
+				<input v-model="form.userCode" class="inputClass" type="text" :placeholder="i18n.wallet.enterNodeCode" placeholder-class="placeholderClass"/>
 				<view class="flex_c">
 					<image src="/static/icon_Scan@2x.png" mode="aspectFit" style="height: 50upx;width: 50upx;padding-right: 20upx;" @tap="scanCodeNode"></image>
 				</view>
@@ -28,11 +28,11 @@
 					</radio-group>
 			</view>
 			<view class="flex_sb" style="margin-top: 100upx;">
-				<view><text class="tip">可用：</text><text style="color:#34f073;font-size:13px;">0.0000授信額度</text></view>
-				<view><text class="tip">需要支付：</text><text style="color:#34f073; font-size:13px;">0授信額度</text></view>
+				<view><text class="tip">{{i18n.walletAsset.avalible}}：</text><text style="color:#34f073;font-size:13px;">0.0000{{i18n.wallet.creditQuote}}</text></view>
+				<view><text class="tip">{{ i18n.wallet.needPay}}：</text><text style="color:#34f073; font-size:13px;">0{{i18n.wallet.creditQuote}}</text></view>
 			</view>
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="inClass" @tap="submit">激活</view>
+				<view class="inClass" @tap="submit">{{i18n.wallet.active}}</view>
 			</view>
 		</view>
 	</view>
@@ -41,6 +41,11 @@
 <script>
 	let _this
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				form:{
@@ -64,6 +69,9 @@
 		},
 		onLoad:function(){
 			_this = this
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().wallet.activeAccount
+			});
 		},
 		methods:{
 			radioChange: function(evt) {

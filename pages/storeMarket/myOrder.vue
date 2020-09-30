@@ -1,21 +1,21 @@
 <template>
 	<view>
 		<view class="flex">
-			<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">全部</view>
-			<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">進行中</view>
-			<view class="flex_c_c" :class="[dataIndex==3?'buySellActive':'buySell']" data-index='3' @tap="selectLabel">已完成</view>
+			<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">{{ i18n.trade.all}}</view>
+			<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">{{ i18n.trade.processing}}</view>
+			<view class="flex_c_c" :class="[dataIndex==3?'buySellActive':'buySell']" data-index='3' @tap="selectLabel">{{ i18n.trade.completed}}</view>
 		</view>
 		<view  @tap="toOrderDetail" class="flex_sb" style="align-items: center;font-size: 16px;padding-left: 40upx;height: 90upx;padding-right: 20upx;">
-			<view>我要買</view>
+			<view>{{ i18n.trade.buy}}</view>
 			<view class="flex_c">
-				<text style="font-size: 15px;padding-right: 10upx;">已完成</text><image src="/static/icon_next@2x.png" mode="aspectFit" style="height: 30upx;width:30upx;"></image>
+				<text style="font-size: 15px;padding-right: 10upx;">{{ i18n.trade.completed}}</text><image src="/static/icon_next@2x.png" mode="aspectFit" style="height: 30upx;width:30upx;"></image>
 			</view>
 		</view>
 		<view style="margin-top: 40upx;">
 			<view class="flex_c" style="font-size: 14px;height: 80upx;color: #6c7587;">
-				<view style="width: 30%;padding-left: 20upx;">時間</view>
-				<view style="width: 20%;">數量(ETF)</view>
-				<view style="width: 50%;display: flex;justify-content: flex-end;padding-right: 20upx;">金額(初始源)</view>
+				<view style="width: 30%;padding-left: 20upx;">{{ i18n.trade.time}}</view>
+				<view style="width: 20%;">{{ i18n.trade.amount}}(ETF)</view>
+				<view style="width: 50%;display: flex;justify-content: flex-end;padding-right: 20upx;">{{ i18n.trade.num}}({{i18n.ecologyPower.link1}})</view>
 			</view>
 			<block v-for="(item,index) in record" :key="index">
 				<view class="flex_c" v-if="item.isFinish==1" style="font-size: 14px;height: 80upx;padding-bottom: 30upx;" @tap="toOrderDetail">
@@ -31,6 +31,11 @@
 
 <script>
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				record:[],
@@ -41,6 +46,9 @@
 			};
 		},
 		onLoad:function(){
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().trade.myOrder
+			});
 			this.fetchList()
 		},
 		methods:{

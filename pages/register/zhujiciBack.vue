@@ -2,13 +2,15 @@
 	<view>
 		<view style="margin: 0 30upx;">
 			<view class="tip">
-				強烈建議妳將助記詞抄寫在紙上并保存在只有妳知道的安全地方，任何人得到助記詞都可以消費你的數字資產
+				<!-- 強烈建議妳將助記詞抄寫在紙上并保存在只有妳知道的安全地方，任何人得到助記詞都可以消費你的數字資產 -->
+				{{ i18n.registerBackup.tip1}}
 			</view>
 			<view  class="flex_c" style="background: #1d6943;font-size: 14px;color: white;height: 90upx;margin-top:30upx;">
-				<text style="padding-left: 20upx;">助記詞用於恢復妳的錢包，丟失他們妳將永遠失去錢包</text>
+				<text style="padding-left: 20upx;">{{ i18n.registerBackup.tip2}}</text>
 			</view>
 			<view class="tip" style="margin-top: 30upx;">
-				長按下方助記詞，可複製到剪貼板
+				<!-- 長按下方助記詞，可複製到剪貼板 -->
+				{{ i18n.registerBackup.tip3}}
 			</view>
 			<view style="width:100%;height: 200upx;font-size: 15px;background: #111c30;color: white;margin-top: 20upx;" @longpress="tapPaste">
 				<view style="padding: 30upx 80upx;">
@@ -17,7 +19,7 @@
 			</view>
 			
 			<view  class="flex_c_c" style="margin-top: 60upx;">
-				<view class="btn_class" @tap="submit">下壹步</view>
+				<view class="btn_class" @tap="submit">{{ i18n.registerBackup.next}}</view>
 			</view>
 		</view>
 	</view>
@@ -34,6 +36,11 @@
 	　　return arr
 	}
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		data() {
 			return {
 				words:'',
@@ -41,7 +48,9 @@
 			};
 		},
 		onLoad:function(options){
-			
+			uni.setNavigationBarTitle({
+			    title:this.$i18nMsg().page.backup
+			});
 			this.userCode = options.userCode
 			this.fetchWords()
 		},

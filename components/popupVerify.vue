@@ -3,10 +3,10 @@
 		<!-- 弹出层 -->
 		<view  class="uni-banner" style="font-size: 14px;line-height: 50px;" v-if="bannerShow">
 			<view>
-				<view class="flex_c" style="font-size: 16px;font-weight: bold;background: #1a2843;height: 90upx;padding-left: 30upx;">安全驗證</view>
+				<view class="flex_c" style="font-size: 16px;font-weight: bold;background: #1a2843;height: 90upx;padding-left: 30upx;">{{i18n.common.safeTitle}}</view>
 				<view class="flex" style="margin-top: 20upx;">
-					<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">手機號</view>
-					<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">郵箱</view>
+					<view class="flex_c_c" :class="[dataIndex==1?'buySellActive':'buySell']" data-index='1' @tap="selectLabel">{{i18n.user.mobile}}</view>
+					<view class="flex_c_c" :class="[dataIndex==2?'buySellActive':'buySell']" data-index='2' @tap="selectLabel">{{i18n.user.email}}</view>
 				</view>
 				<view v-if="dataIndex==1" style="padding-left: 30upx;">
 					{{phone | showStar}}
@@ -15,23 +15,23 @@
 					{{email | showStar}}
 				</view>
 				<view style="margin-top: 20upx;padding:0 30upx;background: #1b2944;margin-left:30upx;margin-right: 30upx;" class="flex_sb" v-if="dataIndex==1" >
-					<input v-model="form.vCode" class="inputClass" type="text" placeholder="請輸入手機驗證碼" placeholder-class="placeholderClass"/>
+					<input v-model="form.vCode" class="inputClass" type="text" :placeholder="i18n.user.enterValCode" placeholder-class="placeholderClass"/>
 					<view class="flex_c" style="justify-content: flex-end;width: 30%;padding: 0 20upx;">
 						
-						<view style="font-size:14px;color: #34F073;" v-show="showBotton" @tap="sendVcode">發送驗證碼</view>
+						<view style="font-size:14px;color: #34F073;" v-show="showBotton" @tap="sendVcode">{{i18n.user.getCode}}</view>
 						<view style="font-size:14px;color: #FFFFFF;" v-show="!showBotton" >{{count}} s</view>
 					</view>
 				</view>
 				<view style="margin-top: 20upx;padding:0 30upx;background: #1b2944;margin-left:30upx;margin-right: 30upx;" class="flex_sb" v-else>
-					<input v-model="form.vCode" class="inputClass" type="text" placeholder="請輸入郵箱驗證碼" placeholder-class="placeholderClass"/>
+					<input v-model="form.vCode" class="inputClass" type="text" :placeholder="i18n.user.enterValCode" placeholder-class="placeholderClass"/>
 					<view class="flex_c" style="justify-content: flex-end;width: 30%;padding: 0 20upx;">
 						
-						<view style="font-size:14px;color: #34F073;" v-show="showBotton" @tap="sendVcode">發送驗證碼</view>
+						<view style="font-size:14px;color: #34F073;" v-show="showBotton" @tap="sendVcode">{{i18n.user.getCode}}</view>
 						<view style="font-size:14px;color: #FFFFFF;" v-show="!showBotton" >{{count}} s</view>
 					</view>
 				</view>
 				<view  class="flex_c_c" style="margin-top: 40upx;">
-					<view class="inClass" @tap="submit">確定</view>
+					<view class="inClass" @tap="submit">{{i18n.common.confirm}}</view>
 				</view>
 			</view>
 		</view>
@@ -44,6 +44,11 @@
 <script>
 	import uniIcon from "@/components/uni-icons/uni-icons.vue";
 	export default {
+		computed:{
+		   i18n() {  
+		     return this.$i18nMsg()  
+		   }
+		},
 		components:{
 			uniIcon
 		},
